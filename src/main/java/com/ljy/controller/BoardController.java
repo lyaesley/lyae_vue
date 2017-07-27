@@ -15,7 +15,7 @@ public class BoardController {
 	@RequestMapping("/list")
 	public String list(Model model){
 		System.out.println("게시판리스트");	
-		model.addAttribute("name", "게시판 리스트");
+		model.addAttribute("name", "우와");
 		return "board/list";
 	}
 }
