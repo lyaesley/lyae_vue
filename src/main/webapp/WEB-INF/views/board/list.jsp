@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	게시판 리스트 : ${name}
+	게시판 리스트 : ${name} <br>
+	test : ${_test } <br>
+	path : ${_path } <br>
 </body>
 </html>
