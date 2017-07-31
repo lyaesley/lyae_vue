@@ -1,4 +1,4 @@
-package com.ljy;
+package com.lyae;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
