@@ -1,4 +1,4 @@
-package com.ljy.configuration;
+package com.lyae.configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.ljy.configuration;
+package com.lyae.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +16,13 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter{
 		@Autowired
 		ModelAndViewInterceptor modelAndViewInterceptor;
 
+
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
 			registry.addInterceptor(modelAndViewInterceptor);
 		}
-		
+
+
 		@Bean
 	    public ViewResolver getViewResolver(){
 	        InternalResourceViewResolver resolver = new InternalResourceViewResolver();

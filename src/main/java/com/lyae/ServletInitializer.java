@@ -1,4 +1,4 @@
-package com.ljy;
+package com.lyae;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

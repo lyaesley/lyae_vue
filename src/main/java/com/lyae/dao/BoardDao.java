@@ -1,4 +1,4 @@
-package com.ljy.dao;
+package com.lyae.dao;
 
 import org.springframework.stereotype.Repository;
 

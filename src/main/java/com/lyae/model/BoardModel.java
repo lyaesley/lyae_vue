@@ -1,4 +1,4 @@
-package com.ljy.model;
+package com.lyae.model;
 
 public class BoardModel {
 

@@ -1,9 +1,9 @@
-package com.ljy.service;
+package com.lyae.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ljy.dao.BoardDao;
+import com.lyae.dao.BoardDao;
 
 @Service
 public class BoardService {

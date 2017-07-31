@@ -1,4 +1,4 @@
-package com.ljy;
+package com.lyae;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
