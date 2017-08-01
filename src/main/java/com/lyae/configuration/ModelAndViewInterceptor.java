@@ -8,33 +8,41 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
-@Log4j
+@Slf4j
 public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		log.info("======= preHandle 시작 =======");
-		return super.preHandle(request, response, handler);
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//		log.info("======= preHandle 시작 =======");
+		boolean result = true;
+		
+//		log.info("======= preHandle 종료 =======");
+		
+		return result;
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		log.info("======= postHandle 시작 =======");
-		String path = request.getServletPath();
-		
-		log.info(" path : " + path);
-		modelAndView.addObject("_path", path);
-		blogHead(modelAndView);
+		log.info("mav 객체 : " +modelAndView);
+		if (modelAndView != null){
+			Head(modelAndView);
+			Vars(modelAndView, request.getServletPath());
+		}
 		log.info("======= postHandle 종료 =======");
 	}	
 
-	void blogHead(ModelAndView mav){
+	void Head(ModelAndView mav){
 		mav.addObject("_test", "인터셉터 테스트");
+	}
+	
+	void Vars(ModelAndView mav, String path){
+		mav.addObject("_title", "타이틀");
+		mav.addObject("_menu", "메뉴");
+		mav.addObject("_path", path);
 	}
 	
 }

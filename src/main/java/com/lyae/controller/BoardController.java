@@ -14,8 +14,13 @@ public class BoardController {
 	
 	@RequestMapping("/list")
 	public String list(Model model){
-		System.out.println("게시판리스트");	
 		model.addAttribute("name", "우와");
 		return "board/list";
+	}
+	
+	@RequestMapping("/test")
+	public String test(Model model){
+		System.out.println("test");	
+		return "board/test";
 	}
 }
