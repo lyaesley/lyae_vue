@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC 
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="default" template="/WEB-INF/views/layout/default.jsp">
+		<put-attribute name="title" value="Lee JunYoung"/>
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/views/layout/menu.jsp"/>
+		<put-attribute name="main" value=""/>
+		<put-attribute name="right" value="/WEB-INF/views/layout/right.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
+		<put-attribute name="css" value="/WEB-INF/resources/css/main.css/"/>
+	</definition>
+	
+	<definition name="*" extends="default">
+		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
+	</definition>
+	<definition name="*/*" extends="default">
+		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+</tiles-definitions>

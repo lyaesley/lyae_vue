@@ -27,11 +27,12 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		log.info("======= postHandle 시작 =======");
-		log.info("mav 객체 : " +modelAndView);
+		log.info("mav 객체 전 : " +modelAndView);
 		if (modelAndView != null){
 			Head(modelAndView);
 			Vars(modelAndView, request.getServletPath());
 		}
+		log.info("mav 객체 후 : " +modelAndView);
 		log.info("======= postHandle 종료 =======");
 	}	
 
