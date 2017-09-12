@@ -9,13 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><tiles:getAsString name="title" /></title>
+<title>${_title}</title>
 
 <link rel="stylesheet"
     href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <style>
 #wrap {
-    width: 1920px;
+    width: 1600px;
     margin: 0 auto;
     padding-top: 50px;
 }

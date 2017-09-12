@@ -3,9 +3,12 @@ package com.lyae.configuration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.lyae.service.MenuService;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 
+	@Autowired  MenuService menuService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //		log.info("======= preHandle 시작 =======");
@@ -28,9 +33,12 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		log.info("======= postHandle 시작 =======");
 		log.info("mav 객체 전 : " +modelAndView);
+		
+		String path = request.getServletPath();
+		
 		if (modelAndView != null){
 			Head(modelAndView);
-			Vars(modelAndView, request.getServletPath());
+			Vars(modelAndView, path);
 		}
 		log.info("mav 객체 후 : " +modelAndView);
 		log.info("======= postHandle 종료 =======");
@@ -41,8 +49,8 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	}
 	
 	void Vars(ModelAndView mav, String path){
-		mav.addObject("_title", "타이틀");
-		mav.addObject("_menu", "메뉴");
+		mav.addObject("_menu", menuService.getMenu());
+		mav.addObject("_title", menuService.getMenuTitle(path));
 		mav.addObject("_path", path);
 	}
 	

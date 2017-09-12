@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 	<definition name="default" template="/WEB-INF/views/layout/default.jsp">
-		<put-attribute name="title" value="Lee JunYoung"/>
+		<put-attribute name="title" value=""/>
 		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
 		<put-attribute name="menu" value="/WEB-INF/views/layout/menu.jsp"/>
 		<put-attribute name="main" value=""/>
