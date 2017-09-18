@@ -25,7 +25,7 @@ public class MenuService {
 	}
 
 	public String getMenuTitle(String url) {
-		for (Menuu menuu : Menuu) {
+		for (Menuu menuu : getMenu()) {
 			if ( menuu.getUrl().startsWith(url)) {
 				return menuu.getName();
 			}
