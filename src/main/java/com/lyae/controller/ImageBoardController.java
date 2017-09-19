@@ -1,5 +1,7 @@
 package com.lyae.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,8 @@ public class ImageBoardController {
 	
 	@Menu(name="이미지게시판", desc="사진첩", order=3)
 	@RequestMapping("/list")
-	public String list(HttpServletRequest req, Model model){
+	public String list(HttpServletRequest req, Model model) throws Exception{
 		imageBoardService.getImgList(req);
-			
-			
 		return "imageBoard/list";
 	}
 	

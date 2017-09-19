@@ -7,11 +7,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+	.rotate90 {
+	    -webkit-transform: rotate(90deg);
+	    -moz-transform: rotate(90deg);
+	    -o-transform: rotate(90deg);
+	    -ms-transform: rotate(90deg);
+	    transform: rotate(90deg);
+	}
+	.rotate180 {
+	    -webkit-transform: rotate(180deg);
+	    -moz-transform: rotate(180deg);
+	    -o-transform: rotate(180deg);
+	    -ms-transform: rotate(180deg);
+	    transform: rotate(180deg);
+	}
+	.rotate270 {
+	    -webkit-transform: rotate(270deg);
+	    -moz-transform: rotate(270deg);
+	    -o-transform: rotate(270deg);
+	    -ms-transform: rotate(270deg);
+	    transform: rotate(270deg);
+    }
+</style>
 </head>
 <body>
 	<c:if test="${not empty listImg}">
 		<c:forEach var="node" items="${listImg}">
-			<img alt="${node}" src="${node}">
+			<img alt="${node.name}" src="${node.thumname}" class="rotate${node.fix }">
 		</c:forEach>
 	</c:if>
 </body>
