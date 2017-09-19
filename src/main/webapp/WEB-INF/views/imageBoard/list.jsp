@@ -34,7 +34,7 @@
 <body>
 	<c:if test="${not empty listImg}">
 		<c:forEach var="node" items="${listImg}">
-			<img alt="${node.name}" src="${node.thumname}" class="rotate${node.fix }">
+			<img alt="${node.name}" src="${node.thumName}" class="rotate${node.fix }">
 		</c:forEach>
 	</c:if>
 </body>
