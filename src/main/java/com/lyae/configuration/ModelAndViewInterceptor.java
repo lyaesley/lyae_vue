@@ -35,7 +35,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 		log.info("mav 객체 전 : " +modelAndView);
 		
 		String path = request.getServletPath();
-		
+		System.out.println("매핑 주소 : " + path);
 		if (modelAndView != null){
 			Head(modelAndView);
 			Vars(modelAndView, path);

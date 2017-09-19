@@ -13,7 +13,6 @@ public class TestController {
 	
 	@Value("${path.controller}") String path;
 	
-	@Menu(name="테스트안녕", desc="테스트안녕 입니다", order = 4)
 	@RequestMapping("/hello")
 	public String hello(){
 		return "hello world"+path;

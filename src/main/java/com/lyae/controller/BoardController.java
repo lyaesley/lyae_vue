@@ -26,7 +26,6 @@ public class BoardController {
 		return "board/test";
 	}
 	
-	@Menu(name="안녕", desc="안녕 입니다", order = 3)
 	@RequestMapping("/hello")
 	public void hello() {
 		System.out.println("board.hello");

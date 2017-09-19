@@ -7,15 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
-	게시판 리스트 : ${name} <br>
-	test : ${_test } <br>
-	path : ${_path } <br>
-	<img alt="사진" src="/pic/1.jpg">
-	<img alt="사진" src="/pic/사막.jpg">
-	<img alt="사진" src="/pic/Tulips.jpg">
-	<img alt="사진" src="/pic/하위/2.jpg">
+	<c:if test="${not empty listImg}">
+		<c:forEach var="node" items="${listImg}">
+			<img alt="${node}" src="${node}">
+		</c:forEach>
+	</c:if>
 </body>
 </html>

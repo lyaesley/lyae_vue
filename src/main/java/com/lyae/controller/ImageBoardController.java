@@ -1,35 +1,26 @@
 package com.lyae.controller;
 
-import java.io.File;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.lyae.common.Menu;
 import com.lyae.service.ImageBoardService;
 
 @Controller
-@RequestMapping("/board/Image")
+@RequestMapping("/board/image")
 public class ImageBoardController {
 	@Autowired ImageBoardService imageBoardService;
-	@Value("{path.root.imagepath}") String ROOTPATH;
 	
-	@RequestMapping("list")
-	public String list(Model model){
-			for (File file : new File(ROOTPATH).listFiles()){
-				if(!file.isHidden() && file.isFile()){
-					/*
-					 * 어떻게 구현할지?
-					 * 1. 해당경로 이미지 파일 불러오기.
-					 * 2. 하위폴더도 카테고리로 불러오기.
-					 * 3. 섬네일 생성에서 미리보기 보여주기
-					 * */
-					file.getName();
-				}
-			};
+	@Menu(name="이미지게시판", desc="사진첩", order=3)
+	@RequestMapping("/list")
+	public String list(HttpServletRequest req, Model model){
+		imageBoardService.getImgList(req);
+			
 			
 		return "imageBoard/list";
 	}

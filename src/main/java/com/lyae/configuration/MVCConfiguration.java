@@ -1,6 +1,7 @@
 package com.lyae.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,7 +17,9 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter{
 
 		@Autowired
 		ModelAndViewInterceptor modelAndViewInterceptor;
-
+		
+		@Value("${location.resources.picture}")
+		private String localPicture;
 
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
@@ -27,6 +30,8 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter{
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
 			registry.addResourceHandler("/resuorces/**").addResourceLocations("/resources/");
+//			registry.addResourceHandler("/img/**").addResourceLocations("/resources/img/");
+			registry.addResourceHandler("/pic/**").addResourceLocations(localPicture);
 		}
 
 
