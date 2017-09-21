@@ -29,13 +29,63 @@
 	    -ms-transform: rotate(270deg);
 	    transform: rotate(270deg);
     }
+    .mask{
+    	position:fixed;
+    	display:none;
+    	background-color: rgba(0,0,0, 0.8);
+    	width:100%;
+    	height:100%;
+    	top:0;
+    	left:0;
+    	z-index:1000;
+    	
+    }
+	.window{
+        position: fixed;
+	    width: 600px;
+	    min-width: 300px;
+	    top: 100px;
+	    right: 100px;
+	    bottom: 100px;
+	    left: 100px;
+	    margin: 0 auto;
+	    overflow: auto;
+	}
+	.origin{
+	 width:100%;
+	}
 </style>
+<script>
+var page = {
+	thumb : function(name,fix) {
+		$('.window .origin').attr('src', name).attr('class', 'origin rotate'+fix);
+		$('.mask').show();
+	},
+	
+	init : function(){
+		$('.mask').click(function(e) {
+			$('.mask').hide();
+		});
+	}
+};
+	
+$(page.init);
+</script>
 </head>
 <body>
+<div class="content">
 	<c:if test="${not empty listImg}">
 		<c:forEach var="node" items="${listImg}">
-			<img alt="${node.name}" src="${node.thumName}" class="rotate${node.fix }">
+			<img alt="${node.thumName}" src="${node.thumName}" class="rotate${node.fix } thumb" onclick="page.thumb('${node.name}','${node.fix }')" style="padding:20px;">
 		</c:forEach>
 	</c:if>
+</div>
+
+<div class="mask">
+	<div class="window">
+		<img alt="" src="" class="origin">
+	</div>
+</div>
+
 </body>
 </html>

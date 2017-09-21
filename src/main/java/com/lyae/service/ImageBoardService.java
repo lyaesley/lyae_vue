@@ -41,7 +41,7 @@ public class ImageBoardService {
 				if(fileName.endsWith(".jpg")) {
 					//썸네일 생성
 //					썸네일이 없을경우 한번만 실행되게 해야함;;;;;;
-					makeThumbnail(file);
+//					makeThumbnail(file);
 					
 					Map<String,Object> imgParam = new HashMap<String,Object>();
 					//파일이름
@@ -75,12 +75,13 @@ public class ImageBoardService {
 		BufferedImage srcImg = ImageIO.read(file); 
 		
 		// 높이 비율에 맞춰서 썸네일 생성
+//		BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
 		BufferedImage destImg = Scalr.resize(srcImg, 100, 100);
 		
 		// 넓이 비율에 맞춰서 썸네일 생성
 		//BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 150);
 		
-		// 썸네일을 저장합니다. 이미지 이름 앞에 "THUMB_" 를 붙여 표시했습니다.
+		// 썸네일을 저장합니다. 해당경로에 thumb 폴더 생성
 		String thumbDir = file.getParent() + "/thumb/";
 		
 		//THUMB 폴더가 존재하지 않으면 폴더 생성
