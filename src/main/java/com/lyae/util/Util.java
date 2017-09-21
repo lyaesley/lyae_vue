@@ -28,7 +28,7 @@ public class Util {
 				System.err.println("[ImgUtil] could not process image");
 				e.printStackTrace();
 			} catch(MetadataException e) {
-				System.err.println("[ImgUtil] could not get orientation from image : "+ file.getName());
+//				System.err.println("[ImgUtil] could not get orientation from image : "+ file.getName());
 //				e.printStackTrace();
 			}
 			return orientation;

@@ -41,12 +41,12 @@ public class ImageBoardService {
 				if(fileName.endsWith(".jpg")) {
 					//썸네일 생성
 //					썸네일이 없을경우 한번만 실행되게 해야함;;;;;;
-//					makeThumbnail(file);
+					makeThumbnail(file);
 					
 					Map<String,Object> imgParam = new HashMap<String,Object>();
 					//파일이름
 					imgParam.put("name", "/pic/" + fileName);
-					imgParam.put("thumName", "/pic/THUMB_"+fileName);
+					imgParam.put("thumName", "/pic/thumb/" +fileName);
 					//파일회전
 					imgParam.put("fix",Util.getDegreeForOrientation(Util.getOrientation(file)));
 					listImg.add(imgParam);
@@ -61,13 +61,14 @@ public class ImageBoardService {
 		req.setAttribute("listImg", listImg);
 	}
 	
+	//썸네일 이미지 생성
 	private void makeThumbnail( File file) throws Exception {
 		
 		String fullName = file.getName();
 		int index = fullName.lastIndexOf("."); 
 		String fileName = fullName.substring(0, index); 
 		String fileExt = fullName.substring(index + 1);
-		System.out.println("fileExt : " + fileExt);
+//		System.out.println("fileExt : " + fileExt);
 
 			
 		// 저장된 원본파일로부터 BufferedImage 객체를 생성합니다. 
@@ -80,9 +81,14 @@ public class ImageBoardService {
 		//BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 150);
 		
 		// 썸네일을 저장합니다. 이미지 이름 앞에 "THUMB_" 를 붙여 표시했습니다.
-		String thumbName = file.getParent() + "/THUMB_" + fullName;
-		File thumbFile = new File(thumbName);
+		String thumbDir = file.getParent() + "/thumb/";
 		
+		//THUMB 폴더가 존재하지 않으면 폴더 생성
+		File thumbDirFile = new File(thumbDir);
+		if (!thumbDirFile.exists()){
+			FileUtils.forceMkdir(thumbDirFile);
+		} 
+		File thumbFile = new File( thumbDir + fullName);
 		ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
 	}
 }
