@@ -16,6 +16,7 @@ import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.lyae.dao.BoardDao;
 import com.lyae.util.Util;
@@ -29,6 +30,7 @@ public class ImageBoardService {
 	
 	public void getImgList(HttpServletRequest req) throws Exception{
 		List<Map<String,Object>> listImg = new ArrayList<Map<String,Object>>();
+		List<String> subDir = new ArrayList();
 		for (File file : new File(PICTUREPATH).listFiles()){
 			if(!file.isHidden() && file.isFile()){
 				/*
@@ -57,12 +59,19 @@ public class ImageBoardService {
 				if(file.getName().equals("thumb")) {
 					continue;
 				}
-				
+				subDir.add(file.getName());
 			}
 				
 			
 		}
 		req.setAttribute("listImg", listImg);
+		
+		if(subDir.size() == 0 ){
+			req.setAttribute("subDir", "[]");
+		}else{
+			req.setAttribute("subDir", subDir);
+		}
+		
 	}
 	
 	//썸네일 이미지 생성

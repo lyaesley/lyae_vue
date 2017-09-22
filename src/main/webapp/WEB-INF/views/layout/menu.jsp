@@ -20,3 +20,30 @@
 		</ul>
 	</div>
 </div>
+<script>
+	var subDir = [];
+	
+	<c:forEach var="subDir" items="${subDir}">
+	  subDir.push('${subDir}');
+	</c:forEach>
+
+	var page = {
+		addSubMenu : function(){
+			console.log("addSubMenu");
+			if(subDir.length != 0){
+				for(var menu in subDir){
+					console.log("menu : " + menu);
+				}
+			}
+		},
+		
+		init : function(){
+			console.log("init start");
+			page.addSubMenu;
+			console.log("init end");
+		}
+	};
+
+$(page.init);
+
+</script>

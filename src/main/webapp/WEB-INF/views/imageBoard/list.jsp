@@ -62,6 +62,9 @@
 var page = {
 	
 	init : function(){
+		/* 서브폴더 메뉴 리스트에 추가*/
+		
+		
 		$('.mask').click(function(e) {
 			$('.mask').hide();
 		});
@@ -76,6 +79,7 @@ var page = {
 };
 	
 $(page.init);
+
 </script>
 </head>
 <body>

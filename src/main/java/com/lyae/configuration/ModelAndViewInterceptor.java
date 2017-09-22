@@ -33,13 +33,18 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		log.info("======= postHandle 시작 =======");
 		log.info("mav 객체 전 : " +modelAndView);
-		
 		String path = request.getServletPath();
 		System.out.println("매핑 주소 : " + path);
 		if (modelAndView != null){
 			Head(modelAndView);
 			Vars(modelAndView, path);
 		}
+		
+		//하위메뉴 검증;;
+//		if ("".equals(request.getAttribute("subDir")) || null == request.getAttribute("subDir")){
+//			request.setAttribute("subDir", "[]");
+//		};
+		
 		log.info("mav 객체 후 : " +modelAndView);
 		log.info("======= postHandle 종료 =======");
 	}	
@@ -53,5 +58,4 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 		mav.addObject("_title", menuService.getMenuTitle(path));
 		mav.addObject("_path", path);
 	}
-	
 }
