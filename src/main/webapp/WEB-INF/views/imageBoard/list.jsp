@@ -42,8 +42,8 @@
     }
 	.window{
         position: fixed;
-	    width: 600px;
-	    min-width: 300px;
+        width: fit-content;
+   		height: fit-content;
 	    top: 100px;
 	    right: 100px;
 	    bottom: 100px;
@@ -54,17 +54,23 @@
 	.origin{
 	 width:100%;
 	}
+	.thumb img{
+		margin:20px;
+	}
 </style>
 <script>
 var page = {
-	thumb : function(name,fix) {
-		$('.window .origin').attr('src', name).attr('class', 'origin rotate'+fix);
-		$('.mask').show();
-	},
 	
 	init : function(){
 		$('.mask').click(function(e) {
 			$('.mask').hide();
+		});
+		
+		$('.thumb img').click(function(){
+			var name = $(this).attr('src').replace('/thumb','');
+			var fix =  $(this).attr('class');
+			$('.window .origin').attr('src', name).attr('class', 'origin '+fix);
+			$('.mask').show();
 		});
 	}
 };
@@ -74,11 +80,13 @@ $(page.init);
 </head>
 <body>
 <div class="content">
-	<c:if test="${not empty listImg}">
-		<c:forEach var="node" items="${listImg}">
-			<img alt="${node.thumName}" src="${node.thumName}" class="rotate${node.fix } thumb" onclick="page.thumb('${node.name}','${node.fix }')" style="padding:20px;">
-		</c:forEach>
-	</c:if>
+	<div class="thumb">
+		<c:if test="${not empty listImg}">
+			<c:forEach var="node" items="${listImg}">
+				<img alt="${node.thumName}" src="${node.thumName}" class="rotate${node.fix }">
+			</c:forEach>
+		</c:if>
+	</div>
 </div>
 
 <div class="mask">

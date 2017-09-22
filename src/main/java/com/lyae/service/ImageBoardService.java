@@ -54,6 +54,10 @@ public class ImageBoardService {
 				
 			}else if (!file.isHidden() && file.isDirectory()){
 				System.out.println("isDir");
+				if(file.getName().equals("thumb")) {
+					continue;
+				}
+				
 			}
 				
 			
