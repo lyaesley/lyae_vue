@@ -54,11 +54,12 @@ public class ImageBoardService {
 				if(fileName.endsWith(".jpg")) {
 					//썸네일 생성
 //					썸네일이 없을경우 한번만 실행되게 해야함;;;;;;
-					if(!isLoad){
-						log.info("썸네일 생성!!");
-						makeThumbnail(file);
-						isLoad=true;
-					}
+//					if(!isLoad){
+//						log.info("썸네일 생성!!");
+//						makeThumbnail(file);
+//						isLoad=true;
+//					}
+					makeThumbnail(file);
 					
 					Map<String,Object> imgParam = new HashMap<String,Object>();
 					//파일이름
@@ -107,9 +108,10 @@ public class ImageBoardService {
 		
 		//썸네일이 존재할경우 패스
 		if (thumbFile.exists()){
+			System.out.println("이미있음 : " + fullName);
 			return;
 		}
-		
+		System.out.println("생성 : " + fullName);
 		int index = fullName.lastIndexOf("."); 
 		String fileName = fullName.substring(0, index); 
 		String fileExt = fullName.substring(index + 1);
