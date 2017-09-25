@@ -1,0 +1,14 @@
+@CHARSET "EUC-KR";
+#wrap {
+    width: 1600px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.container .row .col-md-12, .col-md-2, .col-md-8 {
+    border: 1px solid #000000;
+    border-collapse: collapse;
+}
+#wrap .container {
+    width: 100%;
+}
+a {color : black;}

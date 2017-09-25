@@ -21,17 +21,28 @@ import org.springframework.ui.Model;
 import com.lyae.dao.BoardDao;
 import com.lyae.util.Util;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
+
+@Service @Slf4j
 public class ImageBoardService {
 	
 	@Autowired BoardDao boardDao;
 //	@Value("${path.root.imagepath}") String ROOTPATH;
 	@Value("${path.root.imagepath}") String PICTUREPATH;
 	
+	//빠른 저장을 위한 변수.
+	List<String> subMenu = new ArrayList<String>();
+	
+	boolean isLoad = false;
+	
 	public void getImgList(HttpServletRequest req) throws Exception{
+		//subDirectiory 체크
+		String subPath = req.getParameter("sub") != null ? req.getParameter("sub") : "";
+		
 		List<Map<String,Object>> listImg = new ArrayList<Map<String,Object>>();
-		List<String> subDir = new ArrayList();
-		for (File file : new File(PICTUREPATH).listFiles()){
+		System.out.println("subPath : " + subPath);
+		
+		for (File file : new File(PICTUREPATH+subPath).listFiles()){
 			if(!file.isHidden() && file.isFile()){
 				/*
 				 * 어떻게 구현할지?
@@ -43,41 +54,62 @@ public class ImageBoardService {
 				if(fileName.endsWith(".jpg")) {
 					//썸네일 생성
 //					썸네일이 없을경우 한번만 실행되게 해야함;;;;;;
-//					makeThumbnail(file);
+					if(!isLoad){
+						log.info("썸네일 생성!!");
+						makeThumbnail(file);
+						isLoad=true;
+					}
 					
 					Map<String,Object> imgParam = new HashMap<String,Object>();
 					//파일이름
-					imgParam.put("name", "/pic/" + fileName);
-					imgParam.put("thumName", "/pic/thumb/" +fileName);
+					imgParam.put("name", "/pic/"+ subPath + fileName);
+					imgParam.put("thumName", "/pic/"+ subPath +"/thumb/" +fileName);
 					//파일회전
 					imgParam.put("fix",Util.getDegreeForOrientation(Util.getOrientation(file)));
+					
 					listImg.add(imgParam);
 				}
 				
-			}else if (!file.isHidden() && file.isDirectory()){
-				System.out.println("isDir");
+			}else if (!file.isHidden() && file.isDirectory() && subPath.equals("")){
+				
 				if(file.getName().equals("thumb")) {
 					continue;
 				}
-				subDir.add(file.getName());
+				
+				//하위 디렉토리 서브메뉴에 추가
+				if(!subMenu.contains(file.getName())){
+					subMenu.add(file.getName());
+				}
 			}
 				
 			
 		}
+	
 		req.setAttribute("listImg", listImg);
-		
-		if(subDir.size() == 0 ){
-			req.setAttribute("subDir", "[]");
-		}else{
-			req.setAttribute("subDir", subDir);
-		}
-		
+		req.setAttribute("subMenu", subMenu);
+
 	}
 	
 	//썸네일 이미지 생성
 	private void makeThumbnail( File file) throws Exception {
 		
 		String fullName = file.getName();
+		
+		// 썸네일을 저장합니다. 해당경로에 thumb 폴더 생성
+		String thumbDir = file.getParent() + "/thumb/";
+		
+		//THUMB 폴더가 존재하지 않으면 폴더 생성
+		File thumbDirFile = new File(thumbDir);
+		if (!thumbDirFile.exists()){
+			FileUtils.forceMkdir(thumbDirFile);
+		} 
+		File thumbFile = new File( thumbDir + fullName);
+		
+		//썸네일이 존재할경우 패스
+		if (thumbFile.exists()){
+			return;
+		}
+		
 		int index = fullName.lastIndexOf("."); 
 		String fileName = fullName.substring(0, index); 
 		String fileExt = fullName.substring(index + 1);
@@ -94,15 +126,7 @@ public class ImageBoardService {
 		// 넓이 비율에 맞춰서 썸네일 생성
 		//BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 150);
 		
-		// 썸네일을 저장합니다. 해당경로에 thumb 폴더 생성
-		String thumbDir = file.getParent() + "/thumb/";
 		
-		//THUMB 폴더가 존재하지 않으면 폴더 생성
-		File thumbDirFile = new File(thumbDir);
-		if (!thumbDirFile.exists()){
-			FileUtils.forceMkdir(thumbDirFile);
-		} 
-		File thumbFile = new File( thumbDir + fullName);
 		ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
 	}
 }

@@ -12,22 +12,8 @@
 <title>${_title}</title>
 <script src="//code.jquery.com/jquery.min.js"></script>
 
-<link rel="stylesheet"
-    href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<style>
-#wrap {
-    width: 1600px;
-    margin: 0 auto;
-    padding-top: 50px;
-}
-.container .row .col-md-12, .col-md-2, .col-md-8 {
-    border: 1px solid #000000;
-    border-collapse: collapse;
-}
-#wrap .container {
-    width: 100%;
-}
-</style>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/common.css">
 
 </head>
 <body>

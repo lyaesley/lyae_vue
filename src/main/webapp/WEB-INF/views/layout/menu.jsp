@@ -10,7 +10,15 @@
 		<c:forEach var="node"  items="${_menu}" varStatus="loop">
 			<c:choose>
 				<c:when test="${node.url eq _path}">
-						<li class="list-group-item active"><a href="${node.url}" title="${node.desc}">${node.name}</a></li>
+						<li class="list-group-item active"><a href="${node.url}" title="${node.desc}">${node.name}</a>
+						<c:if test="${not empty subMenu }">
+							<ul>
+								<c:forEach var="sub" items="${subMenu }">
+									<li class="list-group-item active"><a href="${node.url}?sub=${sub}" title="${node.name}">${sub}</a></li>
+								</c:forEach>
+							</ul>
+						</c:if>
+						</li>
 				</c:when>
 				<c:otherwise>
 						<li class="list-group-item"><a href="${node.url}" title="${node.desc}">${node.name}</a></li>
@@ -21,6 +29,8 @@
 	</div>
 </div>
 <script>
+
+	/* 
 	var subDir = [];
 	
 	<c:forEach var="subDir" items="${subDir}">
@@ -39,11 +49,11 @@
 		
 		init : function(){
 			console.log("init start");
-			page.addSubMenu;
+			page.addSubMenu();
 			console.log("init end");
 		}
 	};
 
 $(page.init);
-
+ */
 </script>
