@@ -51,7 +51,7 @@ public class ImageBoardService {
 				 * 3. 섬네일 생성에서 미리보기 보여주기
 				 * */
 				String fileName = file.getName();
-				if(fileName.endsWith(".jpg")) {
+				if(fileName.endsWith(".jpg") || fileName.endsWith(".JPG")) {
 					//썸네일 생성
 //					썸네일이 없을경우 한번만 실행되게 해야함;;;;;;
 //					if(!isLoad){
@@ -117,18 +117,22 @@ public class ImageBoardService {
 		String fileExt = fullName.substring(index + 1);
 //		System.out.println("fileExt : " + fileExt);
 
+		try {
+			// 저장된 원본파일로부터 BufferedImage 객체를 생성합니다. 
+			BufferedImage srcImg = ImageIO.read(file); 
 			
-		// 저장된 원본파일로부터 BufferedImage 객체를 생성합니다. 
-		BufferedImage srcImg = ImageIO.read(file); 
-		
-		// 높이 비율에 맞춰서 썸네일 생성
-//		BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
-		BufferedImage destImg = Scalr.resize(srcImg, 100, 100);
-		
-		// 넓이 비율에 맞춰서 썸네일 생성
-		//BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 150);
-		
-		
-		ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
+			// 높이 비율에 맞춰서 썸네일 생성
+	//		BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
+			BufferedImage destImg = Scalr.resize(srcImg, 100, 100);
+			
+			// 넓이 비율에 맞춰서 썸네일 생성
+			//BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 150);
+			
+			
+			ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
+		} catch(Exception e) {
+			System.out.println("오류 : " + fullName);
+			e.printStackTrace();
+		}
 	}
 }

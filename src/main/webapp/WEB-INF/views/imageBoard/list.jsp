@@ -50,10 +50,11 @@
 	    bottom: 100px;
 	    left: 100px;
 	    margin: 0 auto;
-	    overflow: auto;
+	    /* overflow: auto; */
 	}
 	.origin{
-	 width:100%;
+	 /* width:50%; */
+	 height: 77%;
 	}
 	.thumb img{
 		margin:20px;
