@@ -42,6 +42,19 @@
     	
     }
 	.window{
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    display: -webkit-flex;
+	    -webkit-align-item:center;
+	    -webkit-justify-content: center;
+	
+/* 
         position: fixed;
         width: fit-content;
    		height: fit-content;
@@ -50,11 +63,12 @@
 	    bottom: 100px;
 	    left: 100px;
 	    margin: 0 auto;
+	     */
 	    /* overflow: auto; */
 	}
 	.origin{
 	 /* width:50%; */
-	 height: 77%;
+	 /* height: 77%; */
 	}
 	.thumb img{
 		margin:20px;
