@@ -1,21 +1,26 @@
 package com.lyae;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
-public class LamdaTest {
+public class LambdaTest {
 
 	
 	@FunctionalInterface
 	interface LamdaIF{
-		public int abc(int a, int b);
+		public void run(Map map);
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		abc(34, LamdaTest::aaab );
+		abc(34, LambdaTest::aaab );
 //		test( (e, f) ->  e + f );
-		test();
+		test( (map) ->{
+			map.put("b", "asdf");
+			System.out.println("1"); 
+			});
 		
 		
 		
@@ -39,11 +44,18 @@ public class LamdaTest {
 	}
 
 	
-	public static void test(){
+	public static void test(LamdaIF lambda){
 		
-		LamdaIF lam = LamdaTest::aaa; //= (a, b) -> a* b; 
+//		LamdaIF lam = LamdaTest::aaa; //= (a, b) -> a* b; 
+		Map<Object, Object> map = new HashMap<Object, Object>(); 
+		map.put("a", 1);
 		
-		System.out.println(lam.abc(8, 2));
+		lambda.run(map);
+		
+		map.put("a", 12345);
+		
+		System.out.println(map.toString());
+		
 	}
 	
 }
