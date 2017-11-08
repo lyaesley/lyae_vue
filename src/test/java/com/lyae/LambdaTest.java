@@ -1,9 +1,14 @@
 package com.lyae;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.apache.commons.io.FileUtils;
 
 public class LambdaTest {
 
@@ -26,6 +31,11 @@ public class LambdaTest {
 		
 		new File("어떤경로").listFiles((f) -> f.isDirectory());
 		//.listFiles(File::isDirectory);
+		
+		new File("어떤경로").listFiles(e -> e.getName().startsWith("ML03."));
+		
+		List<File> list = Arrays.asList(new File("경로").listFiles());
+		list.stream().filter(e -> e.isDirectory()).collect(Collectors.toList());
 		
 		
 		
