@@ -33,6 +33,7 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter{
 			registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
 //			registry.addResourceHandler("/img/**").addResourceLocations("/resources/img/");
 			registry.addResourceHandler("/pic/**").addResourceLocations(localPicture);
+			registry.addResourceHandler("/favicon.ico").addResourceLocations("/favicon.ico");
 			
 		}
 

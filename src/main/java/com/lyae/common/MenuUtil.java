@@ -36,6 +36,7 @@ public class MenuUtil {
 	 * @return
 	 */
 	public List<Menuu> getMenuList() {
+		
 		List<Menuu> list = new ArrayList<MenuUtil.Menuu>();
 		List<Menuu> listZo = new ArrayList<MenuUtil.Menuu>();
 		List<Menuu> listZu = new ArrayList<MenuUtil.Menuu>();
