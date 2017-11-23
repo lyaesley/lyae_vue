@@ -31,6 +31,7 @@ public class MenuControllerTests {
 //		ReflectionTestUtils.setField(menuUtil, "PATH", PATH);
 		
 		System.out.println(menuUtil.getMenuList().size());
+		menuUtil.test();
 	}
 	
 }
