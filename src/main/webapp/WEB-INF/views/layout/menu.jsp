@@ -31,31 +31,17 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="/board/list.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="/board/test.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul>
-        </li>
-        <!-- 사진첩 시작-->
-        <li class="treeview">
-			<a href="#">
-				<i class="fa fa-file-image-o"></i> <span>추억</span>
-				<span class="pull-right-container">
-				<i class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-			<ul class="treeview-menu">
+         <!-- 사진첩 시작-->
+        
 				<c:forEach var="node"  items="${_menu}" varStatus="loop">
 				<c:choose>
 					<c:when test="${node.url eq _path}">
-							<li><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a>
+					<li class="active treeview">
+						<a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}
+							<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
 							<c:if test="${not empty subMenu }">
 								<ul class="treeview-menu">
 									<c:forEach var="sub" items="${subMenu }">
@@ -63,10 +49,10 @@
 									</c:forEach>
 								</ul>
 							</c:if>
-							</li>
+					</li>
 					</c:when>
 					<c:otherwise>
-							<li><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a></li>
+							<li class="treeview"><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a></li>
 					</c:otherwise>
 				</c:choose>
 				</c:forEach>
