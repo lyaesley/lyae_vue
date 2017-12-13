@@ -3,31 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%-- <div id="menu">	
-	<div class="list-group">
-		<input class="form-control" type="text" placeholder="메뉴검색" onkeyup="devo.menu.find(this.value);"/>
-		<ul class="list-group">
-		<c:forEach var="node"  items="${_menu}" varStatus="loop">
-			<c:choose>
-				<c:when test="${node.url eq _path}">
-						<li class="list-group-item active"><a href="${node.url}" title="${node.desc}">${node.name}</a>
-						<c:if test="${not empty subMenu }">
-							<ul>
-								<c:forEach var="sub" items="${subMenu }">
-									<li class="list-group-item active"><a href="${node.url}?sub=${sub}" title="${node.name}">${sub}</a></li>
-								</c:forEach>
-							</ul>
-						</c:if>
-						</li>
-				</c:when>
-				<c:otherwise>
-						<li class="list-group-item"><a href="${node.url}" title="${node.desc}">${node.name}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		</ul>
-	</div>
-</div> --%>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -67,36 +42,6 @@
             <li><a href="/board/test.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
-        <!-- 사진첩 시작-->
-        <li class="treeview">
-			<a href="#">
-				<i class="fa fa-file-image-o"></i> <span>추억</span>
-				<span class="pull-right-container">
-				<i class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-			<ul class="treeview-menu">
-				<c:forEach var="node"  items="${_menu}" varStatus="loop">
-				<c:choose>
-					<c:when test="${node.url eq _path}">
-							<li><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a>
-							<c:if test="${not empty subMenu }">
-								<ul class="treeview-menu">
-									<c:forEach var="sub" items="${subMenu }">
-										<li><a href="${node.url}?sub=${sub}" title="${node.name}"><i class="fa fa-circle-o"></i>${sub}</a></li>
-									</c:forEach>
-								</ul>
-							</c:if>
-							</li>
-					</c:when>
-					<c:otherwise>
-							<li><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a></li>
-					</c:otherwise>
-				</c:choose>
-				</c:forEach>
-			</ul>        
-        </li>
-        <!-- 사진첩 끝 -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>

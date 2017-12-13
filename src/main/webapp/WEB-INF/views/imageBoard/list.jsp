@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<style type="text/css"></style>
 <style type="text/css">
 	.rotate90 {
 	    -webkit-transform: rotate(90deg);
@@ -38,11 +33,11 @@
     	height:100%;
     	top:0;
     	left:0;
-    	z-index:1000;
+    	z-index:1000; 
     	
     }
 	.window{
-		position: absolute;
+ 		position: absolute;
 	    top: 0;
 	    right: 0;
 	    bottom: 0;
@@ -97,9 +92,7 @@ var page = {
 $(page.init);
 
 </script>
-</head>
-<body>
-<div class="content">
+<div class="content-wrapper">
 	<div class="thumb">
 		<c:if test="${not empty listImg}">
 			<c:forEach var="node" items="${listImg}">
@@ -107,13 +100,10 @@ $(page.init);
 			</c:forEach>
 		</c:if>
 	</div>
-</div>
+</div><!-- /.content-wrapper -->
 
-<div class="mask">
-	<div class="window">
-		<img alt="" src="" class="origin">
+	<div class="mask">
+		<div class="window">
+			<img alt="" src="" class="origin">
+		</div>
 	</div>
-</div>
-
-</body>
-</html>

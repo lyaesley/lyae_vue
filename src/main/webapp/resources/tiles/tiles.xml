@@ -20,4 +20,18 @@
 	<definition name="*/*" extends="default">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
+	
+	<definition name="demo" template="/WEB-INF/views/demo/default.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/demo/header.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/views/demo/menu.jsp"/>
+		<put-attribute name="main" value=""/>
+		<put-attribute name="right" value="/WEB-INF/views/demo/right.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/demo/footer.jsp"/>
+		<put-attribute name="css" value="/WEB-INF/resources/demo/main.css/"/>
+	</definition>
+	
+	<definition name="demo/*" extends="demo">
+		<put-attribute name="main" value="/WEB-INF/views/demo/{1}.jsp"/>
+	</definition>
 </tiles-definitions>
