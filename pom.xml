@@ -110,6 +110,13 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.9</version>
 		</dependency>
+		
+		<!-- devtools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		
 	</dependencies>
 	
 	<profiles>
