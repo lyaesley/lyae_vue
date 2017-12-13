@@ -52,12 +52,10 @@
 					</li>
 					</c:when>
 					<c:otherwise>
-							<li class="treeview"><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a></li>
+							<li><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a></li>
 					</c:otherwise>
 				</c:choose>
 				</c:forEach>
-			</ul>        
-        </li>
         <!-- 사진첩 끝 -->
         <li class="treeview">
           <a href="#">
