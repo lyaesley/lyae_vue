@@ -41,6 +41,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 <!-- jQuery 3 -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/jquery-ui/js/jquery-ui.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -71,4 +72,5 @@
 <script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
-<!-- Page script -->
+<!-- 개발 공용 -->
+<script src="/js/public.js"></script>

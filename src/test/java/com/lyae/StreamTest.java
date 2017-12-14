@@ -2,8 +2,11 @@ package com.lyae;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -49,6 +52,15 @@ public class StreamTest {
 		list.add(param3);
 		list.add(param4);
 		list.add(param5);
+		
+		System.out.println("테스트 : " +param.entrySet());
+		
+		Set<Entry<String,Object>> entrySet = param.entrySet();
+		Iterator<Entry<String, Object>> iterator = entrySet.iterator();
+		    while (iterator.hasNext()) {
+		        Map.Entry entry = (Map.Entry) iterator.next();
+		        System.out.println(entry.getKey().toString());
+	    }
 		
 		System.out.println(list.toString());
 		
