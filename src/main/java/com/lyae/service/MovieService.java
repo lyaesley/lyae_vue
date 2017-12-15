@@ -1,10 +1,8 @@
 package com.lyae.service;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -13,13 +11,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.lyae.util.ConvUtil;
 import com.lyae.util.UrlParameterStringBuilder;
-import com.lyae.util.WebUtil;
+import com.lyae.util.WebUtil2;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,33 +41,29 @@ public class MovieService {
 		String query = req.getParameter("query");
 		model.addAttribute("query", query);
 	}
-
-	public String apiMovieSearch(HttpServletRequest req, Model model) {
+	
+	public void apiMovieSearch(HttpServletRequest req, Model model) {
 
 		String query = req.getParameter("query");
+		
 		if (query == null || "".equals(query)){
-			return "/movie/list";
+			return;
 		}
+		
 		model.addAttribute("query", query);
 		
+		String reqData = new UrlParameterStringBuilder(1024,CHARSET)
+				.addGetParam("query", query).build();
+		
+		String resData ="";
 		try {
-			final String reqData = new UrlParameterStringBuilder(1024, CHARSET)
-					.addParam("query", query 	).build();
-			
-			String resData = WebUtil.naverPost(new URL(SEND_URL), getClientInfo(), (e, f) -> {
-				// 토큰
-				f.write(reqData);
-			}, CHARSET);
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			resData = WebUtil2.naverGet(new URL(SEND_URL+reqData), getClientInfo(), CHARSET);
+			model.addAttribute("result", ConvUtil.toMapByJsonObject(resData));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
 	}
 	
 	private Map<String,String> getClientInfo(){
@@ -81,15 +75,15 @@ public class MovieService {
 		return client;
 	}
 
-	@Test
+	
 	public void abc() throws Exception {
 		
 		
 		System.out.println(URLEncoder.encode("범죄도시",CHARSET ));
 		URL url = new URL("https://openapi.naver.com/v1/search/movie.json?query=%EB%B2%94%EC%A3%84%EB%8F%84%EC%8B%9C");
 		URLConnection conn = url.openConnection();
-		conn.setRequestProperty("X-Naver-Client-Id", "K7zmP3v4JgM19FZIalYy");
-		conn.setRequestProperty("X-Naver-Client-Secret", "Op7rz5s3F1");
+		conn.setRequestProperty("X-Naver-Client-Id", "CLIENT_ID");
+		conn.setRequestProperty("X-Naver-Client-Secret", "CLIENT_SECRET");
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -101,6 +95,25 @@ public class MovieService {
 		}
 		
 		System.out.println(sb);
+	}
+	
+	public void testapiMovieSearch() {
+
+		
+		String query="범죄도시";
+		
+		String reqData = new UrlParameterStringBuilder(1024,CHARSET)
+				.addGetParam("query", query).build();
+		String resData = "";
+		try {
+			resData = WebUtil2.naverGet(new URL(SEND_URL+reqData), getClientInfo(), CHARSET);
+			System.out.println(resData);
+			System.out.println(ConvUtil.toMapByJsonObject(resData));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 

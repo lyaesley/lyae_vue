@@ -18,7 +18,7 @@ import com.lyae.service.ImageBoardService;
 public class ImageBoardController {
 	@Autowired ImageBoardService imageBoardService;
 	
-	@Menu(name="이미지게시판", desc="사진첩", order=3)
+	@Menu(name="이미지게시판", desc="사진첩", faicon="fa-file-image-o", order=3)
 	@RequestMapping("/list")
 	public String list(HttpServletRequest req, Model model) throws Exception{
 		imageBoardService.getImgList(req);

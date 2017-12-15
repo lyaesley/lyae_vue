@@ -52,6 +52,7 @@ public class MenuUtil {
 					if (menu != null) {
 						String name = menu.name();
 						String desc = menu.desc();
+						String faicon = menu.faicon();
 						int order = menu.order();
 						if (name != null && !"".equals(name.trim())) {
 							//Controller 의 RequestMapping 가져옴.
@@ -64,6 +65,7 @@ public class MenuUtil {
 									menuu.setName(name.trim());
 									menuu.setDesc(desc.trim());
 									menuu.setUrl(reqParentMap.value()[0].trim()+urls[0].trim());
+									menuu.setFaicon("fa " + faicon.trim());
 									menuu.setOrder(order);
 									if (order > 0) {
 										listZo.add(menuu);
@@ -153,6 +155,7 @@ public class MenuUtil {
 		String url;
 		String name;
 		String desc;
+		String faicon;
 		int order;
 		
 		@Override

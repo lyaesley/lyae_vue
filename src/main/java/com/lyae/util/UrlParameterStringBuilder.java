@@ -39,6 +39,31 @@ public class UrlParameterStringBuilder {
 		}
 		return this;
 	}
+	/**
+	 * GET 아이템을 더합니다.<br>
+	 * 중복을 처리하지 않습니다. 
+	 * @param name
+	 * @param value
+	 */
+	public UrlParameterStringBuilder addGetParam(String name, String value) {
+		if (isFirstItem) {
+			data.append('?');
+			isFirstItem = false;
+		} else {
+			data.append('&');
+		}
+		data.append(name).append("=");
+		if (value != null) {
+			try {
+				data.append(URLEncoder.encode(value, charset).replace("+", "%20"));
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException(e);
+			}
+		} else {
+			data.append("");
+		}
+		return this;
+	}
 	
 	
 	/**

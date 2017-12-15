@@ -37,7 +37,7 @@
 				<c:choose>
 					<c:when test="${node.url eq _path}">
 					<li class="active treeview">
-						<a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}
+						<a href="${node.url}" title="${node.desc}"><i class="${node.faicon }"></i>${node.name}
 							<span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 							</span>
@@ -45,14 +45,14 @@
 							<c:if test="${not empty subMenu }">
 								<ul class="treeview-menu">
 									<c:forEach var="sub" items="${subMenu }">
-										<li><a href="${node.url}?sub=${sub}" title="${node.name}"><i class="fa fa-circle-o"></i>${sub}</a></li>
+										<li><a href="${node.url}?sub=${sub}" title="${node.name}"><i class="${node.faicon }"></i>${sub}</a></li>
 									</c:forEach>
 								</ul>
 							</c:if>
 					</li>
 					</c:when>
 					<c:otherwise>
-							<li><a href="${node.url}" title="${node.desc}"><i class="fa fa-circle-o"></i>${node.name}</a></li>
+							<li><a href="${node.url}" title="${node.desc}"><i class="${node.faicon }"></i>${node.name}</a></li>
 					</c:otherwise>
 				</c:choose>
 				</c:forEach>

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 public @interface Menu {
 
 	/**
-	 *이름
+	 * 이름
 	 *@return 
 	 */
 	String name() default "이름 추가";
@@ -22,6 +22,11 @@ public @interface Menu {
 	 * @return
 	 */
 	String desc() default "설명 추가";
+	
+	/**
+	 *  font awesome 아이폰
+	 */
+	String faicon() default "fa-circle-o";
 	/**
 	 * 메뉴 정렬 순서
 	 * 기본값 0, 오름차순 정렬

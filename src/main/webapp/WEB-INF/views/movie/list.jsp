@@ -16,6 +16,16 @@
 			
 			init : function() {
 				$('#query').val(util.nvl(util.getParam('query'), ''));
+				
+			   var maxHeight = -1;
+			   $('.movie-list').each(function() {
+			     maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
+			   });
+
+			   $('.movie-list').each(function() {
+			     $(this).height(maxHeight);
+			   });
+			   
 			}
 	};
 
@@ -35,6 +45,40 @@
       <!-- /.search form -->
 	</section>
 	<section class="content">
-	검색어 :	${query }
+	<!-- 영화 검색 결과 테이블 -->
+	<div class="row">
+	<c:set var="table" value="${result }" scope="request"/>
+		<c:if test="${empty requestScope.table}">
+			영화 제목을 검색해 주세요.
+		</c:if>
+		<c:if test="${not empty requestScope.table}">
+			<c:forEach var="node"  items="${requestScope.table.items}" varStatus="status">
+				<div class="box box-primary movie-list ">
+		            <div class="box-body box-profile">
+		              <img class="profile-user-img img-responsive img-circle" src="${node.image }" onerror="this.src='/dist/img/user2-160x160.jpg';" alt="picture">
+		
+		              <h3 class="profile-username text-center">${node.title }</h3>
+		
+		              <p class="text-muted text-center">${node.subtitle }</p>
+		
+		              <ul class="list-group list-group-unbordered">
+		                <li class="list-group-item">
+		                  <b>감독</b> <a class="pull-right">${node.director }</a>
+		                </li>
+		                <li class="list-group-item">
+		                  <b>배우</b> <a class="pull-right">${node.actor }</a>
+		                </li>
+		                <li class="list-group-item">
+		                  <b>평점</b> <a class="pull-right">${node.userRating }</a>
+		                </li>
+		              </ul>
+		
+		              <a href="${node.link }" target="_blank" class="btn btn-primary btn-block"><b>Follow</b></a>
+		            </div>
+				</div>
+			</c:forEach>
+		</c:if>
+	<%-- <jsp:include page="/WEB-INF/views/movie/table.jsp" /> --%>
+	</div><!--/.row -->
 	</section>
 </div>
