@@ -1,8 +1,10 @@
 package com.lyae.service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -15,9 +17,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.lyae.util.ConvUtil;
 import com.lyae.util.UrlParameterStringBuilder;
+import com.lyae.util.WebUtil;
 import com.lyae.util.WebUtil2;
+import com.lyae.util.WebUtil.WebResult;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +48,29 @@ public class MovieService {
 		model.addAttribute("query", query);
 	}
 	
+	public void apiSearch(HttpServletRequest req, Model model) {
+		String query = req.getParameter("query");
+		
+		if (query == null || "".equals(query)){
+			return;
+		}
+		
+		model.addAttribute("query", query);
+		
+		WebResult<String> result;
+			try {
+				result = new WebUtil(new URL(SEND_URL), CHARSET).setHeader("X-Naver-Client-Id",CLIENT_ID).setHeader("X-Naver-Client-Secret", CLIENT_SECRET).addParam("query", query).get();
+				model.addAttribute("result", ConvUtil.toMapByJsonObject(result.getData()));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	}
+	
 	public void apiMovieSearch(HttpServletRequest req, Model model) {
 
 		String query = req.getParameter("query");
@@ -60,7 +89,6 @@ public class MovieService {
 			resData = WebUtil2.naverGet(new URL(SEND_URL+reqData), getClientInfo(), CHARSET);
 			model.addAttribute("result", ConvUtil.toMapByJsonObject(resData));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

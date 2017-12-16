@@ -46,11 +46,11 @@
 	</section>
 	<section class="content">
 	<!-- 영화 검색 결과 테이블 -->
-	<div class="row">
 	<c:set var="table" value="${result }" scope="request"/>
 		<c:if test="${empty requestScope.table}">
 			영화 제목을 검색해 주세요.
 		</c:if>
+		<div class="row">
 		<c:if test="${not empty requestScope.table}">
 			<c:forEach var="node"  items="${requestScope.table.items}" varStatus="status">
 				<div class="box box-primary movie-list ">

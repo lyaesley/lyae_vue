@@ -111,7 +111,7 @@ var util = {
 		return src;
 	},
 	// 해당 주소로 이동
-	moveParam(params, clear) {
+	moveParam : function(params, clear) {
 		
 		// 선언
 		var src = {}, srcp = '';

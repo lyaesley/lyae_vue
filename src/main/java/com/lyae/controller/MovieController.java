@@ -25,7 +25,7 @@ public class MovieController {
 	@RequestMapping("/list")
 	public String movieSearch(HttpServletRequest req, Model model){
 //		movieService.search(req, model);
-		movieService.apiMovieSearch(req, model);
+		movieService.apiSearch(req, model);
 		return "movie/list";
 	}
 	
