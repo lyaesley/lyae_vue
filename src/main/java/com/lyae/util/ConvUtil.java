@@ -5,8 +5,10 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
@@ -18,6 +20,7 @@ import org.springframework.web.util.HtmlUtils;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -97,6 +100,10 @@ public class ConvUtil {
 	
 	public static <K, V> Map<K, V> toMapByJsonObject(String json) throws JsonParseException, JsonMappingException, IOException {
 		return new ObjectMapper().readValue(json, HashMap.class);
+	}
+
+	public static <K> List<K> toListByJsonObject(String json) throws JsonParseException, JsonMappingException, IOException {
+		return new ObjectMapper().readValue(json, ArrayList.class );
 	}
 	
 	/** 컨버팅 : yyyy-MM-dd HH:mm:ss */

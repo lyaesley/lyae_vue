@@ -45,8 +45,10 @@
       <!-- /.search form -->
 	</section>
 	<section class="content">
-	<!-- 영화 검색 결과 테이블 -->
-	<c:set var="table" value="${result}" scope="request"/>
-	<jsp:include page="/WEB-INF/views/movie/table.jsp" />
+	<!-- 검색 결과 테이블 -->
+	11111
+	<c:set var="table" value="${seasonsList}" scope="request"/>
+	2222
+	<jsp:include page="/WEB-INF/views/soccer/table.jsp" />
 	</section>
 </div>
