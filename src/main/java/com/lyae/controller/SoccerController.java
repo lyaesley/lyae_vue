@@ -22,7 +22,7 @@ public class SoccerController {
 	@RequestMapping("/list")
 	public String seasonsList(HttpServletRequest req, Model model) {
 		soccerService.seasonsList(req, model);
-		return "soccer/seasonsList";
+		return "soccer/index";
 	}
 	
 }

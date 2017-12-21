@@ -45,13 +45,7 @@ public class SoccerService {
 			});
 			
 			model.addAttribute("seasonsList", list);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
