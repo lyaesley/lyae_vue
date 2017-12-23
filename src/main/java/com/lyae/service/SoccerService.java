@@ -1,5 +1,7 @@
 package com.lyae.service;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,10 +39,10 @@ public class SoccerService {
 			result = new WebUtil(new URL(SEASONS), UTF8 ).get();
 			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
 			list.stream().forEach(map -> {
-				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
-				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
-				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
-				
+//				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
+//				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
+//				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
+				get_links(map);
 				map.remove("_links");
 			});
 			
@@ -52,16 +54,38 @@ public class SoccerService {
 		return null;
 	}
 	
-public void test_seasonsList() {
+	public void get_links(Map<String,Object> param) {
+		for (Map.Entry<String, Object> fnode : ((Map<String, Object>) param.get("_links")).entrySet()) {
+			for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
+				param.put(fnode.getKey(), snode.getValue());
+			};
+		};
+	}
+	
+	public void test_seasonsList() {
 		
 		WebResult<String> result = null;
 		try {
 			result = new WebUtil(new URL(SEASONS), UTF8 ).get(); 
 			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
-			list.stream().forEach(map -> {
+//			System.out.println("시즌리스트 1: " + list.toString());
 				
-				map.put("안녕", "하세요");
+			list.stream().forEach(map -> {
+//				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
+//				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
+//				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
+				
+				for (Map.Entry<String, Object> fnode : ((Map<String, Object>) map.get("_links")).entrySet()) {
+					for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
+						map.put(fnode.getKey(), snode.getValue());
+					};
+				};
+				
+				map.remove("_links");
 			});
+			
+			System.out.println("시즌리스트 2: " + list.toString());
+			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (JsonParseException e) {
