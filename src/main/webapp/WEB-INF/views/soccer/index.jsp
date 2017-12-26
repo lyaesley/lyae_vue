@@ -14,6 +14,35 @@
 				});
 			},
 			
+			api : function() {
+				var tb = $('#res-table').show().empty();
+				var th = $('<tr></tr>');
+				var td = $('<tr></tr>');
+							
+				$.ajax({
+					 url: "/soccer/api/seasonsList",
+					 type: "post",
+					dataType: "json",
+					success: function(data) {
+						$.each(data, function(index, node) {
+							/* console.log( index, node); */
+							$.each(node, function(key, value) {
+								/* console.log( key, value); */
+								if(index === 0){
+									console.log("index : "+index);	
+									th.append('<th>'+key+'</th>');
+									tb.append(th);
+								}else{
+									console.log("else "+index);	
+								}
+								tb.append('<tr><td><input type="text" name="'+key+'" value="'+value+'"/></td></tr>');
+							});
+						});
+						
+					}
+				});	
+			},
+			
 			init : function() {
 				$('#query').val(util.nvl(util.getParam('query'), ''));
 				
@@ -39,14 +68,18 @@
         <div class="input-group sidebar-form">
           <input type="text" name="q" id="query" class="form-control" placeholder="Search..." mode="enter" mode-func="page.find"/>
            <span class="input-group-btn">
-             <button type="submit" name="search" id="search-btn" class="btn btn-flat" onclick="page.find();"><i class="fa fa-search"></i></button>
+             <button type="submit" name="search" id="search-btn" class="btn btn-flat" onclick="page.api();"><i class="fa fa-search"></i></button>
            </span>
         </div>
       <!-- /.search form -->
 	</section>
 	<section class="content">
 	<!-- 검색 결과 테이블 -->
+	<%-- 
 	<c:set var="table" value="${seasonsList}" scope="request"/>
 	<jsp:include page="/WEB-INF/views/soccer/seasonsList.jsp" />
+	 --%>
+	 <table id="res-table" class="table table-hover" style="display: none"></table>
+	 
 	</section>
 </div>

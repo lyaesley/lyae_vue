@@ -12,7 +12,7 @@ public class TilesConfig {
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
 		final TilesConfigurer configurer = new TilesConfigurer();
-		configurer.setDefinitions(new String[] { "/resources/tiles/tiles.xml" });
+		configurer.setDefinitions(new String[] { "classpath:/static/tiles/tiles.xml" });
 		configurer.setCheckRefresh(true);
 		return configurer;
 	}

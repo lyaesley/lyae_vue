@@ -97,5 +97,32 @@ public class SoccerService {
 		}
 		
 	}
+	
+	
+/**
+ * API 
+ * 
+ */
+	
+	public String api_seasonsList(HttpServletRequest req, Model model) {
+		
+		WebResult<String> result = null;
+		String jsonResult = "";
+		
+		try {
+			result = new WebUtil(new URL(SEASONS), UTF8 ).get();
+			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
+			list.stream().forEach(map -> {
+				get_links(map);
+				map.remove("_links");
+			});
+			jsonResult = ConvUtil.toJsonObjectByClass(list);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return jsonResult;
+	}
 
 }
