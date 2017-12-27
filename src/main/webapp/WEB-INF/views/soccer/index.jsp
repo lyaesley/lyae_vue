@@ -14,29 +14,38 @@
 				});
 			},
 			
-			api : function() {
+			api : function(url) {
 				var tb = $('#res-table').show().empty();
-				var th = $('<tr></tr>');
+				var th = $('<thead><tr></tr></thead>');
 				var td = $('<tr></tr>');
-							
+				var tbody = $('<tbody></tbody>');
+				console.log("api");
 				$.ajax({
-					 url: "/soccer/api/seasonsList",
-					 type: "post",
+					url: "/soccer/api/seasonsList",
+					type: "POST",
+					data: {url : url },
 					dataType: "json",
 					success: function(data) {
+						console.log("ajax");
+						/* th 생성 */
+						$.each(data[0], function(index, node) {
+							th.append('<th>'+index+'</th>');
+							tb.append(th);
+						});
+						
+						/* td 생성 */
 						$.each(data, function(index, node) {
-							/* console.log( index, node); */
 							$.each(node, function(key, value) {
 								/* console.log( key, value); */
-								if(index === 0){
-									console.log("index : "+index);	
-									th.append('<th>'+key+'</th>');
-									tb.append(th);
-								}else{
-									console.log("else "+index);	
+								if(value.toString().indexOf("http://") == 0) {
+									td.append('<td><a href="'+value+'" onclick="page.api(this.href); return false;">link</a></td>');
+								} else {
+									td.append('<td>'+value+'</td>');
 								}
-								tb.append('<tr><td><input type="text" name="'+key+'" value="'+value+'"/></td></tr>');
 							});
+								tbody.append(td);
+								tb.append(tbody);
+								td = $('<tr></tr>');
 						});
 						
 					}
@@ -79,7 +88,7 @@
 	<c:set var="table" value="${seasonsList}" scope="request"/>
 	<jsp:include page="/WEB-INF/views/soccer/seasonsList.jsp" />
 	 --%>
-	 <table id="res-table" class="table table-hover" style="display: none"></table>
+	 <table id="res-table" class="table table-hover table-condensed" style="display: none"></table>
 	 
 	</section>
 </div>

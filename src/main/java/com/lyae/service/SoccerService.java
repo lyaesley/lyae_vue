@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lyae.model.LeagueTable;
 import com.lyae.util.ConvUtil;
 import com.lyae.util.Picker;
 import com.lyae.util.Util;
@@ -30,13 +35,14 @@ import lombok.extern.slf4j.Slf4j;
 public class SoccerService {
 	
 	@Value("${api.soccer}") private String SEASONS;
+	@Value("${api.soccer.key}") private String SOCCER_KEY;
 	public final static String UTF8 = "UTF-8";
 	
 	public String seasonsList(HttpServletRequest req, Model model) {
 		
 		WebResult<String> result = null;
 		try {
-			result = new WebUtil(new URL(SEASONS), UTF8 ).get();
+			result = new WebUtil(new URL(SEASONS), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
 			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
 			list.stream().forEach(map -> {
 //				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
@@ -66,25 +72,28 @@ public class SoccerService {
 		
 		WebResult<String> result = null;
 		try {
-			result = new WebUtil(new URL(SEASONS), UTF8 ).get(); 
-			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
-//			System.out.println("시즌리스트 1: " + list.toString());
-				
-			list.stream().forEach(map -> {
-//				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
-//				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
-//				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
-				
-				for (Map.Entry<String, Object> fnode : ((Map<String, Object>) map.get("_links")).entrySet()) {
-					for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
-						map.put(fnode.getKey(), snode.getValue());
-					};
-				};
-				
-				map.remove("_links");
-			});
+			result = new WebUtil(new URL("http://api.football-data.org/v1/soccerseasons/445/leagueTable"), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
+			String node = new ObjectMapper().readTree(result.getData()).get("standing").toString();
+			System.out.println("result : " + result.getData());
+			System.out.println("node : " + node);
+			System.out.println("이거 : "+ ConvUtil.toListClassByJsonObject(node, new TypeReference<List<LeagueTable>>(){}));
+//			System.out.println("저거 : "+ new ObjectMapper().readValue(node, new TypeReference<List<LeagueTable>>(){}));
 			
-			System.out.println("시즌리스트 2: " + list.toString());
+			
+//			list.stream().forEach(map -> {
+////				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
+////				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
+////				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
+//				
+//				for (Map.Entry<String, Object> fnode : ((Map<String, Object>) map.get("_links")).entrySet()) {
+//					for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
+//						map.put(fnode.getKey(), snode.getValue());
+//					};
+//				};
+//				
+//				map.remove("_links");
+//			});
+//			System.out.println("시즌리스트 2: " + leagueTable.toString());
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -106,11 +115,18 @@ public class SoccerService {
 	
 	public String api_seasonsList(HttpServletRequest req, Model model) {
 		
+		String url = req.getParameter("url");
+		if (url == null || "".equals(url)){
+			url=SEASONS;
+		}
+		
+		System.out.println("url : " + url);
+		
 		WebResult<String> result = null;
 		String jsonResult = "";
 		
 		try {
-			result = new WebUtil(new URL(SEASONS), UTF8 ).get();
+			result = new WebUtil(new URL(url), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
 			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
 			list.stream().forEach(map -> {
 				get_links(map);

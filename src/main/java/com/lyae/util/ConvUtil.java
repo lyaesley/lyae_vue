@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lyae.model.LeagueTable;
 
 import lombok.extern.log4j.Log4j;
 
@@ -94,8 +95,13 @@ public class ConvUtil {
 		return new ObjectMapper().writeValueAsString(obj);
 	}
 	
-	public static Object toClassByJsonObject(Class clazz, String json) throws JsonParseException, JsonMappingException, IOException {
+	public static Object toClassByJsonObject(String json, Class clazz) throws JsonParseException, JsonMappingException, IOException {
 		return new ObjectMapper().readValue(json, clazz);
+	}
+	
+	public static <T> List<T> toListClassByJsonObject(String json,  TypeReference<List<T>> typeReference) throws JsonParseException, JsonMappingException, IOException {
+		
+		return new ObjectMapper().readValue(json, typeReference);
 	}
 	
 	public static <K, V> Map<K, V> toMapByJsonObject(String json) throws JsonParseException, JsonMappingException, IOException {
