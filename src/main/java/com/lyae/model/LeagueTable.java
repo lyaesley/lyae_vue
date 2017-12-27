@@ -13,7 +13,7 @@ import lombok.Setter;
 @Data @Getter @Setter @JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueTable {
 
-	private int position;
+	@JsonProperty("position") private int rank;
 	private String teamName;
 	@JsonProperty("crestURI") private String logo;
 	private int playedGames;
@@ -26,5 +26,6 @@ public class LeagueTable {
 	private int losses;
 	private Map<String,Object> home;
 	private Map<String,Object> away;
+	@JsonProperty("_links") private Map<String,Object> links;
 	
 }

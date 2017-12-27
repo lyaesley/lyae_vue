@@ -59,24 +59,28 @@ public class SoccerService {
 		
 		return null;
 	}
+
 	
 	public void get_links(Map<String,Object> param) {
 		for (Map.Entry<String, Object> fnode : ((Map<String, Object>) param.get("_links")).entrySet()) {
 			for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
 				param.put(fnode.getKey(), snode.getValue());
+				
 			};
 		};
+		param.remove("_links");
 	}
 	
 	public void test_seasonsList() {
 		
-		WebResult<String> result = null;
+		WebResult<String> webResult = null;
 		try {
-			result = new WebUtil(new URL("http://api.football-data.org/v1/soccerseasons/445/leagueTable"), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
-			String node = new ObjectMapper().readTree(result.getData()).get("standing").toString();
-			System.out.println("result : " + result.getData());
+			ObjectMapper objectMapper = new ObjectMapper();
+			webResult = new WebUtil(new URL("http://api.football-data.org/v1/soccerseasons/445/leagueTable"), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
+			String node = objectMapper.readTree(webResult.getData()).get("standing").toString();
+			System.out.println("result : " + webResult.getData());
 			System.out.println("node : " + node);
-			System.out.println("이거 : "+ ConvUtil.toListClassByJsonObject(node, new TypeReference<List<LeagueTable>>(){}));
+			System.out.println("이거 : "+ ConvUtil.toListClassByJsonObject(node,LeagueTable.class));
 //			System.out.println("저거 : "+ new ObjectMapper().readValue(node, new TypeReference<List<LeagueTable>>(){}));
 			
 			
@@ -112,6 +116,74 @@ public class SoccerService {
  * API 
  * 
  */
+	
+	public void mappingUrlFun(String url) {
+		if (url.endsWith("leagueTable")) {
+			
+		}
+		
+	}
+	
+	public void leagueTable() {
+		
+	}
+
+	public String api_soccer(HttpServletRequest req, Model model) {
+		
+		String url = req.getParameter("url");
+		if (url == null || "".equals(url)){
+			url=SEASONS;
+		}
+		
+		System.out.println("url : " + url);
+		
+		WebResult<String> webResult = null;
+		
+		try {
+			webResult = new WebUtil(new URL(url), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
+
+//			작업시작
+			ObjectMapper objectMapper = new ObjectMapper();
+			if (url.endsWith("leagueTable")) { //	http://api.football-data.org/v1/soccerseasons/444/leagueTable
+				String node =objectMapper.readTree(webResult.getData()).get("standing").toString();
+				List<LeagueTable> result = ConvUtil.toListClassByJsonObject(node,LeagueTable.class);
+				model.addAttribute("mapping", "leagueTable");
+				model.addAttribute("result", result);
+				System.out.println("leagueTable : " + result);
+			} else if (url.equals(SEASONS)) { //	http://api.football-data.org/v1/soccerseasons
+				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(webResult.getData()); 
+				result.stream().forEach(map -> {
+					get_links(map);
+					map.remove("id");
+					map.remove("currentMatchday");
+					map.remove("numberOfMatchdays");
+					map.remove("numberOfTeams");
+					map.remove("numberOfGames");
+					map.remove("lastUpdated");
+//					map.remove("_links");
+				});
+				model.addAttribute("mapping", "seasonsList");
+				model.addAttribute("result", result);
+			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}$")) { //	http://api.football-data.org/v1/teams/81
+				Map<String,Object> result = ConvUtil.toMapByJsonObject(webResult.getData());
+				get_links(result);
+				System.out.println(result);
+				model.addAttribute("mapping", "teamInfo");
+				model.addAttribute("result", result);
+			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}(?i)(/players)$")) { //		http://api.football-data.org/v1/teams/81/players
+				String node =objectMapper.readTree(webResult.getData()).get("players").toString();
+				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(node); 
+				model.addAttribute("mapping", "players");
+				model.addAttribute("result", result);
+			}
+			
+//			작업종료
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
 	public String api_seasonsList(HttpServletRequest req, Model model) {
 		

@@ -6,11 +6,11 @@
 
 <script>
 	var page = {
-			find : function() {
+			find : function(url) {
 				var query = $('#query').val();
 				
 				util.moveParam({
-					query : query
+					url : url
 				});
 			},
 			
@@ -84,11 +84,27 @@
 	</section>
 	<section class="content">
 	<!-- 검색 결과 테이블 -->
-	<%-- 
-	<c:set var="table" value="${seasonsList}" scope="request"/>
-	<jsp:include page="/WEB-INF/views/soccer/seasonsList.jsp" />
-	 --%>
-	 <table id="res-table" class="table table-hover table-condensed" style="display: none"></table>
+	<c:set var="mapping" value="${mapping }"/>
+	<c:choose>
+		<c:when test="${mapping eq 'seasonsList' }">
+			<c:set var="table" value="${result}" scope="request"/>
+			<jsp:include page="/WEB-INF/views/soccer/seasonsList.jsp" />	
+		</c:when>
+		<c:when test="${mapping eq 'leagueTable' }">
+			<c:set var="table" value="${result}" scope="request"/>
+			<jsp:include page="/WEB-INF/views/soccer/leagueTable.jsp" />	
+		</c:when>
+		<c:when test="${mapping eq 'teamInfo' }">
+			<c:set var="table" value="${result}" scope="request"/>
+			<jsp:include page="/WEB-INF/views/soccer/teamInfo.jsp" />	
+		</c:when>
+		<c:when test="${mapping eq 'players' }">
+			<c:set var="table" value="${result}" scope="request"/>
+			<jsp:include page="/WEB-INF/views/soccer/seasonsList.jsp" />	
+		</c:when>
+	</c:choose>
+	
+	 <!-- <table id="res-table" class="table table-hover table-condensed" style="display: none"></table> -->
 	 
 	</section>
 </div>

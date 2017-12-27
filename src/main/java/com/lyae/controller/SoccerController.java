@@ -21,8 +21,8 @@ public class SoccerController {
 	
 	@Menu(name="해외축구 정보", desc="해외축구 정보", order=20)
 	@RequestMapping("/list")
-	public String seasonsList(HttpServletRequest req, Model model) {
-//		soccerService.seasonsList(req, model);
+	public String soccer(HttpServletRequest req, Model model) {
+		soccerService.api_soccer(req, model);
 		return "soccer/index";
 	}
 	

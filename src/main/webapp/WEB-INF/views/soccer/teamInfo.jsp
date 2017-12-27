@@ -10,15 +10,17 @@
 		</tr>
 	</c:if>
 	<c:if test="${not empty requestScope.table}">
+		<thead>
 		<tr>
-			<c:forEach var="col" items="${requestScope.table[0]}">
+			<c:forEach var="col" items="${requestScope.table}">
 				<th>${col.key}</th>
 			</c:forEach>
 		</tr>
+		</thead>
+		<tbody>
+		<tr>
 		<c:forEach var="node" items="${requestScope.table}">
-			<tr>
-				<c:forEach var="tr" items="${node}">
-					<c:set var="value" value="${tr.value}" />
+					<c:set var="value" value="${node.value}" />
 					<c:choose>
 						<c:when test="${fn:startsWith(value, 'http://') || fn:startsWith(value, 'https://')}">
 							<td><a href="${value}" onclick="page.find(this.href); return false;">link</a></td>
@@ -27,8 +29,8 @@
 							<td>${value}</td>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-			</tr>
 		</c:forEach>
+		</tr>
+		</tbody>
 	</c:if>
 </table>

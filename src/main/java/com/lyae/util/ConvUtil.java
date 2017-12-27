@@ -21,6 +21,7 @@ import org.springframework.web.util.HtmlUtils;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lyae.model.LeagueTable;
@@ -99,9 +100,10 @@ public class ConvUtil {
 		return new ObjectMapper().readValue(json, clazz);
 	}
 	
-	public static <T> List<T> toListClassByJsonObject(String json,  TypeReference<List<T>> typeReference) throws JsonParseException, JsonMappingException, IOException {
-		
-		return new ObjectMapper().readValue(json, typeReference);
+	public static <T> T toListClassByJsonObject(String json,  Class<?> clazz) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		JavaType type = objectMapper.getTypeFactory().constructCollectionType(List.class, clazz);
+		return objectMapper.readValue(json, type);
 	}
 	
 	public static <K, V> Map<K, V> toMapByJsonObject(String json) throws JsonParseException, JsonMappingException, IOException {
