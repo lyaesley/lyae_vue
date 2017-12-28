@@ -100,7 +100,11 @@
 		</c:when>
 		<c:when test="${mapping eq 'players' }">
 			<c:set var="table" value="${result}" scope="request"/>
-			<jsp:include page="/WEB-INF/views/soccer/seasonsList.jsp" />	
+			<jsp:include page="/WEB-INF/views/soccer/teamPlayers.jsp" />	
+		</c:when>
+		<c:when test="${mapping eq 'teams/fixtures' }">
+			<c:set var="table" value="${result}" scope="request"/>
+			<jsp:include page="/WEB-INF/views/soccer/teamFixtures.jsp" />	
 		</c:when>
 	</c:choose>
 	

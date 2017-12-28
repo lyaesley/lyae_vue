@@ -22,6 +22,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lyae.model.LeagueTable;
+import com.lyae.model.TeamFixtures;
+import com.lyae.model.TeamPlayers;
 import com.lyae.util.ConvUtil;
 import com.lyae.util.Picker;
 import com.lyae.util.Util;
@@ -71,47 +73,6 @@ public class SoccerService {
 		param.remove("_links");
 	}
 	
-	public void test_seasonsList() {
-		
-		WebResult<String> webResult = null;
-		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			webResult = new WebUtil(new URL("http://api.football-data.org/v1/soccerseasons/445/leagueTable"), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
-			String node = objectMapper.readTree(webResult.getData()).get("standing").toString();
-			System.out.println("result : " + webResult.getData());
-			System.out.println("node : " + node);
-			System.out.println("이거 : "+ ConvUtil.toListClassByJsonObject(node,LeagueTable.class));
-//			System.out.println("저거 : "+ new ObjectMapper().readValue(node, new TypeReference<List<LeagueTable>>(){}));
-			
-			
-//			list.stream().forEach(map -> {
-////				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
-////				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
-////				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
-//				
-//				for (Map.Entry<String, Object> fnode : ((Map<String, Object>) map.get("_links")).entrySet()) {
-//					for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
-//						map.put(fnode.getKey(), snode.getValue());
-//					};
-//				};
-//				
-//				map.remove("_links");
-//			});
-//			System.out.println("시즌리스트 2: " + leagueTable.toString());
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	
 /**
  * API 
  * 
@@ -142,15 +103,19 @@ public class SoccerService {
 		try {
 			webResult = new WebUtil(new URL(url), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
 
-//			작업시작
+//			작업시작 API URL 확인하고 해당 URL에 맞는 분기 처리
 			ObjectMapper objectMapper = new ObjectMapper();
 			if (url.endsWith("leagueTable")) { //	http://api.football-data.org/v1/soccerseasons/444/leagueTable
+				//LeagueTable
+				log.info("leagueTable");
 				String node =objectMapper.readTree(webResult.getData()).get("standing").toString();
 				List<LeagueTable> result = ConvUtil.toListClassByJsonObject(node,LeagueTable.class);
 				model.addAttribute("mapping", "leagueTable");
 				model.addAttribute("result", result);
 				System.out.println("leagueTable : " + result);
 			} else if (url.equals(SEASONS)) { //	http://api.football-data.org/v1/soccerseasons
+				//SeasonsList
+				log.info("seasonsList");
 				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(webResult.getData()); 
 				result.stream().forEach(map -> {
 					get_links(map);
@@ -165,15 +130,47 @@ public class SoccerService {
 				model.addAttribute("mapping", "seasonsList");
 				model.addAttribute("result", result);
 			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}$")) { //	http://api.football-data.org/v1/teams/81
+				// Teams
+				log.info("teams");
 				Map<String,Object> result = ConvUtil.toMapByJsonObject(webResult.getData());
 				get_links(result);
 				System.out.println(result);
 				model.addAttribute("mapping", "teamInfo");
 				model.addAttribute("result", result);
 			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}(?i)(/players)$")) { //		http://api.football-data.org/v1/teams/81/players
+				// TeamPlayers
+				log.info("players");
 				String node =objectMapper.readTree(webResult.getData()).get("players").toString();
-				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(node); 
+				List<TeamPlayers> result = ConvUtil.toListClassByJsonObject(node,TeamPlayers.class);
+//				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(node); 
 				model.addAttribute("mapping", "players");
+				model.addAttribute("result", result);
+				log.info("players : " + result);
+			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}(?i)(/fixtures)$")) { //		http://api.football-data.org/v1/teams/65/fixtures
+				// TeamFixtures
+				log.info("teams/fixtures");
+				String node =objectMapper.readTree(webResult.getData()).get("fixtures").toString();
+				List<TeamFixtures> result = ConvUtil.toListClassByJsonObject(node,TeamFixtures.class);
+				model.addAttribute("mapping", "teams/fixtures");
+				model.addAttribute("result", result);
+				log.info("teams/fixtures : " + result);
+				
+			} else {
+				log.info("default");
+				url=SEASONS;
+				webResult = new WebUtil(new URL(url), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
+				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(webResult.getData()); 
+				result.stream().forEach(map -> {
+					get_links(map);
+					map.remove("id");
+					map.remove("currentMatchday");
+					map.remove("numberOfMatchdays");
+					map.remove("numberOfTeams");
+					map.remove("numberOfGames");
+					map.remove("lastUpdated");
+//					map.remove("_links");
+				});
+				model.addAttribute("mapping", "seasonsList");
 				model.addAttribute("result", result);
 			}
 			
@@ -213,4 +210,44 @@ public class SoccerService {
 		return jsonResult;
 	}
 
+	
+	public void test_seasonsList() {
+		
+		WebResult<String> webResult = null;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			webResult = new WebUtil(new URL("http://api.football-data.org/v1/soccerseasons/445/leagueTable"), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
+			String node = objectMapper.readTree(webResult.getData()).get("standing").toString();
+			System.out.println("result : " + webResult.getData());
+			System.out.println("node : " + node);
+			System.out.println("이거 : "+ ConvUtil.toListClassByJsonObject(node,LeagueTable.class));
+//			System.out.println("저거 : "+ new ObjectMapper().readValue(node, new TypeReference<List<LeagueTable>>(){}));
+			
+			
+//			list.stream().forEach(map -> {
+////				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
+////				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
+////				map.put("팀정보", new Picker(map).get("_links").get("teams").get("href").toString() );
+//				
+//				for (Map.Entry<String, Object> fnode : ((Map<String, Object>) map.get("_links")).entrySet()) {
+//					for (Map.Entry<String, Object> snode : ((Map<String, Object>) fnode.getValue()).entrySet()) {
+//						map.put(fnode.getKey(), snode.getValue());
+//					};
+//				};
+//				
+//				map.remove("_links");
+//			});
+//			System.out.println("시즌리스트 2: " + leagueTable.toString());
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
