@@ -21,8 +21,12 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//		log.info("======= preHandle 시작 =======");
+		/* false 를 return 할 경우 다음 내용은 실행하지 않는다.*/
 		boolean result = true;
+		
+		log.info("======= preHandle 시작 =======");
+		String path = request.getServletPath();
+		log.info("호출 주소 : " + path);
 		
 //		log.info("======= preHandle 종료 =======");
 		
@@ -31,10 +35,10 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		log.info("======= postHandle 시작 =======");
-		log.info("mav 객체 전 : " +modelAndView);
+//		log.info("======= postHandle 시작 =======");
 		String path = request.getServletPath();
-		System.out.println("매핑 주소 : " + path);
+//		log.info("매핑 주소 : " + path);
+		log.info("mav 객체 전 : " +modelAndView);
 		if (modelAndView != null){
 			Head(modelAndView);
 			Vars(modelAndView, path);

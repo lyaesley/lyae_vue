@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -91,12 +93,16 @@ public class SoccerService {
 
 	public String api_soccer(HttpServletRequest req, Model model) {
 		
+		final String REGEX_TEAMS = "^(?i)(http|https)\\S+.(?i)(teams/)\\d{1,}$";
+		final String REGEX_TEAMSPLAYERS = "^(?i)(http|https)\\S+.(?i)(teams/)\\d{1,}(?i)(/players)$";
+		final String REGEX_TEAMSFIXTURES = "^(?i)(http|https)\\S+.(?i)(teams/)\\d{1,}(?i)(/fixtures)$";
+		
 		String url = req.getParameter("url");
 		if (url == null || "".equals(url)){
 			url=SEASONS;
 		}
 		
-		System.out.println("url : " + url);
+		log.info("url : " + url);
 		
 		WebResult<String> webResult = null;
 		
@@ -107,15 +113,15 @@ public class SoccerService {
 			ObjectMapper objectMapper = new ObjectMapper();
 			if (url.endsWith("leagueTable")) { //	http://api.football-data.org/v1/soccerseasons/444/leagueTable
 				//LeagueTable
-				log.info("leagueTable");
+				log.info("API CHECK URL : leagueTable");
 				String node =objectMapper.readTree(webResult.getData()).get("standing").toString();
 				List<LeagueTable> result = ConvUtil.toListClassByJsonObject(node,LeagueTable.class);
 				model.addAttribute("mapping", "leagueTable");
 				model.addAttribute("result", result);
-				System.out.println("leagueTable : " + result);
+				log.info("leagueTable : " + result);
 			} else if (url.equals(SEASONS)) { //	http://api.football-data.org/v1/soccerseasons
 				//SeasonsList
-				log.info("seasonsList");
+				log.info("API CHECK URL : seasonsList");
 				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(webResult.getData()); 
 				result.stream().forEach(map -> {
 					get_links(map);
@@ -129,31 +135,31 @@ public class SoccerService {
 				});
 				model.addAttribute("mapping", "seasonsList");
 				model.addAttribute("result", result);
-			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}$")) { //	http://api.football-data.org/v1/teams/81
+			} else if (url.matches(REGEX_TEAMS)) { //	http://api.football-data.org/v1/teams/81
 				// Teams
-				log.info("teams");
+				log.info("API CHECK URL : teams");
 				Map<String,Object> result = ConvUtil.toMapByJsonObject(webResult.getData());
 				get_links(result);
-				System.out.println(result);
-				model.addAttribute("mapping", "teamInfo");
+				log.info(result.toString());
+				model.addAttribute("mapping", "teamsInfo");
 				model.addAttribute("result", result);
-			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}(?i)(/players)$")) { //		http://api.football-data.org/v1/teams/81/players
+			} else if (url.matches(REGEX_TEAMSPLAYERS)) { //		http://api.football-data.org/v1/teams/81/players
 				// TeamPlayers
-				log.info("players");
+				log.info("API CHECK URL : teamsPlayers");
 				String node =objectMapper.readTree(webResult.getData()).get("players").toString();
 				List<TeamPlayers> result = ConvUtil.toListClassByJsonObject(node,TeamPlayers.class);
-//				List<Map<String, Object>> result =ConvUtil.toListByJsonObject(node); 
-				model.addAttribute("mapping", "players");
+				result = result.parallelStream().sorted(Comparator.comparing(TeamPlayers::getNumber)).collect(Collectors.toList());
+				model.addAttribute("mapping", "teamsPlayers");
 				model.addAttribute("result", result);
-				log.info("players : " + result);
-			} else if (url.matches("^(?i)(http)\\S+.(?i)(teams/)\\d{1,}(?i)(/fixtures)$")) { //		http://api.football-data.org/v1/teams/65/fixtures
+				log.info("teamsPlayers : " + result);
+			} else if (url.matches(REGEX_TEAMSFIXTURES)) { //		http://api.football-data.org/v1/teams/65/fixtures
 				// TeamFixtures
-				log.info("teams/fixtures");
+				log.info("API CHECK URL : teamsFixtures");
 				String node =objectMapper.readTree(webResult.getData()).get("fixtures").toString();
 				List<TeamFixtures> result = ConvUtil.toListClassByJsonObject(node,TeamFixtures.class);
-				model.addAttribute("mapping", "teams/fixtures");
+				model.addAttribute("mapping", "teamsFixtures");
 				model.addAttribute("result", result);
-				log.info("teams/fixtures : " + result);
+				log.info("teamsFixtures : " + result);
 				
 			} else {
 				log.info("default");
@@ -189,7 +195,7 @@ public class SoccerService {
 			url=SEASONS;
 		}
 		
-		System.out.println("url : " + url);
+		log.info("url : " + url);
 		
 		WebResult<String> result = null;
 		String jsonResult = "";
@@ -218,10 +224,10 @@ public class SoccerService {
 			ObjectMapper objectMapper = new ObjectMapper();
 			webResult = new WebUtil(new URL("http://api.football-data.org/v1/soccerseasons/445/leagueTable"), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
 			String node = objectMapper.readTree(webResult.getData()).get("standing").toString();
-			System.out.println("result : " + webResult.getData());
-			System.out.println("node : " + node);
-			System.out.println("이거 : "+ ConvUtil.toListClassByJsonObject(node,LeagueTable.class));
-//			System.out.println("저거 : "+ new ObjectMapper().readValue(node, new TypeReference<List<LeagueTable>>(){}));
+			log.info("result : " + webResult.getData());
+			log.info("node : " + node);
+			log.info("이거 : "+ ConvUtil.toListClassByJsonObject(node,LeagueTable.class));
+//			log.info("저거 : "+ new ObjectMapper().readValue(node, new TypeReference<List<LeagueTable>>(){}));
 			
 			
 //			list.stream().forEach(map -> {
@@ -237,7 +243,7 @@ public class SoccerService {
 //				
 //				map.remove("_links");
 //			});
-//			System.out.println("시즌리스트 2: " + leagueTable.toString());
+//			log.info("시즌리스트 2: " + leagueTable.toString());
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

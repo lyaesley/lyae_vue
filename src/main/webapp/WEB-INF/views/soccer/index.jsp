@@ -74,17 +74,20 @@
 <div class="content-wrapper">
 	<section class="content-header">
       <!-- search form -->
-        <div class="input-group sidebar-form">
+        <!-- <div class="input-group sidebar-form">
           <input type="text" name="q" id="query" class="form-control" placeholder="Search..." mode="enter" mode-func="page.find"/>
            <span class="input-group-btn">
              <button type="submit" name="search" id="search-btn" class="btn btn-flat" onclick="page.api();"><i class="fa fa-search"></i></button>
            </span>
-        </div>
+        </div> -->
       <!-- /.search form -->
 	</section>
 	<section class="content">
 	<!-- 검색 결과 테이블 -->
-	<c:set var="mapping" value="${mapping }"/>
+	<c:set var="table" value="${result}" scope="request"/>
+	<jsp:include page="/WEB-INF/views/soccer/${mapping}.jsp" />
+	
+	<%-- <c:set var="mapping" value="${mapping }"/>
 	<c:choose>
 		<c:when test="${mapping eq 'seasonsList' }">
 			<c:set var="table" value="${result}" scope="request"/>
@@ -106,7 +109,7 @@
 			<c:set var="table" value="${result}" scope="request"/>
 			<jsp:include page="/WEB-INF/views/soccer/teamFixtures.jsp" />	
 		</c:when>
-	</c:choose>
+	</c:choose> --%>
 	
 	 <!-- <table id="res-table" class="table table-hover table-condensed" style="display: none"></table> -->
 	 
