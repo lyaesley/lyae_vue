@@ -148,7 +148,8 @@ public class SoccerService {
 				log.info("API CHECK URL : teamsPlayers");
 				String node =objectMapper.readTree(webResult.getData()).get("players").toString();
 				List<TeamPlayers> result = ConvUtil.toListClassByJsonObject(node,TeamPlayers.class);
-				result = result.parallelStream().sorted(Comparator.comparing(TeamPlayers::getNumber)).collect(Collectors.toList());
+				result = result.parallelStream().sorted((a,b) -> a.getNumber()-b.getNumber()).collect(Collectors.toList());
+//				result = result.parallelStream().sorted(Comparator.comparing(TeamPlayers::getNumber)).collect(Collectors.toList());
 				model.addAttribute("mapping", "teamsPlayers");
 				model.addAttribute("result", result);
 				log.info("teamsPlayers : " + result);
