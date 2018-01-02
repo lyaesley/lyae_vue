@@ -26,7 +26,7 @@ public @interface Menu {
 	/**
 	 *  font awesome 아이폰
 	 */
-	String faicon() default "fa-circle-o";
+	String faicon() default "fa-minus";
 	/**
 	 * 메뉴 정렬 순서
 	 * 기본값 0, 오름차순 정렬

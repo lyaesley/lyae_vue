@@ -8,4 +8,8 @@ import com.lyae.dao.BoardDao;
 @Service
 public class BoardService {
 	@Autowired BoardDao boardDao;
+	
+	public void abc()	{
+		System.out.println("테스트 실행");
+	}
 }

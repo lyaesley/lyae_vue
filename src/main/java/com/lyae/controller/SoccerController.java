@@ -19,7 +19,7 @@ public class SoccerController {
 	
 	@Autowired SoccerService soccerService;
 	
-	@Menu(name="해외축구 정보", desc="해외축구 정보", order=20)
+	@Menu(name="해외축구 정보", desc="해외축구 정보", order=20, faicon="fa-futbol-o")
 	@RequestMapping("/list")
 	public String soccer(HttpServletRequest req, Model model) {
 		soccerService.api_soccer(req, model);
