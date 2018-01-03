@@ -32,9 +32,8 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
          <!-- 사진첩 시작-->
-        11${_menu}22
         <c:forEach var="node"  items="${_menu}" varStatus="loop">
-        	${node.name }
+        	1 ${node.name } 2
         </c:forEach>
 			<%-- <c:forEach var="node"  items="${_menu}" varStatus="loop">
 					<li class="active treeview">

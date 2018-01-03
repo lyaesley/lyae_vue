@@ -29,26 +29,29 @@ import lombok.Getter;
 public class MenuService {
 	
 	@Getter
-	List<MenuGroup> menuGroups;
+//	List<MenuGroup> menuGroups;
+	MenuGroup[] menuGroups;
 	
 	public MenuService() {
 		createMenu();
 	}
 	
 	void createMenu() {
-//		this.menuGroups.add(menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"));
-//		this.menuGroups.add(menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"));
-//		this.menuGroups.add(menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"));
-//		this.menuGroups.add(menu(SoccerController.class, "축구", "축구 정보", "fa fa-credit-card"));
-//		this.menuGroups.add(menu(TestController.class, "Test", "Test", "fa fa-credit-card"));
+//		menuGroups = new ArrayList<MenuGroup>();
+//		menuGroups.add(menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"));
+//		menuGroups.add(menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"));
+//		menuGroups.add(menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"));
+//		menuGroups.add(menu(SoccerController.class, "축구", "축구 정보", "fa fa-credit-card"));
+//		menuGroups.add(menu(TestController.class, "Test", "Test", "fa fa-credit-card"));
 		
-//		MenuGroup[] menuGroup = {
-//			menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"),
-//			menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"),
-//			menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"),
-//			menu(SoccerController.class, "축구", "축구 정보", "fa fa-credit-card"),
-//			menu(TestController.class, "Test", "Test", "fa fa-credit-card")
-//		};
+		MenuGroup[] menuGroup = {
+			menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"),
+			menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"),
+			menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"),
+			menu(SoccerController.class, "축구", "축구 정보", "fa fa-credit-card"),
+			menu(TestController.class, "Test", "Test", "fa fa-credit-card")
+		};
+		this.menuGroups = menuGroup;
 	}
 	
 	// 일단 전부 리턴
@@ -116,7 +119,7 @@ public class MenuService {
 		return menu;
 	}
 	@Data
-	static class MenuGroup {
+	public static class MenuGroup {
 		Class<?> clazz;
 		String purl;
 		String code;
@@ -127,7 +130,7 @@ public class MenuService {
 	}
 	
 	@Data
-	static class MenuItem {
+	public static class MenuItem {
 		String name;
 		String desc;
 		String url;
