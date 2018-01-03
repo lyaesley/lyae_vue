@@ -32,30 +32,24 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
          <!-- 사진첩 시작-->
-        
-				<c:forEach var="node"  items="${_menu}" varStatus="loop">
-				<c:choose>
-					<c:when test="${node.url eq _path}">
+        11${_menu}22
+        <c:forEach var="node"  items="${_menu}" varStatus="loop">
+        	${node.name }
+        </c:forEach>
+			<%-- <c:forEach var="node"  items="${_menu}" varStatus="loop">
 					<li class="active treeview">
-						<a href="${node.url}" title="${node.desc}"><i class="${node.faicon }"></i>${node.name}
-							<span class="pull-right-container">
-							<i class="fa fa-angle-left pull-right"></i>
-							</span>
+						<a href="#">
+							<i class="${node.icon}"></i>
+							<span>${node.name }</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 						</a>
-							<c:if test="${not empty subMenu }">
-								<ul class="treeview-menu">
-									<c:forEach var="sub" items="${subMenu }">
-										<li><a href="${node.url}?sub=${sub}" title="${node.name}"><i class="${node.faicon }"></i>${sub}</a></li>
-									</c:forEach>
-								</ul>
-							</c:if>
+						<ul class="treeview-menu">
+							<c:forEach var="sub" items="${item }">
+								<li><a href="${sub.url}?sub=${sub}" title="${sub.name}"><i class="${sub.icon }"></i>${sub}</a></li>
+							</c:forEach>
+						</ul>
 					</li>
-					</c:when>
-					<c:otherwise>
-							<li><a href="${node.url}" title="${node.desc}"><i class="${node.faicon }"></i>${node.name}</a></li>
-					</c:otherwise>
-				</c:choose>
-				</c:forEach>
+				</c:forEach> --%>
         <!-- 사진첩 끝 -->
         <li class="treeview">
           <a href="#">

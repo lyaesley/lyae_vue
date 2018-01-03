@@ -15,12 +15,12 @@ public class TestController {
 	
 	@Value("${path.controller}") String path;
 	
-	@RequestMapping("/hello")
+	@GetMapping("/hello")
 	public String hello(){
 		return "hello world"+path;
 	}
 	
-	@RequestMapping("/demo/index")
+	@GetMapping("/demo/index")
 	public String bootstrapDemo(){
 		return "demo/index";
 	}

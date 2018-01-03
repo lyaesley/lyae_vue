@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,8 +22,8 @@ public class MovieController {
 	@Autowired
 	MovieService movieService;
 		
-	@Menu(name="영화검색", desc="영화정보 검색", faicon="fa-video-camera", order=10)
-	@RequestMapping("/list")
+	@Menu(name="영화검색", desc="영화정보 검색", icon="fa-video-camera", order=10)
+	@GetMapping("/list")
 	public String movieSearch(HttpServletRequest req, Model model){
 //		movieService.search(req, model);
 		movieService.apiSearch(req, model);

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,8 +20,8 @@ public class SoccerController {
 	
 	@Autowired SoccerService soccerService;
 	
-	@Menu(name="해외축구 정보", desc="해외축구 정보", order=20, faicon="fa-futbol-o")
-	@RequestMapping("/list")
+	@Menu(name="해외축구 정보", desc="해외축구 정보", order=20, icon="fa-futbol-o")
+	@GetMapping("/list")
 	public String soccer(HttpServletRequest req, Model model) {
 		soccerService.api_soccer(req, model);
 		return "soccer/index";

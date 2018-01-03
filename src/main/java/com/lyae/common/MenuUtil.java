@@ -52,7 +52,7 @@ public class MenuUtil {
 					if (menu != null) {
 						String name = menu.name();
 						String desc = menu.desc();
-						String faicon = menu.faicon();
+						String faicon = menu.icon();
 						int order = menu.order();
 						if (name != null && !"".equals(name.trim())) {
 							//Controller 의 RequestMapping 가져옴.
