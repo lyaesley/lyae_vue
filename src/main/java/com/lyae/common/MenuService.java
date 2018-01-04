@@ -70,7 +70,6 @@ public class MenuService {
 //		}
 		
 	MenuGroup menu(Class<?> clazz, String name, String desc, String icon) {
-		System.out.println("test");
 		MenuGroup menu = new MenuGroup();
 		String prePath = "";
 		

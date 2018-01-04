@@ -33,7 +33,18 @@
         <li class="header">MAIN NAVIGATION</li>
          <!-- 사진첩 시작-->
         <c:forEach var="node"  items="${_menu}" varStatus="loop">
-        	1 ${node.name } 2
+        	<li class="treeview">
+        	 <a href="#">
+				<i class="${node.icon}"></i>
+				<span>${node.name }</span>
+				<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			</a>
+				<ul class="treeview-menu">
+					<c:forEach var="sub" items="${item }">
+						<li><a href="${sub.url}?sub=${sub}" title="${sub.name}"><i class="${sub.icon }"></i>${sub}</a></li>
+					</c:forEach>
+				</ul>
+			</li>	
         </c:forEach>
 			<%-- <c:forEach var="node"  items="${_menu}" varStatus="loop">
 					<li class="active treeview">
