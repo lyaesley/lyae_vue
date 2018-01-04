@@ -1,4 +1,4 @@
-package com.lyae.common;
+package com.lyae.menu;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -45,11 +45,11 @@ public class MenuService {
 //		menuGroups.add(menu(TestController.class, "Test", "Test", "fa fa-credit-card"));
 		
 		MenuGroup[] menuGroup = {
-			menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"),
-			menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"),
-			menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"),
-			menu(SoccerController.class, "축구", "축구 정보", "fa fa-credit-card"),
-			menu(TestController.class, "Test", "Test", "fa fa-credit-card")
+			menu(BoardController.class),
+			menu(ImageBoardController.class),
+			menu(MovieController.class),
+			menu(SoccerController.class),
+			menu(TestController.class)
 		};
 		this.menuGroups = menuGroup;
 	}
@@ -69,32 +69,32 @@ public class MenuService {
 //			return new MenuGroup[0];
 //		}
 		
-	MenuGroup menu(Class<?> clazz, String name, String desc, String icon) {
+	MenuGroup menu(Class<?> clazz) {
 		MenuGroup menu = new MenuGroup();
 		String prePath = "";
 		
 		RequestMapping rmap = clazz.getAnnotation(RequestMapping.class);
+		Menu menuInfo = clazz.getAnnotation(Menu.class);
 		if (rmap != null && rmap.value().length > 0) {
 			prePath = rmap.value()[0];
 		}
 		
 		menu.setClazz(clazz);
-		menu.setCode(clazz.getSimpleName().replace("Controller", "").replaceAll("([A-Z]{1})", "_$1").substring(1).toLowerCase());
-		menu.setName(name);
-		menu.setDesc(desc);
-		menu.setIcon(icon);
+		menu.setName(menuInfo.name());
+		menu.setDesc(menuInfo.desc());
+		menu.setIcon(menuInfo.icon());
 		menu.setPurl(prePath);
 		
 		List<MenuItem> list = new ArrayList<MenuItem>();
 		
 		for (Method method : clazz.getDeclaredMethods()) {
 			method.setAccessible(true);
-			Menu devoMenu = method.getAnnotation(Menu.class);			
-			if (devoMenu != null) {
-				String iname = devoMenu.name();
-				String idesc = devoMenu.desc();
-				int iorder = devoMenu.order();
-				String iicon = devoMenu.icon();
+			Menu subMenu = method.getAnnotation(Menu.class);			
+			if (subMenu != null) {
+				String iname = subMenu.name();
+				String idesc = subMenu.desc();
+				int iorder = subMenu.order();
+				String iicon = subMenu.icon();
 				if (iname != null && !iname.trim().equals("")) {
 					GetMapping map = method.getAnnotation(GetMapping.class);
 					if (map != null) {
@@ -121,7 +121,6 @@ public class MenuService {
 	public static class MenuGroup {
 		Class<?> clazz;
 		String purl;
-		String code;
 		String name;
 		String desc;
 		String icon;

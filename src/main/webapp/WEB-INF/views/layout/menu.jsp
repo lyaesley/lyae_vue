@@ -3,6 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script>
+	var page = {
+		init : function() {
+			
+			// 선택된 subMenu 가 있을시 상위메뉴 활성화
+			$('li.active').closest('li.treeview').addClass('active menu-open');
+		}
+	};
+	
+	$(page.init);
+</script>
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -31,20 +42,39 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-         <!-- 사진첩 시작-->
+         <!-- @메뉴 작업시작-->
         <c:forEach var="node"  items="${_menu}" varStatus="loop">
-        	<li class="treeview">
-        	 <a href="#">
-				<i class="${node.icon}"></i>
-				<span>${node.name }</span>
-				<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-			</a>
-				<ul class="treeview-menu">
-					<c:forEach var="sub" items="${item }">
-						<li><a href="${sub.url}?sub=${sub}" title="${sub.name}"><i class="${sub.icon }"></i>${sub}</a></li>
-					</c:forEach>
-				</ul>
-			</li>	
+        	<c:choose>
+        		<c:when test="${not empty node.item }">
+        			<li class="treeview">
+		        	 <a href="#">
+						<i class="${node.icon}"></i>
+						<span>${node.name }</span>
+						<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+					</a>
+						<ul class="treeview-menu">
+							<c:forEach var="sub" items="${node.item }">
+								<c:choose>
+									<c:when test="${sub.url eq _path }">
+										<li class="active"><a href="${sub.url}" title="${sub.name}"><i class="${sub.icon }"></i>${sub.name}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="${sub.url}" title="${sub.name}"><i class="${sub.icon }"></i>${sub.name}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</ul>
+					</li>	
+        		</c:when>
+				<c:otherwise>
+		        	<li>
+		        	 <a href="${node.purl }">
+						<i class="${node.icon}"></i>
+						<span>${node.name }</span>
+					</a>
+					</li>
+        		</c:otherwise>
+        	</c:choose>
         </c:forEach>
 			<%-- <c:forEach var="node"  items="${_menu}" varStatus="loop">
 					<li class="active treeview">
@@ -60,7 +90,7 @@
 						</ul>
 					</li>
 				</c:forEach> --%>
-        <!-- 사진첩 끝 -->
+        <!-- @메뉴 작업 끝 -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>

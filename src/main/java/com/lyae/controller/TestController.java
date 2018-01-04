@@ -6,14 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lyae.common.Menu;
+import com.lyae.menu.Menu;
 
 //@RestController
-//@RequestMapping("/test")
+@RequestMapping("/")
 @Controller
+@Menu(name="Test", desc="Test")
 public class TestController {
 	
 	@Value("${path.controller}") String path;
+	
+	@GetMapping("")
+	public String index(){
+		return "index";
+	}
 	
 	@GetMapping("/hello")
 	public String hello(){

@@ -9,18 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lyae.common.Menu;
+import com.lyae.menu.Menu;
 import com.lyae.service.SoccerService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller @Slf4j 
 @RequestMapping("/soccer")
+@Menu(name="축구", desc="해외축구 정보", icon="fa fa-futbol-o")
 public class SoccerController {
 	
 	@Autowired SoccerService soccerService;
 	
-	@Menu(name="해외축구 정보", desc="해외축구 정보", order=20, icon="fa-futbol-o")
+	@Menu(name="해외축구 정보", desc="해외축구 정보", order=1)
 	@GetMapping("/list")
 	public String soccer(HttpServletRequest req, Model model) {
 		soccerService.api_soccer(req, model);

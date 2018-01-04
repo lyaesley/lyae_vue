@@ -11,18 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lyae.common.Menu;
+import com.lyae.menu.Menu;
 import com.lyae.service.MovieService;
 import com.lyae.util.ConvUtil;
 
 @Controller
 @RequestMapping("/movie")
+@Menu(name="영화", desc="영화정보 검색", icon="fa fa-video-camera")
 public class MovieController {
 	
 	@Autowired
 	MovieService movieService;
 		
-	@Menu(name="영화검색", desc="영화정보 검색", icon="fa-video-camera", order=10)
+	@Menu(name="영화검색", desc="영화정보 검색", order=10)
 	@GetMapping("/list")
 	public String movieSearch(HttpServletRequest req, Model model){
 //		movieService.search(req, model);

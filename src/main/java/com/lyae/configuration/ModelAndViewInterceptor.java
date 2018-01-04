@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.lyae.common.MenuService;
+import com.lyae.menu.MenuService;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;

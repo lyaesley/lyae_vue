@@ -12,7 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.lyae.common.MenuUtil;
+import com.lyae.menu.MenuUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

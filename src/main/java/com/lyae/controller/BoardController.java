@@ -6,11 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lyae.common.Menu;
+import com.lyae.menu.Menu;
 import com.lyae.service.BoardService;
 
 @Controller
 @RequestMapping("/board")
+@Menu(name="게시판", desc="게시판 리스트", icon="fa fa-pencil")
 public class BoardController {
 	@Autowired BoardService boardService;
 	
