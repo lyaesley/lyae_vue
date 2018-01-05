@@ -3,6 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script>
+	var page = {
+		init : function() {
+			
+			// 선택된 subMenu 가 있을시 상위메뉴 활성화
+			$('li.active').closest('li.treeview').addClass('active menu-open');
+		}
+	};
+	
+	$(page.init);
+</script>
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -10,7 +21,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="/dist/img/avatar_profile.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Jun-Young Lee</p>
@@ -31,32 +42,55 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-         <!-- 사진첩 시작-->
-        
-				<c:forEach var="node"  items="${_menu}" varStatus="loop">
-				<c:choose>
-					<c:when test="${node.url eq _path}">
-					<li class="active treeview">
-						<a href="${node.url}" title="${node.desc}"><i class="${node.faicon }"></i>${node.name}
-							<span class="pull-right-container">
-							<i class="fa fa-angle-left pull-right"></i>
-							</span>
-						</a>
-							<c:if test="${not empty subMenu }">
-								<ul class="treeview-menu">
-									<c:forEach var="sub" items="${subMenu }">
-										<li><a href="${node.url}?sub=${sub}" title="${node.name}"><i class="${node.faicon }"></i>${sub}</a></li>
-									</c:forEach>
-								</ul>
-							</c:if>
+         <!-- @메뉴 작업시작-->
+        <c:forEach var="node"  items="${_menu}" varStatus="loop">
+        	<c:choose>
+        		<c:when test="${not empty node.item }">
+        			<li class="treeview">
+		        	 <a href="#">
+						<i class="${node.icon}"></i>
+						<span>${node.name }</span>
+						<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+					</a>
+						<ul class="treeview-menu">
+							<c:forEach var="sub" items="${node.item }">
+								<c:choose>
+									<c:when test="${sub.url eq _path }">
+										<li class="active"><a href="${sub.url}" title="${sub.name}"><i class="${sub.icon }"></i>${sub.name}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="${sub.url}" title="${sub.name}"><i class="${sub.icon }"></i>${sub.name}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</ul>
+					</li>	
+        		</c:when>
+				<c:otherwise>
+		        	<li>
+		        	 <a href="${node.purl }">
+						<i class="${node.icon}"></i>
+						<span>${node.name }</span>
+					</a>
 					</li>
-					</c:when>
-					<c:otherwise>
-							<li><a href="${node.url}" title="${node.desc}"><i class="${node.faicon }"></i>${node.name}</a></li>
-					</c:otherwise>
-				</c:choose>
-				</c:forEach>
-        <!-- 사진첩 끝 -->
+        		</c:otherwise>
+        	</c:choose>
+        </c:forEach>
+			<%-- <c:forEach var="node"  items="${_menu}" varStatus="loop">
+					<li class="active treeview">
+						<a href="#">
+							<i class="${node.icon}"></i>
+							<span>${node.name }</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+						</a>
+						<ul class="treeview-menu">
+							<c:forEach var="sub" items="${item }">
+								<li><a href="${sub.url}?sub=${sub}" title="${sub.name}"><i class="${sub.icon }"></i>${sub}</a></li>
+							</c:forEach>
+						</ul>
+					</li>
+				</c:forEach> --%>
+        <!-- @메뉴 작업 끝 -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>

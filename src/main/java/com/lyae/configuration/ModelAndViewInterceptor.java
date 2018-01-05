@@ -58,8 +58,8 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	}
 	
 	void Vars(ModelAndView mav, String path){
-//		mav.addObject("_menu", menuService.getMenu());
+		mav.addObject("_menu", menuService.getMenuGroups());
 //		mav.addObject("_title", menuService.getMenuTitle(path));
-//		mav.addObject("_path", path);
+		mav.addObject("_path", path);
 	}
 }
