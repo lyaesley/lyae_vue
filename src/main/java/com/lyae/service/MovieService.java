@@ -57,10 +57,10 @@ public class MovieService {
 		
 		model.addAttribute("query", query);
 		
-		WebResult<String> result;
+		WebResult<Map<String, Object>> result;
 			try {
-				result = new WebUtil(new URL(SEND_URL), CHARSET).setHeader("X-Naver-Client-Id",CLIENT_ID).setHeader("X-Naver-Client-Secret", CLIENT_SECRET).addParam("query", query).get();
-				model.addAttribute("result", ConvUtil.toMapByJsonObject(result.getData()));
+				result = new WebUtil(new URL(SEND_URL), CHARSET).setHeader("X-Naver-Client-Id",CLIENT_ID).setHeader("X-Naver-Client-Secret", CLIENT_SECRET).addParam("query", query).getJsonMap();
+				model.addAttribute("result", result.getData());
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

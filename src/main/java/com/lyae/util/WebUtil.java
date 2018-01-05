@@ -8,17 +8,19 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.springframework.web.context.request.WebRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 웹 유틸입니다.
@@ -32,6 +34,8 @@ public class WebUtil {
 	final int bufsize = 1024;
 	final Map<String, String> header = new HashMap<>();
 	final StringBuilder param = new StringBuilder(bufsize);
+	int connectTimeout;
+	int readTimeout;
 	
 	/**
 	 * 
@@ -51,6 +55,16 @@ public class WebUtil {
 	 */
 	public WebUtil setHeader(String key, String val) {
 		header.put(key, val);
+		return this;
+	}
+	
+	public WebUtil setConnectTimeout(int connectTimeout) {
+		this.connectTimeout = connectTimeout;
+		return this;
+	}
+	
+	public WebUtil setReadTimeout(int readTimeout) {
+		this.readTimeout = readTimeout;
 		return this;
 	}
 	
@@ -100,8 +114,7 @@ public class WebUtil {
 		
 		HttpURLConnection conn = null;
 		try {
-			conn = (HttpURLConnection)url.openConnection();
-			setHeader(conn);
+			conn = open();
 			
 			res.setData(toResultData(conn.getInputStream()));
 			
@@ -116,6 +129,44 @@ public class WebUtil {
 		}
 		
 		return res;
+	}
+	
+	public WebResult<Map<String, Object>> getJsonMap() {
+		WebResult<String> json = get();
+		WebResult<Map<String, Object>> rv = new WebResult<>();
+		rv.setStatus(json.getStatus());
+		rv.setMessage(json.getMessage());
+		String data = json.getData();
+		if (data != null && data.length() > 2) {
+			try {
+				rv.setData(ConvUtil.toMapByJsonObject(data));
+			} catch (Exception e) {
+				rv.setStatus(-1);
+				rv.setMessage("json 형태의 데이터가 아닙니다. 원본 : " + data);
+			}
+		} else {
+			rv.setData(null);
+		}
+		return rv;
+	}
+	
+	public WebResult<List<Map<String, Object>>> getJsonArray() {
+		WebResult<String> json = get();
+		WebResult<List<Map<String, Object>>> rv = new WebResult<>();
+		rv.setStatus(json.getStatus());
+		rv.setMessage(json.getMessage());
+		String data = json.getData();
+		if (data != null && data.length() > 2) {
+			try {
+				rv.setData(ConvUtil.toListByJsonObject(data));
+			} catch (Exception e) {
+				rv.setStatus(-1);
+				rv.setMessage("json 형태의 데이터가 아닙니다. 원본 : " + data);
+			}
+		} else {
+			rv.setData(null);
+		}
+		return rv;
 	}
 	
 	/**
@@ -138,9 +189,7 @@ public class WebUtil {
 		
 		HttpURLConnection conn = null;
 		try {
-			conn = (HttpURLConnection)url.openConnection();
-			conn.setDoOutput(true);
-			setHeader(conn);
+			(conn = open()).setDoOutput(true);			
 			
 			try (OutputStream os = conn.getOutputStream() ; OutputStreamWriter osw = new OutputStreamWriter(os, charset)) {
 				post.post(os, osw);
@@ -167,14 +216,6 @@ public class WebUtil {
 	
 	/**
 	 * 
-	 * @param conn
-	 */
-	void setHeader(HttpURLConnection conn) {
-		header.forEach((k, v) -> { if (v != null) {conn.addRequestProperty(k, v);} } );
-	}
-	
-	/**
-	 * 
 	 * @param is
 	 * @return
 	 * @throws Exception
@@ -191,6 +232,18 @@ public class WebUtil {
 			throw e;
 		}
 		return sb.toString();
+	}
+	
+	public HttpURLConnection open() throws IOException {
+		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		header.forEach((k, v) -> { if (v != null) {conn.addRequestProperty(k, v);} } );
+		if (connectTimeout > 0) {
+			conn.setConnectTimeout(connectTimeout);
+		}
+		if (readTimeout > 0) {
+			conn.setReadTimeout(readTimeout);
+		}
+		return conn;
 	}
 	
 	/**
@@ -216,8 +269,6 @@ public class WebUtil {
 			return status == 200;
 		}
 	}
-	
-	
 	
 	public static void main(String[] args) throws MalformedURLException {
 		String cs = "UTF-8";

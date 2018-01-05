@@ -44,10 +44,10 @@ public class SoccerService {
 	
 	public String seasonsList(HttpServletRequest req, Model model) {
 		
-		WebResult<String> result = null;
+		WebResult<List<Map<String,Object>>> result = null;
 		try {
-			result = new WebUtil(new URL(SEASONS), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).get();
-			List<Map<String, Object>> list =ConvUtil.toListByJsonObject(result.getData()); 
+			result = new WebUtil(new URL(SEASONS), UTF8 ).setHeader("X-Auth-Token", SOCCER_KEY).getJsonArray();
+			List<Map<String, Object>> list =result.getData(); 
 			list.stream().forEach(map -> {
 //				map.put("리그테이블", new Picker(map).get("_links").get("leagueTable").get("href").toString() );
 //				map.put("경기기록", new Picker(map).get("_links").get("fixtures").get("href").toString() );
