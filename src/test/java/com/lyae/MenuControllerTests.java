@@ -12,13 +12,14 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.lyae.common.MenuUtil;
+import com.lyae.menu.MenuService;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MenuControllerTests {
 	
-	@Autowired MenuUtil menuUtil;
+	@Autowired MenuService menuService;
 //	static List<String> PATH;
 	
 //	@Value("#{'${path.controller}'.split(',')}")
@@ -30,8 +31,7 @@ public class MenuControllerTests {
 	public void test() {
 //		ReflectionTestUtils.setField(menuUtil, "PATH", PATH);
 		
-		System.out.println(menuUtil.getMenuList().size());
-		menuUtil.test();
+		System.out.println(menuService.getMenuGroups());
 	}
 	
 }

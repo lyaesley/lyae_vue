@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lyae.common.MenuUtil;
-import com.lyae.common.MenuUtil.Menuu;
+import com.lyae.menu.MenuUtil;
+import com.lyae.menu.MenuUtil.Menuu;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class MenuService {
+public class MenuService_back {
 	
 	@Autowired MenuUtil menuUtil;
 	List<Menuu> Menuu;

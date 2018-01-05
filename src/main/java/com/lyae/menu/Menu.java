@@ -1,4 +1,4 @@
-package com.lyae.common;
+package com.lyae.menu;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Menu {
@@ -26,7 +26,7 @@ public @interface Menu {
 	/**
 	 *  font awesome 아이폰
 	 */
-	String faicon() default "fa-minus";
+	String icon() default "fa fa-minus";
 	/**
 	 * 메뉴 정렬 순서
 	 * 기본값 0, 오름차순 정렬
