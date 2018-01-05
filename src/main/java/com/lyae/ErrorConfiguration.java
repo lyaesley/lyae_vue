@@ -1,4 +1,4 @@
-package com.lyae.configuration;
+package com.lyae;
 
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;

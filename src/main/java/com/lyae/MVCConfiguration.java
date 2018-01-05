@@ -1,4 +1,4 @@
-package com.lyae.configuration;
+package com.lyae;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
