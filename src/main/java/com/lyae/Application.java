@@ -13,7 +13,7 @@ import com.lyae.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
 @PropertySource("classpath:config.properties")
 public class Application implements CommandLineRunner{
 

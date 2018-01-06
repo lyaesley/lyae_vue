@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lyae.dao.SoccerDao;
 import com.lyae.menu.Menu;
 import com.lyae.service.SoccerService;
 
@@ -20,11 +21,19 @@ import lombok.extern.slf4j.Slf4j;
 public class SoccerController {
 	
 	@Autowired SoccerService soccerService;
+	@Autowired SoccerDao soccerDao;
 	
 	@Menu(name="해외축구 정보", desc="해외축구 정보", order=1)
 	@GetMapping("/list")
 	public String soccer(HttpServletRequest req, Model model) {
 		soccerService.api_soccer(req, model);
+		return "soccer/index";
+	}
+	
+	@Menu(name="축구테스트", desc="해외축구 정보", order=2)
+	@GetMapping("/test")
+	public String test(HttpServletRequest req, Model model) {
+		soccerService.test(req, model);
 		return "soccer/index";
 	}
 	

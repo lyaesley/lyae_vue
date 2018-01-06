@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lyae.dao.SoccerDao;
 import com.lyae.model.LeagueTable;
 import com.lyae.model.TeamFixtures;
 import com.lyae.model.TeamPlayers;
@@ -37,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service @Slf4j
 public class SoccerService {
+	@Autowired SoccerDao soccerDao;
 	
 	@Value("${api.soccer}") private String SEASONS;
 	@Value("${api.soccer.key}") private String SOCCER_KEY;
@@ -255,6 +258,15 @@ public class SoccerService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+
+	public void test(HttpServletRequest req, Model model) {
+		// TODO Auto-generated method stub
+		model.addAttribute("result", soccerDao.test());
+		model.addAttribute("mapping", "seasonsList");
+		
 		
 	}
 }
