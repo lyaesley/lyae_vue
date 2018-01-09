@@ -23,14 +23,21 @@ public class MovieController {
 	@Autowired
 	MovieService movieService;
 		
-	@Menu(name="영화검색", desc="영화정보 검색", order=10)
+	@Menu(name="영화검색", desc="영화정보 검색", order=1)
 	@GetMapping("/list")
-	public String movieSearch(HttpServletRequest req, Model model){
+	public String movieSearch(HttpServletRequest req, Model model) {
 //		movieService.search(req, model);
 		movieService.apiSearch(req, model);
 		return "movie/list";
 	}
 	
+	@Menu(name="박스오피스", desc="일별 박스오피스", order=2 )
+	@GetMapping("/boxOffice")
+	public String movieBoxOffice(HttpServletRequest req, Model model) {
+		
+		movieService.boxOffice(req, model);
+		return "movie/boxOffice";
+	}
 	
 	// ================================
 	// - 아래는 API 입니다.

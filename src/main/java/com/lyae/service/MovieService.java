@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,15 +32,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MovieService {
 
-	@Value("${naver.movie.clientId}")
-	private String CLIENT_ID;
-	
-	@Value("${naver.movie.clientSecret}")
-	private String CLIENT_SECRET;
-	
-	@Value("${naver.movie.sendUrl}")
-	private String SEND_URL; 
-	
+	@Value("${naver.movie.clientId}")	private String CLIENT_ID;
+	@Value("${naver.movie.clientSecret}") private String CLIENT_SECRET;
+	@Value("${naver.movie.sendUrl}") private String SEND_URL; 
+	@Value("${movie.kobis.key}") private String KOBIS_KEY;
+	@Value("${movie.kobis.boxOffice.daily}") private String BOXOFFICE_DAILY;
 	public final static String CHARSET = "UTF-8";
 	
 	public void search(HttpServletRequest req, Model model) {
@@ -68,6 +65,25 @@ public class MovieService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+	}
+	
+	public void boxOffice(HttpServletRequest req, Model model) {
+		String date = req.getParameter("date");
+		if (date ==null || "".equals(date)) {
+			date = ConvUtil.toYMD(new Date());
+		}
+		
+		WebResult<Map<String, Object>> result;
+		
+		try {
+			result = new WebUtil(new URL(BOXOFFICE_DAILY), CHARSET).addParam("key", KOBIS_KEY).addParam("targetDt", "20180108").getJsonMap();
+			log.info("boxOffice : " + result.getData());
+			model.addAttribute("result", result.getData());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			
 	}
 	
@@ -143,6 +159,5 @@ public class MovieService {
 		}
 		
 	}
-	
 
 }
