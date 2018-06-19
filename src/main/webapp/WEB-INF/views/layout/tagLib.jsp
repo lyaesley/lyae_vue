@@ -76,3 +76,5 @@
 <script src="/dist/js/demo.js"></script>
 <!-- Custom -->
 <script src="/js/public.js"></script>
+<!-- Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
