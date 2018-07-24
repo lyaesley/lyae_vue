@@ -46,7 +46,7 @@
 	<section class="content">
 	<!-- 영화 검색 결과 테이블 -->
 	<c:set var="table" value="${result}" scope="request"/>
-	<jsp:include page="/WEB-INF/views/movie/table.jsp" /> 
+	<jsp:include page="/WEB-INF/views/movie/table.jsp" />
 	</section>
 </div>
 <!-- content -->
