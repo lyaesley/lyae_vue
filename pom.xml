@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lyae</groupId>
-	<artifactId>lyae</artifactId>
+	<artifactId>lyae_vue</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
-	<name>lyae</name>
+	<name>lyae_vue</name>
 	<description>project for Spring Boot</description>
 
 	<parent>
