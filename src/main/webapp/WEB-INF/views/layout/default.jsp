@@ -10,17 +10,29 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="author" content="">
 <title>${_title}</title>
 		<tiles:insertAttribute name="taglib" />
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-	<div class="wrapper">
-	    <tiles:insertAttribute name="header" />
-	    <tiles:insertAttribute name="menu" />
+<body id="page-top">
+	    <tiles:insertAttribute name="nav" />
+<div id="wrapper">
+	    <tiles:insertAttribute name="side" />
+ <div id="content-wrapper">
+  <div class="container-fluid">
 	    <tiles:insertAttribute name="main" />
-	    <tiles:insertAttribute name="footer" />
-	    <tiles:insertAttribute name="right" />
- 	</div>
+  </div> <!-- /.container-fluid -->
+		<tiles:insertAttribute name="footer" />	    	
+ </div> <!-- /.content-wrapper -->
+</div><!-- /#wrapper -->
+	
+	<!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
+	<!-- Custom scripts for all pages-->
+	<script src="/js/sb-admin.min.js"></script>
 </body>
 </html>

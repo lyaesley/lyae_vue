@@ -8,17 +8,18 @@
 </head>
 <body>
 <form id="formdata" action="" method="get">
-<!-- wrap -->
-<div id="wrap">
 <!-- header -->
-<header id="header">
-	<!-- inner -->
+<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/layout/menu.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/layout/right.jsp"></jsp:include>		
+<!-- <header id="header">
+	inner
 	<div class="inner">
 		<p class="logo">logo</p>
 		<h1 class="h1-tit">LyAE's <strong>Home</strong></h1>
 	</div>
-	<!-- // inner -->
-</header>
+	// inner
+</header> -->
 <!-- // header -->
 
 <!-- container -->

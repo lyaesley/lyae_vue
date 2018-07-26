@@ -8,8 +8,6 @@
 		<p class="copy">COPYRIGHT 2018 LYAE. ALL RIGHTS RESERVED</p>
 	</footer>
 	<!-- // footer -->
-</div>
-<!-- // wrap -->
 </form>
 <div id="outdata">
 </div>

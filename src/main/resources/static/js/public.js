@@ -381,7 +381,7 @@ var utilv = {
 		[ 'ㅛ' ], [ 'ㅜ' ], [ 'ㅜㅓ' ], [ 'ㅜㅔ' ], [ 'ㅜㅣ' ], [ 'ㅠ' ], [ 'ㅡ' ], [ 'ㅡㅣ' ], [ 'ㅣ' ]
 	]
 };
-
+/*
 // 제이쿼리 달력 한글 설정
 $.datepicker.setDefaults({
 	dateFormat : 'yy-mm-dd',
@@ -398,7 +398,7 @@ $.datepicker.setDefaults({
 	showMonthAfterYear : true,
 	yearSuffix : '년'
 });
-
+*/
 // 브라우저 호환성 영역
 if (window.ActiveXObject) {
 	if (!document.addEventListener) {

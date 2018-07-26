@@ -3,10 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b><a href="#/">Lyae</a></b> 1.0
+
+<!-- <footer class="main-footer">
+   <div class="pull-right hidden-xs">
+     <b><a href="#/">Lyae</a></b> 1.0
+   </div>
+   <strong>Copyright &copy; <a href="#">Lyae</a>.</strong> All rights
+   reserved.
+</footer> -->
+ 
+ 
+<!-- Sticky Footer -->
+<footer class="sticky-footer">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright © LyAE 2018</span>
     </div>
-    <strong>Copyright &copy; <a href="#">Lyae</a>.</strong> All rights
-    reserved.
- </footer>
+  </div>
+</footer>

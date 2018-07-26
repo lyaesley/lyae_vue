@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
-	var page = {
+	var menu = {
 		init : function() {
 			
 			// 선택된 subMenu 가 있을시 상위메뉴 활성화
@@ -12,7 +12,7 @@
 		}
 	};
 	
-	$(page.init);
+	$(menu.init);
 </script>
 
 <aside class="main-sidebar">

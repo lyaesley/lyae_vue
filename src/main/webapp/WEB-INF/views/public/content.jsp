@@ -8,5 +8,6 @@
 <!-- content -->
 	
 <!-- content -->
-		
-<jsp:include page="/WEB-INF/views/public/tail.jsp"></jsp:include>
+
+<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>		
+
