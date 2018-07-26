@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lyae.menu.MenuService;
+import com.lyae.util.ConvUtil;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +60,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	
 	void Vars(ModelAndView mav, String path){
 		mav.addObject("_menu", menuService.getMenuGroups());
+		mav.addObject("__menu", ConvUtil.toJsonObjectByClass(menuService.getMenuGroups()));
 //		mav.addObject("_title", menuService.getMenuTitle(path));
 		mav.addObject("_path", path);
 	}

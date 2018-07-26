@@ -29,29 +29,34 @@ import lombok.Getter;
 public class MenuService {
 	
 	@Getter
-//	List<MenuGroup> menuGroups;
-	MenuGroup[] menuGroups;
+	List<MenuGroup> menuGroups;
+//	MenuGroup[] menuGroups;
 	
 	public MenuService() {
 		createMenu();
 	}
 	
 	void createMenu() {
-//		menuGroups = new ArrayList<MenuGroup>();
+		menuGroups = new ArrayList<MenuGroup>();
+		menuGroups.add(menu(BoardController.class));
+		menuGroups.add(menu(ImageBoardController.class));
+		menuGroups.add(menu(MovieController.class));
+		menuGroups.add(menu(SoccerController.class));
+		menuGroups.add(menu(TestController.class));
 //		menuGroups.add(menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"));
 //		menuGroups.add(menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"));
 //		menuGroups.add(menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"));
 //		menuGroups.add(menu(SoccerController.class, "축구", "축구 정보", "fa fa-credit-card"));
 //		menuGroups.add(menu(TestController.class, "Test", "Test", "fa fa-credit-card"));
 		
-		MenuGroup[] menuGroup = {
-			menu(BoardController.class),
-			menu(ImageBoardController.class),
-			menu(MovieController.class),
-			menu(SoccerController.class),
-			menu(TestController.class)
-		};
-		this.menuGroups = menuGroup;
+//		MenuGroup[] menuGroup = {
+//			menu(BoardController.class),
+//			menu(ImageBoardController.class),
+//			menu(MovieController.class),
+//			menu(SoccerController.class),
+//			menu(TestController.class)
+//		};
+		this.menuGroups = menuGroups;
 	}
 	
 	// 일단 전부 리턴

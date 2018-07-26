@@ -16,7 +16,7 @@ import com.lyae.service.ImageBoardService;
 
 @Controller
 @RequestMapping("/board/image")
-@Menu(name="이지미 게시판", desc="이미지 게시판 리스트", icon="fa fa-camera")
+@Menu(name="이지미 게시판", desc="이미지 게시판 리스트", icon="far fa-images")
 public class ImageBoardController {
 	@Autowired ImageBoardService imageBoardService;
 	

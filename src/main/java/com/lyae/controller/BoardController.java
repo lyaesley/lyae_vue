@@ -11,7 +11,7 @@ import com.lyae.service.BoardService;
 
 @Controller
 @RequestMapping("/board")
-@Menu(name="게시판", desc="게시판 리스트", icon="fa fa-pencil")
+@Menu(name="게시판", desc="게시판 리스트", icon="fas fa-pencil-alt")
 public class BoardController {
 	@Autowired BoardService boardService;
 	

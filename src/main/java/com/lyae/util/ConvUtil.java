@@ -20,6 +20,7 @@ import org.springframework.web.util.HtmlUtils;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -92,8 +93,31 @@ public class ConvUtil {
 		return result;
 	}
 	
-	public static String toJsonObjectByClass(Object obj) throws JsonGenerationException, JsonMappingException, IOException {
-		return new ObjectMapper().writeValueAsString(obj);
+	/** 추천 */
+	public static String toJsonObjectByClass(Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/** 추천 */
+	public static <T> T toClassByJsonClass(Class<T> clazz, String json) {
+		try {
+			return new ObjectMapper().readValue(json, clazz);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/** 추천 */
+	public static <T> T toClassJsonWithTypeReference(TypeReference<T> tr, String json) {
+		try {
+			return new ObjectMapper().readValue(json, tr);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static Object toClassByJsonObject(String json, Class clazz) throws JsonParseException, JsonMappingException, IOException {

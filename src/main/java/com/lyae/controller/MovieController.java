@@ -17,7 +17,7 @@ import com.lyae.util.ConvUtil;
 
 @Controller
 @RequestMapping("/movie")
-@Menu(name="영화", desc="영화정보 검색", icon="fa fa-video-camera")
+@Menu(name="영화", desc="영화정보 검색", icon="fas fa-search")
 public class MovieController {
 	
 	@Autowired

@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller @Slf4j 
 @RequestMapping("/soccer")
-@Menu(name="축구", desc="해외축구 정보", icon="fa fa-futbol-o")
+@Menu(name="축구", desc="해외축구 정보", icon="fas fa-futbol")
 public class SoccerController {
 	
 	@Autowired SoccerService soccerService;
