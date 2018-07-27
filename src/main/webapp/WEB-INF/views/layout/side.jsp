@@ -4,9 +4,65 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<script>
+window.onload = function(){
+	window.menu = new Vue({
+		el : '#nav',
+		data : {
+			menus : [],
+			path : '${_path}'
+		},
+		
+		created : function() {
+			this.menus = ${__menu};
+			
+		},
+		methods : {
+			isSubMenu : function(menu){
+				return menu.item.length > 0;
+			},
+			
+			isSelected : function(menu) {
+				if(!matchMedia('(min-width: 768px)').matches) {
+					return false;
+				}
+				
+				var url = this.path;
+				if (menu.item && menu.item.length > 0) {
+					return menu.item.filter(function(e){ return e.url == url}).length > 0;
+					//return menu.item.filter(e => e.url == url).length > 0;
+				} else {
+					return menu.purl == url || menu.url == url;
+				}
+			}
+		}
+	});
+}
+</script>
+
 <!-- Sidebar -->
+
 <ul id="nav" class="sidebar navbar-nav">
-  <li class="nav-item active">
+	<template  v-for="menu in menus" v-if="isSubMenu(menu)">
+		<li class="nav-item dropdown"  v-bind:class="{show : isSelected(menu)}">
+	  	<a class="nav-link dropdown-toggle" v-bind:href="menu.purl" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" v-bind:aria-expanded="isSelected(menu)">
+	      <i v-bind:class="menu.icon"></i>
+	      <span>{{menu.name}}</span>
+	    </a>
+	    <div class="dropdown-menu" aria-labelledby="pagesDropdown" v-bind:class="{show : isSelected(menu)}">
+	   		<a class="dropdown-item" v-bind:href="sub.url"  v-for="sub in menu.item" v-bind:class="{active : isSelected(sub)}">{{sub.name}}</a>
+	    </div>
+	  </li>    
+	</template>
+	<template v-else>
+	  	<li class="nav-item" v-bind:class="{show : isSelected(menu)}">
+	  	<a class="nav-link " v-bind:href="menu.purl">
+	      <i v-bind:class="menu.icon"></i>
+	      <span>{{menu.name}}</span>
+	    </a>	
+	  </li>
+	</template>  
+  <li class="nav-item">
     <a class="nav-link" href="index.html">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span>
@@ -38,55 +94,5 @@
       <i class="fas fa-fw fa-table"></i>
       <span>Tables</span></a>
   </li>
-  <template v-for="menu in menus">
-      <template v-if="isSubMenu(menu)">
-  		<li class="nav-item dropdown">
-	  	<a class="nav-link dropdown-toggle" v-bind:href="menu.purl" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	      <i v-bind:class="menu.icon"></i>
-	      <span>{{menu.name}}</span>
-	    </a>
-	    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-	    	<template v-for="sub in menu.item">
-	    		<a class="dropdown-item" v-bind:href="sub.url">{{sub.name}}</a>
-	    	</template>
-	    </div>
-	  </li>    
-      </template>
-  	  <template v-else>
-  	  	<li class="nav-item">
-	  	<a class="nav-link " v-bind:href="menu.purl">
-	      <i v-bind:class="menu.icon"></i>
-	      <span>{{menu.name}}</span>
-	    </a>	
-	  </li>  
-  	  </template>
-  </template>
-</ul>
 
-<script>
-	var nav = new Vue({
-		el : '#nav',
-		data : {
-			menus : [],
-		},
-		
-		created : function() {
-			this.menus = ${__menu};
-		},
-		methods : {
-			isSubMenu : function(menu) {
-				return menu.item != '' ? true : false;
-			} 
-		}
-	});
-	
-	var menu = {
-		init : function() {
-			
-			// 선택된 subMenu 가 있을시 상위메뉴 활성화
-			$('li.active').closest('li.treeview').addClass('active menu-open');
-		}
-	};
-	
-	$(menu.init);
-</script>
+</ul>
