@@ -9,18 +9,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lyae.menu.Menu;
 
 //@RestController
-@RequestMapping("/")
+@RequestMapping("/test")
 @Controller
 @Menu(name="Test", desc="Test")
 public class TestController {
 	
 	@Value("${path.controller}") String path;
 	
+	@Menu(name="인덱스", desc="인덱스", order=1)
 	@GetMapping("")
 	public String index(){
 		return "index";
 	}
 	
+	@Menu(name="셀렉트 박스", desc="셀렉트박스 테스트", order=2)
+	@GetMapping("/selectBox")
+	public String selectBox(){
+		return "test/selectBox";
+	}
+			
 	@GetMapping("/hello")
 	public String hello(){
 		return "hello world"+path;

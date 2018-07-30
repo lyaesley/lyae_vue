@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script>
-window.onload = function(){
+$(document).ready(function(){
 	window.menu = new Vue({
 		el : '#nav',
 		data : {
@@ -37,7 +37,7 @@ window.onload = function(){
 			}
 		}
 	});
-}
+});
 </script>
 
 <!-- Sidebar -->

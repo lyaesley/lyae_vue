@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lyae.controller.BoardController;
@@ -18,13 +19,6 @@ import com.lyae.controller.TestController;
 import lombok.Data;
 import lombok.Getter;
 
-/**
- * 아이콘 참고 사이트는 아래와 같음.
- * https://fontawesome.com/icons?m=free
- * http://ionicons.com
- * @author		박용서
- * @since		2018. 1. 3.
- */
 @Component
 public class MenuService {
 	
@@ -102,6 +96,10 @@ public class MenuService {
 				String iicon = subMenu.icon();
 				if (iname != null && !iname.trim().equals("")) {
 					GetMapping map = method.getAnnotation(GetMapping.class);
+//					리퀘스트매핑, 포스트 매핑 추가해야함
+//					PostMapping pmap = method.getAnnotation(PostMapping.class);
+//					RequestMapping map = method.getAnnotation(RequestMapping.class);
+					
 					if (map != null) {
 						String[] urls = map.value();
 						if (urls != null && urls.length > 0 && urls[0] != null && !urls[0].trim().equals("")) {
