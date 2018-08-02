@@ -22,10 +22,16 @@ public class TestController {
 		return "index";
 	}
 	
-	@Menu(name="셀렉트 박스", desc="셀렉트박스 테스트", order=2)
-	@GetMapping("/selectBox")
-	public String selectBox(){
-		return "test/selectBox";
+	@Menu(name="select 태그", desc="select 태그 테스트", order=2)
+	@GetMapping("/selectTag")
+	public String selectTag(){
+		return "test/selectTag";
+	}
+	
+	@Menu(name="input 태그", desc="input 태그 테스트", order=3)
+	@GetMapping("/inputTag")
+	public String inputTag(){
+		return "test/inputTag";
 	}
 			
 	@GetMapping("/hello")
