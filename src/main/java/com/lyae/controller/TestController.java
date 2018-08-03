@@ -33,6 +33,12 @@ public class TestController {
 	public String inputTag(){
 		return "test/inputTag";
 	}
+
+	@Menu(name="Vue directive" , desc="Vue directive", order=4)
+	@GetMapping("/vueDirective")
+	public String vueDirective(){
+		return "test/vueDirective";
+	}
 			
 	@GetMapping("/hello")
 	public String hello(){

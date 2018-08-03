@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script>
 $(document).ready(function(){
-	window.selectBox  = new Vue({
+	window.vue  = new Vue({
 		el: '#selectBox',
 		data : {
 			selected : '',
