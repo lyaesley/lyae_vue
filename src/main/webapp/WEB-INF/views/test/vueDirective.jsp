@@ -9,7 +9,7 @@ $(document).ready(function(){
 		el: '#test',
 		data : {
 			msg : 'hello!',
-			number: '',
+			number: ''
 			
 		},
 		
@@ -66,8 +66,8 @@ Vue.directive('numericOnly', {
 		            return; 
 		        }
 			
-			/* // Ensure that it is a number and stop the keypress */
-			if( (e.shiftKey || (key < 48 || key > 57)) && (key < 96 || key > 105) ){
+			/* // Ensure that it is a number and stop the keypress */ 
+			if ( ( e.shiftKey || (key < 48 || key > 57) ) && (key < 96 || key > 105) ) {
 	            e.preventDefault();
 	        }
 			
