@@ -13,3 +13,12 @@ https://spring.io/guides/tutorials/react-and-spring-data-rest/
 브라우저호환성
 www.caniuse.com
 
+1.  https://www.office.com  사이트로 접속
+2. 할당된 아이디와 비밀번호로 로그인
+3. office2016 다운로드하여 설치
+
+[라이선스]
+1.  carrot001@carroti.onmicrosoft.com / carrot_2015
+2.  carrot002@carroti.onmicrosoft.com / carrot_2015 
+3.  carrot003@carroti.onmicrosoft.com / carrot_2015 
+4.  carrot004@carroti.onmicrosoft.com / carrot_2015  
