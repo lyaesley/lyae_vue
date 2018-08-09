@@ -39,7 +39,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 //		log.info("======= postHandle 시작 =======");
 		String path = request.getServletPath();
 //		log.info("매핑 주소 : " + path);
-		log.info("mav 객체 전 : " +modelAndView);
+//		log.info("mav 객체 전 : " +modelAndView);
 		if (modelAndView != null){
 			Head(modelAndView);
 			Vars(modelAndView, path);
@@ -50,7 +50,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 //			request.setAttribute("subDir", "[]");
 //		};
 		
-		log.info("mav 객체 후 : " +modelAndView);
+//		log.info("mav 객체 후 : " +modelAndView);
 		log.info("======= postHandle 종료 =======");
 	}	
 

@@ -46,22 +46,19 @@ public class MovieService {
 	}
 	
 	public void apiSearch(HttpServletRequest req, Model model) {
-		String query = req.getParameter("query");
-		
-		if (query == null || "".equals(query)){
+		String movieNm = req.getParameter("movieNm");
+		model.addAttribute("result", "[]");
+		if (movieNm == null || "".equals(movieNm)){
 			return;
 		}
 		
-		model.addAttribute("query", query);
+		model.addAttribute("movieNm", movieNm);
 		
-		WebResult<Map<String, Object>> result;
+		WebResult<String> result;
 			try {
-				result = new WebUtil(new URL(SEND_URL), CHARSET).setHeader("X-Naver-Client-Id",CLIENT_ID).setHeader("X-Naver-Client-Secret", CLIENT_SECRET).addParam("query", query).getJsonMap();
+				result = new WebUtil(new URL(SEND_URL), CHARSET).setHeader("X-Naver-Client-Id",CLIENT_ID).setHeader("X-Naver-Client-Secret", CLIENT_SECRET).addParam("query", movieNm).get();
 				model.addAttribute("result", result.getData());
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
