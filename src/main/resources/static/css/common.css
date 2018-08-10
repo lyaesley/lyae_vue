@@ -19,3 +19,12 @@ a {color : black;}
 	display: inline-block;
 	vertical-align: top;
 }
+
+@media (min-width: 576px){
+	.movieDeck {
+	    -ms-flex: 0 0 17% !important;
+	    flex: 0 0 17% !important;
+        margin-bottom: 15px !important;
+	    text-align: center;
+	}
+}

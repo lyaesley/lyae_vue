@@ -46,14 +46,17 @@ $(document).ready(function(){
 		<section class="content">
 			
 			<div class="card-deck" >
-			  <div class="card" v-for="(node, index) in result.items">
+			  <div class="card movieDeck" v-for="(node, index) in result.items">
 			    <img class="card-img-top" :src="node.image" alt="Movie image" onerror="this.src='/img/no-image.png';">
 			    <div class="card-body">
-			      <h5 class="card-title" v-html="node.title"></h5>
-			      <p class="card-text">{{index}}</p>
+			      <p><h5 class="card-title" v-html="node.title"></h5>{{node.subtitle}}</p>
+			      <p class="card-text">{{node.pubDate}}</p>
+			      <p class="card-text">{{node.director}}</p>
+			      <p class="card-text">{{node.actor}}</p>
+			      <p class="card-text">{{node.userRating}}</p>
 			    </div>
 			    <div class="card-footer">
-			      <small class="text-muted">Last updated 3 mins ago</small>
+			      <small class="text-muted">{{node.link}}</small>
 			    </div>
 			  </div>
 			</div>
