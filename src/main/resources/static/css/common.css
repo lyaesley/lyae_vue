@@ -20,11 +20,66 @@ a {color : black;}
 	vertical-align: top;
 }
 
-@media (min-width: 576px){
+.card-img-top {
+    width: 110px;
+    height: 160px;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    margin: 5px auto;
+}
+
+@media (min-width: 1600px){
 	.movieDeck {
 	    -ms-flex: 0 0 17% !important;
 	    flex: 0 0 17% !important;
-        margin-bottom: 15px !important;
-	    text-align: center;
+        margin-top: 15px !important;
+	}
+}
+
+@media (min-width: 1360px) and (max-width: 1600px){
+	.movieDeck {
+	    -ms-flex: 0 0 17% !important;
+	    flex: 0 0 22% !important;
+        margin-top: 15px !important;
+	}
+}
+
+@media (min-width: 1280px) and (max-width: 1360px){
+	.movieDeck {
+	    -ms-flex: 0 0 22% !important;
+	    flex: 0 0 22% !important;
+        margin-top: 15px !important;
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1280px){
+	.movieDeck {
+	    -ms-flex: 0 0 29% !important;
+	    flex: 0 0 29% !important;
+        margin-top: 15px !important;
+	}
+}
+
+@media (min-width: 608px) and (max-width: 1024px){
+	.movieDeck {
+	    -ms-flex: 0 0 44% !important;
+	    flex: 0 0 44% !important;
+        margin-top: 15px !important;
+	}
+}
+
+@media (min-width: 576px) and (max-width: 608px){
+	.movieDeck {
+	    -ms-flex: 0 0 43% !important;
+	    flex: 0 0 43% !important;
+        margin-top: 15px !important;
+	}
+}
+
+@media (max-width: 576px){
+	.movieDeck {
+	    -ms-flex: 0 0 43% !important;
+	    flex: 0 0 43% !important;
+        margin-top: 15px !important;
 	}
 }

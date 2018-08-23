@@ -7,7 +7,7 @@ $(document).ready(function(){
 	window.vue  = new Vue({
 		el: '#movie',
 		data : {
-			schTxt : '${movieNm}',
+			schText : '${movieNm}',
 			result : ''
 		},
 		
@@ -19,8 +19,19 @@ $(document).ready(function(){
 		methods : {
 			send : function() {
 				util.moveParam({
-					movieNm : this.schTxt
+					movieNm : this.schText
 				});
+			},
+			
+			checkLength : function(text) {
+				var add = "<a v-on:click='fullText(text); return false;'>...</a>";
+				
+				return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9)) ? text.split('|', 1).toString().substr(0,9)+add : text.split('|', 1).toString();
+				
+			},
+			
+			fullText : function(text)	{
+				console.log("1" + text);
 			}
 		}
 		
@@ -34,7 +45,7 @@ $(document).ready(function(){
 		<!-- search form -->
 		 <div class="input-group">
 		  <input type="text" style="display: none;" />	
-		  <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" v-model="schTxt" v-on:keyup.enter="send">
+		  <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" v-model="schText" v-on:keyup.enter="send">
 		  <div class="input-group-append">
 		    <button class="btn btn-primary" type="button" v-on:click="send">
 		      <i class="fas fa-search"></i> 
@@ -44,35 +55,23 @@ $(document).ready(function(){
 		<!-- /.search form -->
 		</section>
 		<section class="content">
-			
 			<div class="card-deck" >
 			  <div class="card movieDeck" v-for="(node, index) in result.items">
 			    <img class="card-img-top" :src="node.image" alt="Movie image" onerror="this.src='/img/no-image.png';">
 			    <div class="card-body">
-			      <p><h5 class="card-title" v-html="node.title"></h5>{{node.subtitle}}</p>
-			      <p class="card-text">{{node.pubDate}}</p>
-			      <p class="card-text">{{node.director}}</p>
-			      <p class="card-text">{{node.actor}}</p>
-			      <p class="card-text">{{node.userRating}}</p>
+			      <h5 class="card-title text-center" v-html="node.title"></h5><h6 class="text-center">{{node.subtitle}}({{node.pubDate}})</h6>
+			      <!-- <p class="card-text"><b>감독</b> {{checkLength(node.director)}}</p> -->
+			      <!-- <p class="card-text"><b>출연</b> {{checkLength(node.actor)}}</p> -->
+			      <p class="card-text"><b>감독</b> <span v-html="checkLength(node.director)"></span></p>
+			       <p class="card-text"><b>출연</b> <span v-html="checkLength(node.actor)"></span></p>
+			      <p class="card-text"><b>평점</b> {{node.userRating}}</p>
 			    </div>
 			    <div class="card-footer">
-			      <small class="text-muted">{{node.link}}</small>
+			      <!-- <small class="text-muted">{{node.link}}</small> -->
+			      <a v-bind:href="node.link" target="_blank" class="btn btn-primary btn-block"><b>Link</b></a>
 			    </div>
 			  </div>
 			</div>
-		<!-- <hr>
-			<div class="card-deck">
-			  <div class="card" v-for="(node, index) in result.items" v-if="index >= result.items.length / 2"  >
-			    <img class="card-img-top" :src="node.image" alt="Movie image" onerror="this.src='/img/no-image.png';">
-			    <div class="card-body">
-			      <h5 class="card-title" v-html="node.title"></h5>
-			      <p class="card-text">{{index}}</p>
-			    </div>
-			    <div class="card-footer">
-			      <small class="text-muted">Last updated 3 mins ago</small>
-			    </div>
-			  </div>
-			</div>
-		</section> -->
+		</section>
 	</form>
 </div>
