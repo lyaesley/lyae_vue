@@ -8,12 +8,20 @@ $(document).ready(function(){
 		el: '#movie',
 		data : {
 			schText : '${movieNm}',
-			result : ''
+			result : '',
+			isShowDirector : {},
+			isShowActor : {}
 		},
 		
 		created : function(){ 
 			/* this.result = ${result}; */
 			this.result = ${result};
+			
+			/* Vue 반응형 속성 추가  */
+			for(var i in this.result.items) {
+				this.$set(this.isShowDirector, i, false);
+				this.$set(this.isShowActor, i, false);
+			}
 		},
 		
 		methods : {
@@ -24,14 +32,20 @@ $(document).ready(function(){
 			},
 			
 			checkLength : function(text) {
-				var add = "<a v-on:click='fullText(text); return false;'>...</a>";
+				var add = '<a v-on:click="fullText('+text+')">...</a>';
 				
-				return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9)) ? text.split('|', 1).toString().substr(0,9)+add : text.split('|', 1).toString();
+				return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9) ) ;
+				/* return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9)) ? text.split('|', 1).toString().substr(0,9)+add : text.split('|', 1).toString(); */
 				
 			},
 			
+			shortText : function(text) {
+				return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9)) ? text.split('|', 1).toString().substr(0,9) : text.split('|', 1).toString();
+			},
+			
 			fullText : function(text)	{
-				console.log("1" + text);
+				console.log("11");
+				console.log("22" + text);
 			}
 		}
 		
@@ -62,8 +76,18 @@ $(document).ready(function(){
 			      <h5 class="card-title text-center" v-html="node.title"></h5><h6 class="text-center">{{node.subtitle}}({{node.pubDate}})</h6>
 			      <!-- <p class="card-text"><b>감독</b> {{checkLength(node.director)}}</p> -->
 			      <!-- <p class="card-text"><b>출연</b> {{checkLength(node.actor)}}</p> -->
-			      <p class="card-text"><b>감독</b> <span v-html="checkLength(node.director)"></span></p>
-			       <p class="card-text"><b>출연</b> <span v-html="checkLength(node.actor)"></span></p>
+			      <!-- <p class="card-text"><b>감독</b> <span v-html="checkLength(node.director)"></span></p> -->
+			      <!-- <p class="card-text"><b>출연</b> <span v-html="checkLength(node.actor)"></span></p> -->
+			      <p class="card-text"><b v-on:click="isShowDirector[index] = !isShowDirector[index]">감독</b> 
+				      <span v-if="isShowDirector[index]" >{{node.director}}</span>
+				      <span v-else>{{shortText(node.director)}}...</span>
+			      </p>
+			      <p class="card-text"><b v-on:click="isShowActor[index] = !isShowActor[index]">출연</b> 
+				      <span v-if="isShowActor[index]" >{{node.actor}}</span>
+				      <span v-else>{{shortText(node.actor)}}...</span>
+			      </p>
+			       <!-- <p class="card-text"  v-if="checkLength(node.actor)"><b>출연</b> {{shortText(node.actor)}}<a v-on:click="fullText(node.actor)">...</a></p> -->
+			       <!-- <p class="card-text"  v-else><b>출연</b> {{shortText(node.actor)}}</p> -->
 			      <p class="card-text"><b>평점</b> {{node.userRating}}</p>
 			    </div>
 			    <div class="card-footer">
