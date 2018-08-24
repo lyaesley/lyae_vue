@@ -15,13 +15,24 @@ $(document).ready(function(){
 		
 		created : function(){ 
 			/* this.result = ${result}; */
-			this.result = ${result};
+			var result = ${result};
 			
+			result.items.forEach( function(e) {
+					e.director = e.director.substr(0, e.director.length-1).split("|");
+					e.actor = e.actor.substr(0, e.actor.length-1).split("|");
+					e.isShowDirector = false;
+					e.isShowActor = false;
+					e.isMoreDirector = e.director.length > 1 ;
+					e.isMoreActor = e.actor.length > 1 ;
+				});
+			
+			this.result = result;
+
 			/* Vue 반응형 속성 추가  */
-			for(var i in this.result.items) {
+			/* for(var i in this.result.items) {
 				this.$set(this.isShowDirector, i, false);
 				this.$set(this.isShowActor, i, false);
-			}
+			} */
 		},
 		
 		methods : {
@@ -40,18 +51,39 @@ $(document).ready(function(){
 			},
 			
 			shortText : function(text) {
-				return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9)) ? text.split('|', 1).toString().substr(0,9) : text.split('|', 1).toString();
+				var dot = '<b class="text-primary" >...</b>';
+				/* return ( (text.split('|').length >= 3) || (text.split('|', 1).toString().length > 9)) ? text.split('|', 1).toString().substr(0,9) : text.split('|', 1).toString(); */
 			},
 			
-			fullText : function(text)	{
-				console.log("11");
-				console.log("22" + text);
+			fullText : function(text) {
+				return text.substr(0,text.length-1).split("|").join(", ");
 			}
 		}
 		
 	});
 });
 </script>
+
+<style>
+<!--
+.card-text:not(:hover) .more-view { display:none }
+.card-text:not(:hover) .hide-view { display:none }
+ 
+ /* 애니메이션 진입 및 진출은 다른 지속 시간 및  */
+/* 타이밍 기능을 사용할 수 있습니다. */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+-->
+</style>
 
 <div id="movie">
 	<form method="get">
@@ -74,25 +106,44 @@ $(document).ready(function(){
 			    <img class="card-img-top" :src="node.image" alt="Movie image" onerror="this.src='/img/no-image.png';">
 			    <div class="card-body">
 			      <h5 class="card-title text-center" v-html="node.title"></h5><h6 class="text-center">{{node.subtitle}}({{node.pubDate}})</h6>
-			      <!-- <p class="card-text"><b>감독</b> {{checkLength(node.director)}}</p> -->
-			      <!-- <p class="card-text"><b>출연</b> {{checkLength(node.actor)}}</p> -->
-			      <!-- <p class="card-text"><b>감독</b> <span v-html="checkLength(node.director)"></span></p> -->
-			      <!-- <p class="card-text"><b>출연</b> <span v-html="checkLength(node.actor)"></span></p> -->
-			      <p class="card-text"><b v-on:click="isShowDirector[index] = !isShowDirector[index]">감독</b> 
-				      <span v-if="isShowDirector[index]" >{{node.director}}</span>
-				      <span v-else>{{shortText(node.director)}}...</span>
+			      <!-- <p class="card-text"><b>감독</b> 
+				      <span v-if="isShowDirector[index]">{{fullText(node.director)}} <span v-on:click="isShowDirector[index] = !isShowDirector[index]"> <b class="text-danger"> 닫기</b></span></span>
+				      <span v-else v-on:click="isShowDirector[index] = !isShowDirector[index]" ><span v-html="shortText(node.director)"></span></span>
+				      <span v-else><span v-html="shortText(node.director)"></span><span v-on:click="isShowDirector[index] = !isShowDirector[index]"><b class="text-primary">...</b></span></span>
+				      <span class="more-view">더보기</span>
 			      </p>
-			      <p class="card-text"><b v-on:click="isShowActor[index] = !isShowActor[index]">출연</b> 
-				      <span v-if="isShowActor[index]" >{{node.actor}}</span>
-				      <span v-else>{{shortText(node.actor)}}...</span>
+			      <p class="card-text"><b>출연</b> 
+				      <span v-if="isShowActor[index]" >{{fullText(node.actor)}} <span v-on:click="isShowActor[index] = !isShowActor[index]" > <br><b class="text-danger">닫기</b> </span> </span>
+				      <span v-else v-on:click="isShowActor[index] = !isShowActor[index]"><span v-html="shortText(node.actor)"></span></span>
+				      <span class="more-view">더보기</span>
+			      </p> -->
+			      <br>
+			      <p class="card-text"><b>감독</b> 
+					<transition name="slide-fade" mode="out-in">
+			      		<span  v-bind:key="node.isShowDirector" v-bind:class="{'text-primary' : !node.isShowDirector && node.isMoreDirector}">{{ node.isShowDirector ? node.director.join(", ") : node.director[0]}}</span> 
+					</transition>
+		      			<!-- 위  transition 사용(애니메이션)으로 주석처리. 위 내용과 같은 기능(애니메이션 제외) -->
+		      			<!-- <span v-if="node.isShowDirector">{{node.director.join(", ")}}</span> 
+			      		<span v-else v-bind:class="{'text-primary' : node.isMoreDirector}" key="index+1">{{node.director[0]}}</span>  -->
+			      		<span v-on:click="node.isShowDirector=!node.isShowDirector">
+				      		<span class="more-view text-primary" v-if="!node.isShowDirector && node.isMoreDirector">더보기</span>
+				      		<span class="hide-view text-danger" v-if="node.isShowDirector && node.isMoreDirector">닫기</span>
+			      		</span>
 			      </p>
-			       <!-- <p class="card-text"  v-if="checkLength(node.actor)"><b>출연</b> {{shortText(node.actor)}}<a v-on:click="fullText(node.actor)">...</a></p> -->
-			       <!-- <p class="card-text"  v-else><b>출연</b> {{shortText(node.actor)}}</p> -->
-			      <p class="card-text"><b>평점</b> {{node.userRating}}</p>
+			      <p class="card-text"><b>출연</b> 
+			      	<transition name="slide-fade" mode="out-in">
+			      		<span  v-bind:key="node.isShowActor" v-bind:class="{'text-primary' : !node.isShowActor && node.isMoreActor}">{{ node.isShowActor ? node.actor.join(", ") : node.actor[0]}}</span> 
+					</transition>
+			      	<!-- 	<span v-if="node.isShowActor">{{node.actor.join(", ")}}</span> 
+			      		<span v-else v-bind:class="{'text-primary' : node.isMoreActor}">{{node.actor[0]}}</span> --> 
+			      		<span class="more-view text-primary" v-if="!node.isShowActor && node.isMoreActor" v-on:click="node.isShowActor=!node.isShowActor">더보기</span>
+			      		<span class="hide-view text-danger" v-if="node.isShowActor && node.isMoreActor" v-on:click="node.isShowActor=!node.isShowActor">닫기</span>
+			      </p>
+			      <p class="card-text"><b>평점</b> {{node.userRating}} </p>
 			    </div>
 			    <div class="card-footer">
 			      <!-- <small class="text-muted">{{node.link}}</small> -->
-			      <a v-bind:href="node.link" target="_blank" class="btn btn-primary btn-block"><b>Link</b></a>
+			      <a v-bind:href="node.link" target="_blank" class="btn btn-success btn-block"><b>Link</b></a>
 			    </div>
 			  </div>
 			</div>
