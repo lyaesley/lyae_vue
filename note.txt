@@ -4,8 +4,8 @@ https://www.jokecamp.com/blog/guide-to-football-and-soccer-data-and-apis/
 
 https://market.mashape.com/sportsop/soccer-sports-open-data#list-of-leagues
 
-데이터그립 크랙
-http://www.imsxm.com/jetbrains-license-server.html
+DB TOOL 
+디비버
 
 spring react example 구글검색
 https://spring.io/guides/tutorials/react-and-spring-data-rest/
