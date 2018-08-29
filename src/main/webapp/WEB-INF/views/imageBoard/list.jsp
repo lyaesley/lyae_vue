@@ -28,99 +28,73 @@
 	transform: rotate(270deg);
 }
 
-.mask {
-	position: fixed;
-	display: none;
-	background-color: rgba(0, 0, 0, 0.8);
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 1000;
-}
-
-.window {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	display: -webkit-flex;
-	-webkit-align-item: center;
-	-webkit-justify-content: center;
-
-	/* 
-        position: fixed;
-        width: fit-content;
-   		height: fit-content;
-	    top: 100px;
-	    right: 100px;
-	    bottom: 100px;
-	    left: 100px;
-	    margin: 0 auto;
-	     */
-	/* overflow: auto; */
-}
-
-.origin {
-	/* width:50%; */
-	/* height: 77%; */
-	
-}
-
-.thumb img {
-	margin: 20px;
-}
-
-.aaa {
+.thumbnail {
+	margin: 5px;
 	width: 250px;
 	height: 250px;
 	float: left;
-	margin: 30px;
     background-size: cover;
     background-position: center;
-	
 }
 
 </style>
 <script>
-var page = {
-	init : function() {
-			/* 서브폴더 메뉴 리스트에 추가*/
-
-			$('.mask').click(function(e) {
-				$('.mask').hide();
-			});
-
-			$('.thumb .aaa').click(
-					function() {
-						var name = $(this).attr('src').replace('/thumb', '');
-						var fix = $(this).attr('class').replace('aaa', '');
-						$('.window .origin').attr('src', name).attr('class',
-								'origin ' + fix);
-						$('.mask').show();
-					});
-		}
-	};
-
-	$(page.init);
+$(document).ready(function(){
+	window.vue = new Vue({
+		el: '#imgList',
+		data : {
+			imgList : '',
+			orignImg : ''
+		},
+		
+		created : function() {
+			this.imgList = ${imgList};
+		},
+		
+		methods : {
+			setOrignImg : function(text) {
+				this.orignImg = text.replace('/thumb','');
+			}
+		},
+		
+	});
+});
 </script>
-<div class="content-wrapper">
-	<div class="thumb">
-		<c:if test="${not empty listImg}">
-			<c:forEach var="node" items="${listImg}">
-				<%-- <img alt="${node.thumName}" src="${node.thumName}" class="rotate${node.fix } .img-thumbnail"> --%>
-				<div style="background-image: url('${node.thumName}');" src="${node.thumName}" class="rotate${node.fix } .img-thumbnail aaa"></div>
-			</c:forEach>
-		</c:if>
-	</div>
-</div><!-- /.content-wrapper -->
 
-	<div class="mask">
-		<div class="window">
-			<img alt="" src="" class="origin">
+<div id="imgList">
+	<div class="content-wrapper">
+		<div class="thumb">
+			<div v-for="(node, index) in imgList" v-bind:style="{'background-image' : 'url(' + node.thumName + ')'}" v-bind:src="node.thumName" 
+			v-on:click="setOrignImg(node.thumName)" class="thumbnail" data-toggle="modal" data-target="#exampleModal"></div>
+						
 		</div>
-	</div>
+	</div><!-- /.content-wrapper -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><img alt="" v-bind:src="orignImg" style="width: 100%;"/></p>
+        <p>메모</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div> <!-- /#imgList -->

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.lyae.dao.BoardDao;
+import com.lyae.util.ConvUtil;
 import com.lyae.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,6 @@ public class ImageBoardService {
 	boolean isLoad = false;
 	
 	public void getImgList(HttpServletRequest req) throws Exception{
-		//subDirectiory 체크
 		String subPath = req.getParameter("sub") != null ? req.getParameter("sub") : "";
 		
 		List<Map<String,Object>> listImg = new ArrayList<Map<String,Object>>();
@@ -49,6 +49,63 @@ public class ImageBoardService {
 				 * 1. 해당경로 이미지 파일 불러오기.
 				 * 2. 하위폴더도 카테고리로 불러오기.
 				 * 3. 섬네일 생성에서 미리보기 보여주기
+				 * */
+				String fileName = file.getName();
+				if(fileName.endsWith(".jpg") || fileName.endsWith(".JPG")) {
+					//썸네일 생성
+//					썸네일이 없을경우 한번만 실행되게 해야함;;;;;;
+//					if(!isLoad){
+//						log.info("썸네일 생성!!");
+//						makeThumbnail(file);
+//						isLoad=true;
+//					}
+					makeThumbnail(file);
+					
+					Map<String,Object> imgParam = new HashMap<String,Object>();
+					//파일이름
+					imgParam.put("name", "/pic/"+ subPath + fileName);
+					imgParam.put("thumName", "/pic/"+ subPath +"/thumb/" +fileName);
+					//파일회전
+					imgParam.put("fix",Util.getDegreeForOrientation(Util.getOrientation(file)));
+					
+					listImg.add(imgParam);
+				}
+				
+			}else if (!file.isHidden() && file.isDirectory() && subPath.equals("")){
+				
+				if(file.getName().equals("thumb")) {
+					continue;
+				}
+				
+				//하위 디렉토리 서브메뉴에 추가
+				if(!subMenu.contains(file.getName())){
+					subMenu.add(file.getName());
+				}
+			}
+			
+			
+		}
+		
+		req.setAttribute("imgList", ConvUtil.toJsonObjectByClass(listImg));
+		req.setAttribute("listImg", listImg);
+		req.setAttribute("subMenu", subMenu);
+		
+	}
+	
+	public void getImgList_back(HttpServletRequest req) throws Exception{
+		//subDirectiory 체크
+		String subPath = req.getParameter("sub") != null ? req.getParameter("sub") : "";
+		
+		List<Map<String,Object>> listImg = new ArrayList<Map<String,Object>>();
+		System.out.println("subPath : " + subPath);
+		
+		for (File file : new File(PICTUREPATH+subPath).listFiles()){
+			if(!file.isHidden() && file.isFile()){
+				/*
+				 * 어떻게 구현할지?
+				 * 1. 해당경로 이미지 파일 불러오기.
+				 * 2. 하위폴더도 카테고리로 불러오기.
+				 * 3. 섬네일 생성해서 미리보기 보여주기
 				 * */
 				String fileName = file.getName();
 				if(fileName.endsWith(".jpg") || fileName.endsWith(".JPG")) {
@@ -147,7 +204,7 @@ public class ImageBoardService {
 		    
 		    //리사이즈 작업 종료
 			
-		    BufferedImage destImg = Scalr.resize(srcImg, 250);
+		    BufferedImage destImg = Scalr.resize(srcImg, 300);
 		    
 			// 높이 비율에 맞춰서 썸네일 생성
 //			BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 250);

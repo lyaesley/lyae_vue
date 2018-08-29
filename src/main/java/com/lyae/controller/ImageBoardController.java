@@ -27,6 +27,12 @@ public class ImageBoardController {
 		return "imageBoard/list";
 	}
 	
+	@GetMapping("/list_back")
+	public String list_back(HttpServletRequest req, Model model) throws Exception{
+		imageBoardService.getImgList_back(req);
+		return "imageBoard/list";
+	}
+	
 	@GetMapping("/{filename}")
 	public String view(@PathVariable String filename,  Model model){
 		return "imageBoard/view";
