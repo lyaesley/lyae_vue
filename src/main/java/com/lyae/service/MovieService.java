@@ -51,7 +51,7 @@ public class MovieService {
 		if (movieNm == null || "".equals(movieNm)){
 			return;
 		}
-		
+		log.info("영화검색어 : " + movieNm);
 		model.addAttribute("movieNm", movieNm);
 		
 		WebResult<String> result;

@@ -45,6 +45,7 @@ $(document).ready(function(){
 		data : {
 			imgList : '',
 			orignImg : '',
+			file : '',
 			files : '',
 			fileRes : []
 		},
@@ -61,6 +62,30 @@ $(document).ready(function(){
 			handleFilesUpload : function() {
 		        this.files = this.$refs.files.files;
 	      	},
+			handleFilesUploadOne : function() {
+		        this.file = this.$refs.file.files[0];
+	      	},
+			
+	      	submitFilesOne : function() {
+			  
+	          	let formData = new FormData();
+		        formData.append('file', this.file);
+				console.log(formData);
+					
+			 	axios.post('/file/uploadOne', formData, {
+		   			headers: {
+			       	'Content-Type': 'multipart/form-data'
+			   		}
+			  	})
+			  	.then( function(result) {
+				  	console.log("1" + result)
+			      	this.fileRes = result;
+			  	})
+			  	.catch( function(error) {
+			  	  	console.log(error);
+			  	})
+			 	.finally( function() {console.log('finally')});
+			},
 			
 	      	submitFiles : function() {
 				var formData = new FormData();
@@ -69,20 +94,37 @@ $(document).ready(function(){
 			          let file = this.files[i];
 			          formData.append('files[' + i + ']', file);
 		        }
-
+					
 			 	axios.post('/file/upload', formData, {
 		   			headers: {
 			       	'Content-Type': 'multipart/form-data'
 			   		}
 			  	})
 			  	.then( function(result) {
-				  	console.log(result)
+				  	console.log("1" + result)
 			      	this.fileRes = result;
 			  	})
 			  	.catch( function(error) {
 			  	  	console.log(error);
 			  	})
 			 	.finally( function() {console.log('finally')});
+			},
+			
+			ajax : function() {
+				var files = this.files;
+				$.ajax({
+					url: "/file/upload",
+				       type: "POST",
+				       enctype: 'multipart/form-data',
+				       data: {files: files },
+				       dataType: "json",
+				       processData: false,  // tell jQuery not to process the data
+				       contentType: false,   // tell jQuery not to set contentType
+				       success: function(data) {
+				    	   alert(data);
+				       }
+				});
+				
 			}
 		}	
 	});
@@ -91,13 +133,14 @@ $(document).ready(function(){
 
 <div id="imgList">
 	<div class="content-wrapper">
-		<form method="POST" enctype="multipart/form-data" action="/file/upload">
 			<div>
+				<input type="file" name="file" id="file" ref="file" v-on:change="handleFilesUploadOne()"/>
+				<input type="button" value="UploadOne" v-on:click="submitFilesOne()"/>
 				<input type="file" name="files" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
-				<input type="submit" value="Upload" v-on:click="submitFiles()"/>
+				<input type="button" value="Upload" v-on:click="submitFiles()"/>
+				<input type="button" value="ajax" v-on:click="ajax()"/>
 			</div>
 			{{files}}
-		</form>	
 		<div class="thumb">
 			<div v-for="(node, index) in imgList" v-bind:style="{'background-image' : 'url(' + node.thumName + ')'}" v-bind:src="node.thumName" 
 			v-on:click="setOrignImg(node.thumName)" class="thumbnail" data-toggle="modal" data-target="#exampleModal"></div>
@@ -125,7 +168,7 @@ $(document).ready(function(){
         <p>메모</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
