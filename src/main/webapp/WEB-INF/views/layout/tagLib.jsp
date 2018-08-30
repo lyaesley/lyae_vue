@@ -44,3 +44,5 @@
 	<!-- Vue -->
 	<script src="/js/vue.js"></script>
 	<script src="/js/html5shiv.min.js"></script>
+	<!-- axios -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -44,7 +44,9 @@ $(document).ready(function(){
 		el: '#imgList',
 		data : {
 			imgList : '',
-			orignImg : ''
+			orignImg : '',
+			files : '',
+			fileRes : []
 		},
 		
 		created : function() {
@@ -54,15 +56,48 @@ $(document).ready(function(){
 		methods : {
 			setOrignImg : function(text) {
 				this.orignImg = text.replace('/thumb','');
+			},
+			
+			handleFilesUpload : function() {
+		        this.files = this.$refs.files.files;
+	      	},
+			
+	      	submitFiles : function() {
+				var formData = new FormData();
+			  
+				for( var i = 0; i < this.files.length; i++ ){
+			          let file = this.files[i];
+			          formData.append('files[' + i + ']', file);
+		        }
+
+			 	axios.post('/file/upload', formData, {
+		   			headers: {
+			       	'Content-Type': 'multipart/form-data'
+			   		}
+			  	})
+			  	.then( function(result) {
+				  	console.log(result)
+			      	this.fileRes = result;
+			  	})
+			  	.catch( function(error) {
+			  	  	console.log(error);
+			  	})
+			 	.finally( function() {console.log('finally')});
 			}
-		},
-		
+		}	
 	});
 });
 </script>
 
 <div id="imgList">
 	<div class="content-wrapper">
+		<form method="POST" enctype="multipart/form-data" action="/file/upload">
+			<div>
+				<input type="file" name="files" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+				<input type="submit" value="Upload" v-on:click="submitFiles()"/>
+			</div>
+			{{files}}
+		</form>	
 		<div class="thumb">
 			<div v-for="(node, index) in imgList" v-bind:style="{'background-image' : 'url(' + node.thumName + ')'}" v-bind:src="node.thumName" 
 			v-on:click="setOrignImg(node.thumName)" class="thumbnail" data-toggle="modal" data-target="#exampleModal"></div>
