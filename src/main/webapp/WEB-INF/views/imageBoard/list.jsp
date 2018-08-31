@@ -35,6 +35,14 @@
 	float: left;
     background-size: cover;
     background-position: center;
+    
+    flex: 1 0 250px
+}
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  background-color: #f1f1f1;
 }
 
 </style>
@@ -47,7 +55,7 @@ $(document).ready(function(){
 			orignImg : '',
 			file : '',
 			files : '',
-			fileRes : []
+			fileRes : ''
 		},
 		
 		created : function() {
@@ -59,9 +67,6 @@ $(document).ready(function(){
 				this.orignImg = text.replace('/thumb','');
 			},
 			
-			handleFilesUpload : function() {
-		        this.files = this.$refs.files.files;
-	      	},
 			handleFilesUploadOne : function() {
 		        this.file = this.$refs.file.files[0];
 	      	},
@@ -70,7 +75,6 @@ $(document).ready(function(){
 			  
 	          	let formData = new FormData();
 		        formData.append('file', this.file);
-				console.log(formData);
 					
 			 	axios.post('/file/uploadOne', formData, {
 		   			headers: {
@@ -87,12 +91,17 @@ $(document).ready(function(){
 			 	.finally( function() {console.log('finally')});
 			},
 			
+
+			handleFilesUpload : function() {
+		        this.files = this.$refs.files.files;
+	      	},
+	      	
 	      	submitFiles : function() {
 				var formData = new FormData();
 			  
 				for( var i = 0; i < this.files.length; i++ ){
 			          let file = this.files[i];
-			          formData.append('files[' + i + ']', file);
+			          formData.append('files', file);
 		        }
 					
 			 	axios.post('/file/upload', formData, {
@@ -100,9 +109,10 @@ $(document).ready(function(){
 			       	'Content-Type': 'multipart/form-data'
 			   		}
 			  	})
-			  	.then( function(result) {
-				  	console.log("1" + result)
-			      	this.fileRes = result;
+			  	.then( response => {
+				  	console.log('1'+response.data);
+			      	this.fileRes = response.data;
+			      	this.imgList = this.imgList.concat(this.fileRes);
 			  	})
 			  	.catch( function(error) {
 			  	  	console.log(error);
@@ -140,10 +150,9 @@ $(document).ready(function(){
 				<input type="button" value="Upload" v-on:click="submitFiles()"/>
 				<input type="button" value="ajax" v-on:click="ajax()"/>
 			</div>
-			{{files}}
-		<div class="thumb">
-			<div v-for="(node, index) in imgList" v-bind:style="{'background-image' : 'url(' + node.thumName + ')'}" v-bind:src="node.thumName" 
-			v-on:click="setOrignImg(node.thumName)" class="thumbnail" data-toggle="modal" data-target="#exampleModal"></div>
+		<div class="flex-container">
+			<div v-for="(node, index) in imgList" v-bind:style="{'background-image' : 'url(' + node.thumPath + ')'}" v-bind:src="node.thumPath" 
+			v-on:click="setOrignImg(node.thumPath)" class="thumbnail" data-toggle="modal" data-target="#exampleModal"></div>
 						
 		</div>
 	</div><!-- /.content-wrapper -->

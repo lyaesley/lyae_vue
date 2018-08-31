@@ -1,5 +1,6 @@
 package com.lyae.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lyae.util.ConvUtil;
 
@@ -25,18 +27,23 @@ public class FileController {
 	@Value("${file.upload-dir}") String uploadDir;
 	
 	@RequestMapping(path="/upload")
-	public String Upload(@RequestParam("files") List<MultipartFile> files) {
-		
+	public String Upload(@RequestParam("files") List<MultipartFile> files, MultipartHttpServletRequest multiRes) {
+		List<MultipartFile> nodes = multiRes.getFiles("files");
 		List<UploadResponse> resList = new ArrayList<>();
-		UploadResponse res = new UploadResponse();
 		if (files.size() > 0) {
 			for(MultipartFile file : files) {
 				try{
+					UploadResponse res = new UploadResponse();
+					if(Files.exists(Paths.get(uploadDir, file.getOriginalFilename()))) {
+						continue;
+					};
 					Files.copy(file.getInputStream(), Paths.get(uploadDir, file.getOriginalFilename()));
 					res.setFileName(file.getOriginalFilename());
 					res.setFileSize(file.getSize());
 					res.setFileContentType(file.getContentType());
-					res.setAttachmentUrl("http://localhost:8080/"+file.getOriginalFilename() );
+//					res.setAttachmentUrl("http://localhost:8080/"+file.getOriginalFilename() );
+					res.setOrignPath("/pic/"+res.getFileName());
+					res.setThumPath("/pic/thumb/"+res.getFileName());
 					resList.add(res);
 				}catch (IOException | RuntimeException e) {
 					log.error("file upload fail", e);
@@ -84,5 +91,11 @@ public class FileController {
         private String fileContentType;
 
         private String attachmentUrl;
+        
+        private int fix = 0;
+        
+    	private String orignPath;
+    	private String thumPath;
+    	
     }
 }

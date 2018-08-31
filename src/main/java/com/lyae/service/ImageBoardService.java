@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.lyae.dao.BoardDao;
+import com.lyae.model.ImageModel;
 import com.lyae.util.ConvUtil;
 import com.lyae.util.Util;
 
@@ -39,7 +40,7 @@ public class ImageBoardService {
 	public void getImgList(HttpServletRequest req) throws Exception{
 		String subPath = req.getParameter("sub") != null ? req.getParameter("sub") : "";
 		
-		List<Map<String,Object>> listImg = new ArrayList<Map<String,Object>>();
+		List<ImageModel> imgList = new ArrayList<>();
 		System.out.println("subPath : " + subPath);
 		
 		for (File file : new File(PICTUREPATH+subPath).listFiles()){
@@ -60,15 +61,16 @@ public class ImageBoardService {
 //						isLoad=true;
 //					}
 					makeThumbnail(file);
-					
-					Map<String,Object> imgParam = new HashMap<String,Object>();
+
+					ImageModel img = new ImageModel();
 					//파일이름
-					imgParam.put("name", "/pic/"+ subPath + fileName);
-					imgParam.put("thumName", "/pic/"+ subPath +"/thumb/" +fileName);
+					img.setFileName(fileName);
+					img.setOrignPath("/pic/"+ subPath + fileName);
+					img.setThumPath("/pic/"+ subPath +"/thumb/" +fileName);
+					img.setFileSize(file.length() / 1024);
 					//파일회전
-					imgParam.put("fix",Util.getDegreeForOrientation(Util.getOrientation(file)));
-					
-					listImg.add(imgParam);
+					img.setFix(Util.getDegreeForOrientation(Util.getOrientation(file)));
+					imgList.add(img);
 				}
 				
 			}else if (!file.isHidden() && file.isDirectory() && subPath.equals("")){
@@ -86,8 +88,7 @@ public class ImageBoardService {
 			
 		}
 		
-		req.setAttribute("imgList", ConvUtil.toJsonObjectByClass(listImg));
-		req.setAttribute("listImg", listImg);
+		req.setAttribute("imgList", ConvUtil.toJsonObjectByClass(imgList));
 		req.setAttribute("subMenu", subMenu);
 		
 	}
