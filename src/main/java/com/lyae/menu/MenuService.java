@@ -142,7 +142,7 @@ public class MenuService {
 	/**
 	 * 테스트용 코드
 	 */
-	@Test
+//	@Test
 	public void test() {
 		createMenu();
 		

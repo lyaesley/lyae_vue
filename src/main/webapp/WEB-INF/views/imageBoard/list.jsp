@@ -98,7 +98,7 @@ $(document).ready(function(){
 	      	
 	      	submitFiles : function() {
 				var formData = new FormData();
-			  
+			  	var vue = this;
 				for( var i = 0; i < this.files.length; i++ ){
 			          let file = this.files[i];
 			          formData.append('files', file);
@@ -109,11 +109,16 @@ $(document).ready(function(){
 			       	'Content-Type': 'multipart/form-data'
 			   		}
 			  	})
-			  	.then( response => {
+			  	.then( function(response) {
+				  	console.log('1'+response.data);
+				  	vue.fileRes = response.data;
+				  	vue.imgList = vue.imgList.concat(vue.fileRes);
+			  	})
+/* 			  	.then( response => {
 				  	console.log('1'+response.data);
 			      	this.fileRes = response.data;
 			      	this.imgList = this.imgList.concat(this.fileRes);
-			  	})
+			  	}) */
 			  	.catch( function(error) {
 			  	  	console.log(error);
 			  	})
