@@ -26,6 +26,8 @@ public class MapTest {
 		listOne.add(two);
 		listOne.add(three);
 		System.out.println(listOne);
+		System.out.println(one.get("abc"));
+		System.out.println(one.get("model"));
 		
 		HashMap<String,String> four = new HashMap<String,String>();
 		HashMap<String,String> five = new HashMap<String,String>();
@@ -104,7 +106,7 @@ public class MapTest {
 
 	
 	public static void main(String[] args) {
-		
+		new MapTest().mapTest();
 	}
 
 }

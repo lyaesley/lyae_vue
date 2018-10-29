@@ -11,8 +11,11 @@ public class RegexTests {
 		String regex = "^(?i)(http)\\S+.(?i)(teams/)\\d{1,}$";
 		String regex2 = "^(?i)(http)\\S+.(?i)(teams/)\\d{1,}(?i)(/players)$";
 		
+		String a = "1 2 3 4 5";
+		
+		System.out.println(a.replaceAll("\\s", ""));
 		System.out.println(Pattern.matches(regex, url));
 		System.out.println(Pattern.matches(regex2, url2));
 	}
-
+ 
 }
