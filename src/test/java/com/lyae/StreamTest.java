@@ -1,6 +1,7 @@
 package com.lyae;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -76,19 +77,23 @@ public class StreamTest {
 		
 		List<Map<String,Object>> result4 = list.stream().filter( str -> (Integer)str.get("age")  == 250).collect(Collectors.toList()) ;
 		
-		List<Map<String,Object>> result5 = list.stream().filter( str -> str.get("name")  != null && list.stream().filter(f -> ((Integer)f.get("age")).equals((Integer)str.get("age"))).count() >1 ).collect(Collectors.toList()) ;
+//		List<Map<String,Object>> result5 = list.stream().filter( str -> str.get("name")  != null && list.stream().filter(f -> ((Integer)f.get("age")).equals((Integer)str.get("age"))).count() >1 ).collect(Collectors.toList()) ;
 		
 		System.out.println(result.toString());
 		System.out.println(result2.toString());
 		System.out.println(result3.toString());
 		System.out.println(result4.toString());
-		System.out.println("555 : " + result5.toString());
+//		System.out.println("555 : " + result5.toString());
 		
 		for( Map<String,Object> node : result){
 			if(node.containsValue("로키")) System.out.println("이거 : " + node.toString());
 		}
 		
+		String[] arr = {"가","나","다","라","마","바","사"};
+		List<String> lstStr = Arrays.asList(arr);
 		
+		System.out.println(lstStr);
+		System.out.println(lstStr.stream().collect(Collectors.joining(System.lineSeparator())));
 	}
 
 }
