@@ -14,8 +14,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.lyae.menu.MenuService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class MenuControllerTests {
 	
 	@Autowired MenuService menuService;

@@ -10,7 +10,7 @@ import com.lyae.Service.TestAsyncTask;
 import com.lyae.service.MovieService;
 import com.lyae.service.SoccerService;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 //@SpringBootTest
 public class ApplicationTests {          
 
