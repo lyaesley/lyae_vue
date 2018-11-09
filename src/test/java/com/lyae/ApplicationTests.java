@@ -25,7 +25,7 @@ public class ApplicationTests {
 		soccerService.test_seasonsList();
 	}
 	
-	@Test
+//	@Test
 	public void async() throws InterruptedException {
 		long st = System.currentTimeMillis();
 		System.out.println("시작시간 : " +st );

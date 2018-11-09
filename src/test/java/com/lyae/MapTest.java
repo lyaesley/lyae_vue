@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class MapTest {
 
-	@Test
+//	@Test
 	public void mapTest(){
 		HashMap<String,String> one = new HashMap<String,String>();
 		HashMap<String,String> two = new HashMap<String,String>();

@@ -26,7 +26,7 @@ public class MenuControllerTests {
 //		MenuControllerTests.PATH = val;
 //	}
 	
-	@Test
+//	@Test
 	public void test() {
 //		ReflectionTestUtils.setField(menuUtil, "PATH", PATH);
 		
