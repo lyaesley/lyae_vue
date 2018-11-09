@@ -8,6 +8,8 @@
 		게시판 리스트 : ${name} <br>
 		test : ${_test } <br>
 		path : ${_path } <br>
+		
+		리로이!!!! 젠킨스!!!!!!!
 	</section>
 	<section class="content">
 	test
