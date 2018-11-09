@@ -11,7 +11,7 @@ import com.lyae.service.MovieService;
 import com.lyae.service.SoccerService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+//@SpringBootTest
 public class ApplicationTests {          
 
 	@Autowired MovieService movieService;
