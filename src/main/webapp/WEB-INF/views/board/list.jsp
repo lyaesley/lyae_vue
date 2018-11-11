@@ -14,7 +14,7 @@
 		2222222
 		3333333<br>
 		코딩 가즈아!!
-		
+		개발하자!
 	</section>
 	<section class="content">
 	test
