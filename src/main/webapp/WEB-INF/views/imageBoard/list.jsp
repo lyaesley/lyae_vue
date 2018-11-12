@@ -88,6 +88,7 @@ $(document).ready(function(){
 			
 			handleFilesUploadOne : function() {
 		        this.file = this.$refs.file.files[0];
+		        
 	      	},
 			
 	      	submitFilesOne : function() {
@@ -95,7 +96,7 @@ $(document).ready(function(){
 	          	let formData = new FormData();
 		        formData.append('file', this.file);
 					
-			 	axios.post('/file/uploadOne', formData, {
+			 	axios.post('/file/img/uploadOne', formData, {
 		   			headers: {
 			       	'Content-Type': 'multipart/form-data'
 			   		}
@@ -113,6 +114,7 @@ $(document).ready(function(){
 
 			handleFilesUpload : function() {
 		        this.files = this.$refs.files.files;
+		        this.submitFiles();
 	      	},
 	      	
 	      	submitFiles : function() {
@@ -123,7 +125,7 @@ $(document).ready(function(){
 			          formData.append('files', file);
 		        }
 					
-			 	axios.post('/file/upload', formData, {
+			 	axios.post('/file/img/upload', formData, {
 		   			headers: {
 			       	'Content-Type': 'multipart/form-data'
 			   		}
@@ -153,7 +155,7 @@ $(document).ready(function(){
 			          formData.append('files', file);
 		        }
 				$.ajax({
-					url: "/file/upload",
+					url: "/file/img/upload",
 				       type: "POST",
 				       enctype: 'multipart/form-data',
 				       data: formData,

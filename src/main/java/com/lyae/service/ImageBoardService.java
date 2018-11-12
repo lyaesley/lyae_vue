@@ -150,7 +150,7 @@ public class ImageBoardService {
 	}
 	
 	//썸네일 이미지 생성
-	private void makeThumbnail( File file) throws Exception {
+	public void makeThumbnail( File file) throws Exception {
 		
 		String fullName = file.getName();
 		

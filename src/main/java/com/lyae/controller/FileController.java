@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.lyae.service.ImageBoardService;
 import com.lyae.util.ConvUtil;
 
 import lombok.AllArgsConstructor;
@@ -26,24 +29,27 @@ import lombok.extern.slf4j.Slf4j;
 @RestController @Slf4j
 public class FileController {
 	@Value("${file.upload-dir}") String uploadDir;
+	@Autowired ImageBoardService ibs;
 	
-	@RequestMapping(path="/upload")
-	public String Upload(@RequestParam("files") List<MultipartFile> files, MultipartHttpServletRequest multiRes) {
+	@RequestMapping(path="/img/upload")
+	public String Upload(@RequestParam("files") List<MultipartFile> mtFiles, MultipartHttpServletRequest multiRes) throws Exception {
 		log.info("####### File Upload Start #######");
 		List<MultipartFile> nodes = multiRes.getFiles("files");
 		List<UploadResponse> resList = new ArrayList<>();
-		if (files.size() > 0) {
-			for(MultipartFile file : files) {
+		if (mtFiles.size() > 0) {
+			for(MultipartFile mtFile : mtFiles) {
 				try{
 					UploadResponse res = new UploadResponse();
 					//중복파일 패스
-					if(Files.exists(Paths.get(uploadDir, file.getOriginalFilename()))) {
+					if(Files.exists(Paths.get(uploadDir, mtFile.getOriginalFilename()))) {
 						continue;
 					};
-					Files.copy(file.getInputStream(), Paths.get(uploadDir, file.getOriginalFilename()));
-					res.setFileName(file.getOriginalFilename());
-					res.setFileSize(file.getSize());
-					res.setFileContentType(file.getContentType());
+					Files.copy(mtFile.getInputStream(), Paths.get(uploadDir, mtFile.getOriginalFilename()));
+					File file = new File(Paths.get(uploadDir, mtFile.getOriginalFilename()).toString());
+					ibs.makeThumbnail(file);
+					res.setFileName(mtFile.getOriginalFilename());
+					res.setFileSize(mtFile.getSize());
+					res.setFileContentType(mtFile.getContentType());
 //					res.setAttachmentUrl("http://localhost:8080/"+file.getOriginalFilename() );
 					res.setOrignPath("/pic/"+res.getFileName());
 					res.setThumPath("/pic/thumb/"+res.getFileName());
