@@ -36,13 +36,13 @@
     background-size: cover;
     background-position: center;
     
-    flex: 1 0 250px
+    flex: 0 0 250px
 }
 
 .flex-container {
   display: flex;
   flex-flow: row wrap;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
 }
 
 .filebox input[type="file"] { /* 파일 필드 숨기기 */
