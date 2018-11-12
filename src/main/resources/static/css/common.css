@@ -66,6 +66,8 @@ a {color : black;}
 	    flex: 0 0 44% !important;
         margin-top: 15px !important;
 	}
+	
+
 }
 
 @media (min-width: 576px) and (max-width: 608px){
@@ -81,5 +83,49 @@ a {color : black;}
 	    -ms-flex: 0 0 43% !important;
 	    flex: 0 0 43% !important;
         margin-top: 15px !important;
+	}
+}
+
+@media (max-width: 680px){
+	.filebox label {
+		position: fixed;
+		bottom: 80px;
+	  	right: 50px;
+	}
+	.add-file {
+		 width:200px;
+		 height:200px;
+		 border-radius:100px;
+		 -moz-border-radius : 100px;
+		 -webkit-border-radius : 100px;
+		 -ms-border-radius :100px;
+		 -khtml-border-radius : 100px;
+		 -o-border-radius :100px;
+		 background:#09F;
+		 font:normal 250px/150px "³ª´®°íµñ", "µ¸¿ò", "±¼¸²";
+		 color:#fff;
+		 text-align:center;
+	}
+}
+
+@media (min-height: 680px){
+	.filebox label {
+		position: fixed;
+		bottom: 80px;
+	  	right: 50px;
+	}
+	.add-file {
+		 width:200px;
+		 height:200px;
+		 border-radius:100px;
+		 -moz-border-radius : 100px;
+		 -webkit-border-radius : 100px;
+		 -ms-border-radius :100px;
+		 -khtml-border-radius : 100px;
+		 -o-border-radius :100px;
+		 background:#09F;
+		 font:normal 250px/150px "³ª´®°íµñ", "µ¸¿ò", "±¼¸²";
+		 color:#fff;
+		 text-align:center;
 	}
 }

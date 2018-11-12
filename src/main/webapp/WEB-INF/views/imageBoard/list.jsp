@@ -45,6 +45,25 @@
   background-color: #f1f1f1;
 }
 
+.filebox input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.filebox label {
+		position: fixed;
+		bottom: 10px;
+	  	right: 10px;
+	  	z-index: 1;
+	}
+
+
 </style>
 <script>
 $(document).ready(function(){
@@ -154,12 +173,13 @@ $(document).ready(function(){
 
 <div id="imgList">
 	<div class="content-wrapper">
-			<div>
-				<input type="file" name="file" id="file" ref="file" v-on:change="handleFilesUploadOne()"/>
+			<div class="filebox">
+				<!-- <input type="file" name="file" id="file" ref="file" v-on:change="handleFilesUploadOne()"/>
 				<input type="button" value="UploadOne" v-on:click="submitFilesOne()"/>
+				<input type="button" value="ajax" v-on:click="ajax()"/> -->
 				<input type="file" name="files" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
-				<input type="button" value="Upload" v-on:click="submitFiles()"/>
-				<input type="button" value="ajax" v-on:click="ajax()"/>
+				<label for="files" class="btn btn-primary add-file" role="button">+</label>
+				<!-- <input type="button" value="Upload" v-on:click="submitFiles()"/> -->
 			</div>
 		<div class="flex-container">
 			<div v-for="(node, index) in imgList" v-bind:style="{'background-image' : 'url(' + node.thumPath + ')'}" v-bind:src="node.thumPath" 
