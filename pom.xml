@@ -162,12 +162,6 @@
 			</activation>
 		</profile>
 		<profile>
-			<id>stg</id>
-			<properties>
-				<env>	stg</env>
-			</properties>
-		</profile>
-		<profile>
 			<id>prod</id>
 			<properties>
 				<env>	prod</env>

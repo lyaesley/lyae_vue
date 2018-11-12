@@ -30,7 +30,7 @@ public class ImageBoardService {
 	
 	@Autowired BoardDao boardDao;
 //	@Value("${path.root.imagepath}") String ROOTPATH;
-	@Value("${path.root.imagepath}") String PICTUREPATH;
+	@Value("${path.root.images}") String PICTUREPATH;
 	
 	//빠른 저장을 위한 변수.
 	List<String> subMenu = new ArrayList<String>();
