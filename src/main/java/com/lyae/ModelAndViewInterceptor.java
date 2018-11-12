@@ -25,7 +25,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 		/* false 를 return 할 경우 다음 내용은 실행하지 않는다.*/
 		boolean result = true;
 		
-		log.info("======= preHandle 시작 =======");
+//		log.info("======= preHandle 시작 =======");
 		String path = request.getServletPath();
 		log.info("호출 주소 : " + path);
 		
@@ -51,7 +51,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 //		};
 		
 //		log.info("mav 객체 후 : " +modelAndView);
-		log.info("======= postHandle 종료 =======");
+//		log.info("======= postHandle 종료 =======");
 	}	
 
 	void Head(ModelAndView mav){

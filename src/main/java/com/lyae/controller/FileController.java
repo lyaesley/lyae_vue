@@ -29,7 +29,7 @@ public class FileController {
 	
 	@RequestMapping(path="/upload")
 	public String Upload(@RequestParam("files") List<MultipartFile> files, MultipartHttpServletRequest multiRes) {
-		System.out.println("####### File Upload Start #######");
+		log.info("####### File Upload Start #######");
 		List<MultipartFile> nodes = multiRes.getFiles("files");
 		List<UploadResponse> resList = new ArrayList<>();
 		if (files.size() > 0) {
@@ -48,7 +48,7 @@ public class FileController {
 					res.setOrignPath("/pic/"+res.getFileName());
 					res.setThumPath("/pic/thumb/"+res.getFileName());
 					resList.add(res);
-					System.out.println("--- " + res.getFileName() + " success ---");
+					log.info("--- " + res.getFileName() + " success ---");
 				}catch (IOException | RuntimeException e) {
 					log.error("file upload fail", e);
 					return "파일업로드 실패 로그 확인요망";
@@ -57,7 +57,7 @@ public class FileController {
 		}else {
 			return "파일이 없음";
 		}
-		System.out.println("####### File Upload End #######");
+		log.info("####### File Upload End #######");
 		return  ConvUtil.toJsonObjectByClass(resList);
 	}
 	
