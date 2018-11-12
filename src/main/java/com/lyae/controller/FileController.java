@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,13 +29,14 @@ public class FileController {
 	
 	@RequestMapping(path="/upload")
 	public String Upload(@RequestParam("files") List<MultipartFile> files, MultipartHttpServletRequest multiRes) {
-		log.info("####### File Upload Start #######");
+		System.out.println("####### File Upload Start #######");
 		List<MultipartFile> nodes = multiRes.getFiles("files");
 		List<UploadResponse> resList = new ArrayList<>();
 		if (files.size() > 0) {
 			for(MultipartFile file : files) {
 				try{
 					UploadResponse res = new UploadResponse();
+					//중복파일 패스
 					if(Files.exists(Paths.get(uploadDir, file.getOriginalFilename()))) {
 						continue;
 					};
@@ -46,7 +48,7 @@ public class FileController {
 					res.setOrignPath("/pic/"+res.getFileName());
 					res.setThumPath("/pic/thumb/"+res.getFileName());
 					resList.add(res);
-					log.info("---" + res.getFileName() + " success ---");
+					System.out.println("--- " + res.getFileName() + " success ---");
 				}catch (IOException | RuntimeException e) {
 					log.error("file upload fail", e);
 					return "파일업로드 실패 로그 확인요망";
@@ -55,7 +57,7 @@ public class FileController {
 		}else {
 			return "파일이 없음";
 		}
-		log.info("####### File Upload End #######");
+		System.out.println("####### File Upload End #######");
 		return  ConvUtil.toJsonObjectByClass(resList);
 	}
 	

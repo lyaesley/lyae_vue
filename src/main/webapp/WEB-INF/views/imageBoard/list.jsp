@@ -127,11 +127,17 @@ $(document).ready(function(){
 			
 			ajax : function() {
 				var files = this.files;
+				var formData = new FormData();
+			  	var vue = this;
+				for( var i = 0; i < this.files.length; i++ ){
+			          let file = this.files[i];
+			          formData.append('files', file);
+		        }
 				$.ajax({
 					url: "/file/upload",
 				       type: "POST",
 				       enctype: 'multipart/form-data',
-				       data: {files: files },
+				       data: formData,
 				       dataType: "json",
 				       processData: false,  // tell jQuery not to process the data
 				       contentType: false,   // tell jQuery not to set contentType
