@@ -114,7 +114,9 @@ $(document).ready(function(){
 
 			handleFilesUpload : function() {
 		        this.files = this.$refs.files.files;
-		        this.submitFiles();
+		        if(this.files.length > 0){
+		        	this.submitFiles();
+		        }
 	      	},
 	      	
 	      	submitFiles : function() {
