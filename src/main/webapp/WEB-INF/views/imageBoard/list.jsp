@@ -57,14 +57,19 @@
 }
 
 .filebox label {
-		position: fixed;
-		bottom: 10px;
-	  	right: 10px;
-	  	z-index: 1;
-	}
+	position: fixed;
+	bottom: 77px;
+  	right: 5px;
+  	z-index: 1;
+}
+
+.filebox label:hover {
+    color: blue;
+}
 
 
 </style>
+
 <script>
 $(document).ready(function(){
 	window.vue = new Vue({
@@ -74,7 +79,8 @@ $(document).ready(function(){
 			orignImg : '',
 			file : '',
 			files : '',
-			fileRes : ''
+			fileRes : '',
+			mask : false,
 		},
 		
 		created : function() {
@@ -121,31 +127,33 @@ $(document).ready(function(){
 	      	
 	      	submitFiles : function() {
 				var formData = new FormData();
+				/* var vue = this; 아래 .then 함수에서 function 안에서는 포인터가 함수자신이기때문에 이렇게 설정 */
 			  	var vue = this;
 				for( var i = 0; i < this.files.length; i++ ){
 			          let file = this.files[i];
 			          formData.append('files', file);
 		        }
-				console.log('--- 파일전송 시작 ---');	
+				console.log('--- 파일전송 시작 ---');
+				this.mask = true;
 			 	axios.post('/file/img/upload', formData, {
 		   			headers: {
 			       	'Content-Type': 'multipart/form-data'
 			   		}
 			  	})
-			  	.then( function(response) {
+			 /* .then( function(response) {
 				  	console.log('--- 파일전송 종료 --- : '+response.data.length);
 				  	vue.fileRes = response.data;
 				  	vue.imgList = vue.imgList.concat(vue.fileRes);
-			  	})
-/* 			  	.then( response => {
-				  	console.log('1'+response.data);
-			      	this.fileRes = response.data;
-			      	this.imgList = this.imgList.concat(this.fileRes);
 			  	}) */
+			  	.then( response => {
+				  	console.log('--- 파일전송 종료 --- : '+response.data.length);
+				  	this.fileRes = response.data;
+				  	this.imgList = this.imgList.concat(this.fileRes);
+			  	})
 			  	.catch( function(error) {
 			  	  	console.log(error);
 			  	})
-			 	.finally( function() {console.log('finally')});
+			 	.finally( () => this.mask = false);
 			},
 			
 			ajax : function() {
@@ -182,7 +190,7 @@ $(document).ready(function(){
 				<input type="button" value="UploadOne" v-on:click="submitFilesOne()"/>
 				<input type="button" value="ajax" v-on:click="ajax()"/> -->
 				<input type="file" name="files" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
-				<label for="files" class="btn btn-primary add-file" role="button">+</label>
+				<label for="files" role="button"><i class="fas fa-plus-circle fa-5x"></i></label>
 				<!-- <input type="button" value="Upload" v-on:click="submitFiles()"/> -->
 			</div>
 		<div class="flex-container">
@@ -219,4 +227,14 @@ $(document).ready(function(){
   </div>
 </div>
 
+<!-- loading mask -->
+<div class="mask" v-if="mask">
+	<div class="loading-container">
+	    <div class="loading"></div>
+	    <div id="loading-text">uploading</div>
+	</div>
+</div>
+
 </div> <!-- /#imgList -->
+
+	

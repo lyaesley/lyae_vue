@@ -20,8 +20,9 @@
     <![endif]-->
     
 	<!-- custom -->
-	<link rel="stylesheet" href="/css/common.css">
-
+	<link href="/css/common.css" rel="stylesheet">
+	<link href="/css/loading.css" rel="stylesheet">
+	
 	<!-- Google Font -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Source+Sans|Noto+Sans|Raleway:300,400,600,700" rel="stylesheet"> -->
 

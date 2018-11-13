@@ -31,8 +31,9 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
+	
 	<!-- Custom scripts for all pages-->
 	<script src="/js/sb-admin.min.js"></script>
+	
 </body>
 </html>
