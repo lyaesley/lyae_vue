@@ -30,7 +30,7 @@ public class ImageBoardService {
 	
 	@Autowired BoardDao boardDao;
 //	@Value("${path.root.imagepath}") String ROOTPATH;
-	@Value("${path.root.images}") String PICTUREPATH;
+	@Value("${path.root.img}") String PATHROOTIMG;
 	
 	//빠른 저장을 위한 변수.
 	List<String> subMenu = new ArrayList<String>();
@@ -41,9 +41,9 @@ public class ImageBoardService {
 		String subPath = req.getParameter("sub") != null ? req.getParameter("sub") : "";
 		
 		List<ImageModel> imgList = new ArrayList<>();
-		System.out.println("subPath : " + subPath);
+//		System.out.println("subPath : " + subPath);
 		
-		for (File file : new File(PICTUREPATH+subPath).listFiles()){
+		for (File file : new File(PATHROOTIMG+subPath).listFiles()){
 			if(!file.isHidden() && file.isFile()){
 				/*
 				 * 어떻게 구현할지?
@@ -100,7 +100,7 @@ public class ImageBoardService {
 		List<Map<String,Object>> listImg = new ArrayList<Map<String,Object>>();
 		System.out.println("subPath : " + subPath);
 		
-		for (File file : new File(PICTUREPATH+subPath).listFiles()){
+		for (File file : new File(PATHROOTIMG+subPath).listFiles()){
 			if(!file.isHidden() && file.isFile()){
 				/*
 				 * 어떻게 구현할지?
@@ -166,10 +166,9 @@ public class ImageBoardService {
 		
 		//썸네일이 존재할경우 패스
 		if (thumbFile.exists()){
-			System.out.println("이미있음 : " + fullName);
 			return;
 		}
-		System.out.println("생성 : " + fullName);
+		log.info("--- 썸네일 생성 시작 --- " + fullName);
 		int index = fullName.lastIndexOf("."); 
 		String fileName = fullName.substring(0, index); 
 		String fileExt = fullName.substring(index + 1);
@@ -213,8 +212,8 @@ public class ImageBoardService {
 			// 넓이 비율에 맞춰서 썸네일 생성
 //			BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 250);
 			
-			
 			ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
+			log.info("--- 썸네일 생성 완료 --- : " + fullName);
 		} catch(Exception e) {
 			System.out.println("오류 : " + fullName);
 			e.printStackTrace();

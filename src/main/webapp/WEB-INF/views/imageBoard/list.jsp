@@ -126,14 +126,14 @@ $(document).ready(function(){
 			          let file = this.files[i];
 			          formData.append('files', file);
 		        }
-					
+				console.log('--- 파일전송 시작 ---');	
 			 	axios.post('/file/img/upload', formData, {
 		   			headers: {
 			       	'Content-Type': 'multipart/form-data'
 			   		}
 			  	})
 			  	.then( function(response) {
-				  	console.log('1'+response.data);
+				  	console.log('--- 파일전송 종료 --- : '+response.data.length);
 				  	vue.fileRes = response.data;
 				  	vue.imgList = vue.imgList.concat(vue.fileRes);
 			  	})
