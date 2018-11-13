@@ -68,13 +68,13 @@ public class MovieService {
 	public void boxOffice(HttpServletRequest req, Model model) {
 		String date = req.getParameter("date");
 		if (date ==null || "".equals(date)) {
-			date = ConvUtil.toYMD(new Date());
+			date = ConvUtil.toYMD(ConvUtil.addDay(-1));
 		}
 		
 		WebResult<Map<String, Object>> result;
 		
 		try {
-			result = new WebUtil(new URL(BOXOFFICE_DAILY), CHARSET).addParam("key", KOBIS_KEY).addParam("targetDt", "20180108").getJsonMap();
+			result = new WebUtil(new URL(BOXOFFICE_DAILY), CHARSET).addParam("key", KOBIS_KEY).addParam("targetDt", date).getJsonMap();
 			log.info("boxOffice : " + result.getData());
 			model.addAttribute("result", result.getData());
 		} catch (MalformedURLException e) {
