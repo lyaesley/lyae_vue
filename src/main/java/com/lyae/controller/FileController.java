@@ -82,7 +82,7 @@ public class FileController {
 		List<MultipartFile> nodes = multiRes.getFiles("files");
 		List<UploadResponse> resList = new ArrayList<>();
 		
-		mtFiles.parallelStream().filter( e -> !Files.exists(Paths.get(pathUploadImg, e.getOriginalFilename()))).forEach( mtFile -> {
+		mtFiles.stream().filter( e -> !Files.exists(Paths.get(pathUploadImg, e.getOriginalFilename()))).forEach( mtFile -> {
 			try {
 //				//해당 경로에 파일 생성
 //				Files.copy(mtFile.getInputStream(), Paths.get(pathUploadImg, mtFile.getOriginalFilename()));
