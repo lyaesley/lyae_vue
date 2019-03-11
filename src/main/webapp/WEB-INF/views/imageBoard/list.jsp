@@ -148,7 +148,8 @@ $(document).ready(function(){
 			  	.then( response => {
 				  	console.log('--- 파일전송 종료 --- : '+response.data.length);
 				  	this.fileRes = response.data;
-				  	this.imgList = this.imgList.concat(this.fileRes);
+				  	/* this.imgList = this.imgList.concat(this.fileRes); */
+				  	this.imgList = (this.imgList.length == 0) ? this.fileRes : this.imgList.concat(this.fileRes);
 			  	})
 			  	.catch( function(error) {
 			  	  	console.log(error);

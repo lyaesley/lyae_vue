@@ -43,6 +43,11 @@ public class ImageBoardService {
 		List<ImageModel> imgList = new ArrayList<>();
 //		System.out.println("subPath : " + subPath);
 		
+		if(new File(PATHROOTIMG+subPath).listFiles() == null || new File(PATHROOTIMG+subPath).listFiles().length == 0) {
+			req.setAttribute("imgList", "[]");
+			return;
+		}
+		
 		for (File file : new File(PATHROOTIMG+subPath).listFiles()){
 			if(!file.isHidden() && file.isFile()){
 				/*

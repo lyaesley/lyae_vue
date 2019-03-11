@@ -82,6 +82,11 @@ public class FileController {
 		List<MultipartFile> nodes = multiRes.getFiles("files");
 		List<UploadResponse> resList = new ArrayList<>();
 		
+		if(Files.notExists(Paths.get(pathUploadImg))) {
+			Files.createDirectory(Paths.get(pathUploadImg));
+			log.info("Upload Directory Create : " + Paths.get(pathUploadImg).toString());
+		}
+		
 		mtFiles.stream().filter( e -> !Files.exists(Paths.get(pathUploadImg, e.getOriginalFilename()))).forEach( mtFile -> {
 			try {
 //				//해당 경로에 파일 생성
