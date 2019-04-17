@@ -10,7 +10,10 @@ pipeline {
     stage('Build') {
       steps {
         sh 'mvn -B -DskipTests clean package'
-        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        echo 'pwd'
+        echo '$(pwd)'
+        echo "$(pwd)"
       }
     }
     stage('Deliver') {
