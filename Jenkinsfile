@@ -9,9 +9,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn -B -DskipTests clean package'
+        //sh 'mvn -B -DskipTests clean package'
         //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-        sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/war/.'
+        //sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/war/.'
       }
     }
     stage('Deliver') {
