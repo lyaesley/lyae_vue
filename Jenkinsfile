@@ -15,7 +15,7 @@ pipeline {
     stage('Deliver') {
       steps {
         sh 'bash ./jenkins/scripts/deliver.sh'
-        sh 'java --version'
+        sh 'java -version'
       }
     }
   }
