@@ -10,12 +10,12 @@ pipeline {
     stage('Build') {
       steps {
         sh 'mvn -B -DskipTests clean package'
+        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       }
     }
     stage('Deliver') {
       steps {
         sh 'bash ./jenkins/scripts/deliver.sh'
-        sh 'java -version'
       }
     }
   }
