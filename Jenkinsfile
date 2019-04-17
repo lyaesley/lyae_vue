@@ -13,7 +13,6 @@ pipeline {
         //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         echo 'pwd'
         echo '$(pwd)'
-        echo "$(pwd)"
       }
     }
     stage('Deliver') {
