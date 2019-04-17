@@ -12,6 +12,7 @@ pipeline {
         //sh 'mvn -B -DskipTests clean package'
         //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         //sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/war/.'
+        echo 'build'
       }
     }
     stage('Deliver') {
