@@ -11,13 +11,12 @@ pipeline {
       steps {
         sh 'mvn -B -DskipTests clean package'
         //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-        sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/app/app.jar'
       }
     }
     stage('Deliver') {
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
-        sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/app/app.jar'
+        sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/docker_lyae_web/app/app.jar'
       }
     }
   }
