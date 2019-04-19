@@ -1,6 +1,6 @@
 node {
     stage('Build') {
-    	docker.image('maven:3-alpine').inside {
+    	docker.image('maven:3-alpine').inside('-v /root/.m2:/root/.m2' ) {
 	        sh 'mvn -B -DskipTests clean package -P prod'
 	        //archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     	}
@@ -10,6 +10,8 @@ node {
         sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
     }
     stage('Deploy') {
-    	echo 'deploy'
+    	docker.image('lyae/was:1.0').inside('-p 9090:9090'){
+    	
+    	}
     }
 }
