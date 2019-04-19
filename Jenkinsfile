@@ -10,8 +10,6 @@ node {
         sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
     }
     stage('Deploy') {
-    	docker.image('lyae/was:1.0').inside('-p 9090:9090'){
-    		sh 'java -jar /app.war'
-    	}
+    	sh 'docker ps'
     }
 }
