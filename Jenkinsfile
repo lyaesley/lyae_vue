@@ -15,7 +15,7 @@ node {
 	    dir("/home/lyae/dev/docker_lyae_web") {
 		    sh "pwd"
 		    sh 'll'
-		    #sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
+		    //sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
 		}
     }
 }
