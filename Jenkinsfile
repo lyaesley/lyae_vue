@@ -22,7 +22,7 @@ pipeline {
     } //end Deliver
     
     stage('Deploy') {
-    agent docker
+    agent {docker}
       steps {
       	sh 'ls -l'
       	sh 'pwd'
