@@ -1,13 +1,12 @@
 pipeline {
-  agent any  
+  agent {
+    docker {
+      image 'maven:3-alpine'
+      args '-v /root/.m2:/root/.m2'
+    }
+  }
   stages {
     stage('Build') {
-	  agent {
-	    docker {
-	      image 'maven:3-alpine'
-	      args '-v /root/.m2:/root/.m2'
-	    }
-	  }
       steps {
         sh 'mvn -B -DskipTests clean package -P prod'
         //archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
@@ -20,6 +19,7 @@ pipeline {
       }
     }
     stage('Deploy') {
+    agent none
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
 		dir('/home/lyae/dev/docker_lyae_web') {
