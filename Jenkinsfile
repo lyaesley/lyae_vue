@@ -23,10 +23,10 @@ pipeline {
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
 		dir("/home/lyae/dev/docker_lyae_web") {
+			echo 'hi deploy'
 	        sh "pwd"
 	        sh 'ls -l app'
         }
-        sh "pwd"
       }
     }
     
