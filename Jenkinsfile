@@ -10,7 +10,10 @@ node {
         sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
     }
     stage('Deploy') {
+	    dir("/home/lyae/dev/docker_lyae_web") {
+		    sh "pwd"
+		}
     	sh 'docker stop lyae-was'
-    	sh 'docker-compose up -d'
+    	//sh 'docker-compose up -d'
     }
 }
