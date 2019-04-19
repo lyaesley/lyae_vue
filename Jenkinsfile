@@ -14,6 +14,7 @@ node {
 
 	    dir("/home/lyae/dev/docker_lyae_web") {
 		    sh "pwd"
+		    sh "ls"
 		    sh 'docker-compose up -d'
 		}
 		sh 'here'
