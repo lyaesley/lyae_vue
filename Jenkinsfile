@@ -10,13 +10,13 @@ pipeline {
     stage('Build') {
       steps {
         sh 'mvn -B -DskipTests clean package'
-        //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        //archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
       }
     }
     stage('Deliver') {
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
-        sh 'cp -f $(pwd)/target/*.jar /home/lyae/dev/docker_lyae_web/app/app.jar'
+        sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
       }
     }
   }
