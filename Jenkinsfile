@@ -19,7 +19,7 @@ pipeline {
       }
     }
     stage('Deploy') {
-    agent none
+    agent any
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
 		dir('/home/lyae/dev/docker_lyae_web') {
