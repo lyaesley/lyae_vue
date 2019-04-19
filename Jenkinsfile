@@ -11,6 +11,7 @@ node {
     }
     stage('Deploy') {
     	docker.image('lyae/was:1.0').inside('-p 9090:9090'){
+    		sh 'java -jar /app.war'
     	}
     }
 }
