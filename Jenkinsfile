@@ -14,10 +14,7 @@ node {
 
 	    dir("/home/lyae/dev/docker_lyae_web") {
 		    sh "pwd"
-		    sh "ls"
-		    sh 'docker-compose up -d'
 		}
-		sh 'here'
-    	sh 'docker-compose up -d'
+	    sh 'docker build --tag lyae/was:1.0 -f Dockerfile-jenkins-blueocean . '
     }
 }
