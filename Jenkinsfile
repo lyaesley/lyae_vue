@@ -14,7 +14,7 @@ node {
 
 	    dir("/home/lyae/dev/docker_lyae_web") {
 		    sh "pwd"
-		    sh 'docker build --tag lyae/was:1.0 -f Dockerfile-jenkins-blueocean . '
+		    sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
 		}
     }
 }
