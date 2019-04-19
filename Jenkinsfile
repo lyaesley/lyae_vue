@@ -22,12 +22,9 @@ pipeline {
     stage('Deploy') {
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
-        script {
-			dir('/home/lyae/dev/docker_lyae_web') {
-				echo 'hi deploy'
-		        sh "pwd"
-		        sh 'ls -l app'
-	        }
+		dir('/home/lyae/dev/docker_lyae_web') {
+			echo 'hi deploy'
+	        sh 'ls -l app'
         }
       }
     }
