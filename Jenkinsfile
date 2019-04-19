@@ -22,10 +22,9 @@ pipeline {
     agent any
       steps {
         //sh 'bash ./jenkins/scripts/deliver.sh'
-		dir('/home/lyae/dev/docker_lyae_web') {
-			echo 'hi deploy'
-	        sh 'ls -l'
-        }
+		sh 'ls -l /home/lyae/dev/docker_lyae_web'
+		echo 'hi deploy'
+        sh 'ls -l'
       }
     }
     
