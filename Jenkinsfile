@@ -16,6 +16,7 @@ node {
 		    sh "pwd"
 		    sh 'docker-compose up -d'
 		}
-    	//sh 'docker-compose up -d'
+		sh 'here'
+    	sh 'docker-compose up -d'
     }
 }
