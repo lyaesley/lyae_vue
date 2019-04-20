@@ -1,6 +1,6 @@
 node {
 	docker.image('maven:3-alpine').inside('-v /root/.m2:/root/.m2' ) {
-		stage('check out'') {
+		stage('check out') {
 			checkout scm		
 		}
 	    stage('Build') {
