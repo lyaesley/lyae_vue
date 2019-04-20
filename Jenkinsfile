@@ -26,9 +26,9 @@ pipeline {
       steps {
       	//sh 'ls -l'
       	//sh 'pwd'
-      	//sh 'docker ps'
+      	sh 'docker ps'
       	//sh 'docker stop lyae-was'
-        sh 'bash ./jenkins/scripts/deliver.sh'
+        //sh 'bash ./jenkins/scripts/deliver.sh'
         //sh 'docker stop lyae-was'
 		//sh 'ls -l /home/lyae/dev/docker_lyae_web'
 		//sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was /home/lyae/dev/docker_lyae_web'
