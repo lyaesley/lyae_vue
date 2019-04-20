@@ -14,7 +14,6 @@ node {
 	    }
 	    stage('Stop') {
 	    	sh 'docker rm -f lyae-was'
-	    	sh 'docker rmi $(docker images -f "dangling=true" -q)'
 	    }
 	    stage('Deploy') {
 		    dir("/home/lyae/dev/docker_lyae_web") {
@@ -23,4 +22,7 @@ node {
 			    sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
 			}
 	    }
+	    stage('RM image') {
+	    	sh 'docker rmi $(docker images -f "dangling=true" -q)'
+    	}
 }
