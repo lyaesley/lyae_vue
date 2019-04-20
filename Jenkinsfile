@@ -1,6 +1,6 @@
 node {
 	docker.image('maven:3-alpine').inside('-v /root/.m2:/root/.m2' ) {
-		stage('check out') {
+		stage('CheckOut') {
 			checkout scm		
 		}
 	    stage('Build') {
@@ -12,13 +12,14 @@ node {
 	        //sh 'bash ./jenkins/scripts/deliver.sh'
 	        sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
 	    }
+	    stage('Stop') {
+	    	sh 'docker rm -f lyae-was'
+	    }
 	    stage('Deploy') {
-	    	sh 'docker stop lyae-was'
-			
 		    dir("/home/lyae/dev/docker_lyae_web") {
 			    sh "pwd"
 			    sh 'ls -l app'
-			    sh 'docker build --rm --tag lyae/was:1.0 -f Dockerfile-was . '
+			    sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
 			}
 	    }
 }
