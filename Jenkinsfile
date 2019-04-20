@@ -13,8 +13,8 @@ node {
 	        sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
 	    }
 	    stage('Stop') {
-	    	sh 'docker stop lyae-was'
-	    	//sh 'docker rm -f lyae-was'
+	    	//sh 'docker stop lyae-was'
+	    	sh 'docker rm -f lyae-was'
 	    }
 	    stage('Deploy') {
 		    dir("/home/lyae/dev/docker_lyae_web") {
