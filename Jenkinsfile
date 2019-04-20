@@ -7,6 +7,7 @@ node {
 		        sh 'mvn -B -DskipTests clean package -P prod'
 		        //archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     	}
+    }
 	    stage('Deliver') {
 	        //sh 'bash ./jenkins/scripts/deliver.sh'
 	        sh 'cp -f $(pwd)/target/*.war /home/lyae/dev/docker_lyae_web/app/app.war'
@@ -20,5 +21,4 @@ node {
 			    //sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
 			}
 	    }
-    }
 }
