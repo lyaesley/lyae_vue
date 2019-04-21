@@ -21,6 +21,7 @@ node {
 			    sh "pwd"
 			    sh 'ls -l app'
 			    sh 'docker build --tag lyae/was:1.0 -f Dockerfile-was . '
+			    sh 'docker-compose up -d'
 			}
 	    }
 	    stage('RM image') {
