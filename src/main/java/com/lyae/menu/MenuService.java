@@ -4,17 +4,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import com.lyae.controller.*;
+import com.lyae.test.js.JsTestController;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.lyae.controller.BoardController;
-import com.lyae.controller.ImageBoardController;
-import com.lyae.controller.MovieController;
-import com.lyae.controller.SoccerController;
-import com.lyae.controller.TestController;
 
 import lombok.Data;
 import lombok.Getter;
@@ -37,6 +31,7 @@ public class MenuService {
 		menuGroups.add(menu(MovieController.class));
 		menuGroups.add(menu(SoccerController.class));
 		menuGroups.add(menu(TestController.class));
+		menuGroups.add(menu(JsTestController.class));
 //		menuGroups.add(menu(BoardController.class, "게시판", "게시판 메뉴", "ion ion-ios-pulse-strong"));
 //		menuGroups.add(menu(ImageBoardController.class, "이미지게시판", "이미지게시판", "fa fa-address-card"));
 //		menuGroups.add(menu(MovieController.class, "영화", "영화 정보", "fa fa-address-book"));
