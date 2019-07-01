@@ -73,6 +73,11 @@ public class CalendarTest {
 		String aa = "20180514" + sdf2.format(today);
 		System.out.println(aa);
 		
+		Calendar cal5 = Calendar.getInstance();
+		SimpleDateFormat sdf5 = new SimpleDateFormat("yyyyMM");
+		System.out.println(sdf5.format(cal5.getTime()));
+		
+		System.out.println( "Y".equals(""));
 		
 	}
 	

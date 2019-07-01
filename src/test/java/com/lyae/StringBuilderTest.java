@@ -33,5 +33,8 @@ public class StringBuilderTest {
 		for(byte node : utf) {
 			System.out.print( node);
 		}
+		System.out.println("----");
+		System.out.println("안녕하세요a".getBytes("euc-kr").length);
+		
 	}
 }

@@ -24,7 +24,6 @@ public class JsTestController {
     }
 
     @RequestMapping("/ajax")
-    @ResponseBody
     public String ajax(@ModelAttribute JsVO vo, HttpServletRequest req, HttpServletResponse res) {
         System.out.println("여기다");
         System.out.println(vo);

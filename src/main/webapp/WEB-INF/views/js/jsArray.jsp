@@ -51,8 +51,8 @@ function send() {
 	        </tr>
 	        <tr>
 	            <td><textarea name="JsVOList[0].conts" row=20>내용1</textarea></td>
-	            <td><textarea name="JsVOList[1].conts" row=20>내용2</textarea></td>
-	            <td><textarea name="JsVOList[2].conts" row=20>내용3</textarea></td>
+	            <td><textarea name="JsVOList[1].conts" row=20></textarea></td>
+	            <td><textarea name="JsVOList[2].conts" row=20></textarea></td>
 	            <td><textarea name="JsVOList[3].conts" row=20>내용4</textarea></td>
 	        </tr>
 

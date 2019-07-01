@@ -18,6 +18,7 @@ public class BoardController {
 	@Menu(name="게시판", desc="게시판 입니다", order = 1)
 	@GetMapping("/list")
 	public String list(Model model){
+		System.out.println("게시판 호출");
 		model.addAttribute("name", "우와");
 		return "board/list";
 	}

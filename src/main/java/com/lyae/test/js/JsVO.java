@@ -10,6 +10,7 @@ import java.util.List;
 public class JsVO {
     private String title;
     private String conts;
+    private String empty;
 
     private List<JsVO> JsVOList;
 }
