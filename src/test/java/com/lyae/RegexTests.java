@@ -23,6 +23,18 @@ public class RegexTests {
 		System.out.println("이건<br/>어떻지<br>ㅎㅎ".replaceAll(b, "\r\n"));
 		
 		System.out.println( "<javascript>".replaceAll("(?i)javascript", "1"));
+		
+		System.out.println("asdfasdfsadf ".replaceAll("[a-z]", "1"));
+		
+		System.out.println("-------------------------------------------------");
+		
+		String pwd = "S~`!@#$%^*()_-+={}[]>.?/9";
+		String pwd2 = "S~`!@#$%^*()_-+=9";
+		String pwd3 = "S~'!@#$%^*()_-+=9";
+		boolean result = Pattern.compile("^(?=.*[,&:;\\\\|'\"<]).*$").matcher(pwd2).matches();
+		
+		System.out.println(result);
+		
 	}
  
 }

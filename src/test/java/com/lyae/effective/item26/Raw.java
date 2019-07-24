@@ -25,4 +25,11 @@ public class Raw {
 		}
 		return result;
 	}
+	
+	static void abc(List<?> list) {
+		//Collection<?> 에는 (null 외에는) 어떤 원소도 넣을 수 없다.
+		//list.add(1);  //컴파일 오류
+		//list.add("스트링"); //컴파일 오류
+		list.add(null);
+	}
 }
