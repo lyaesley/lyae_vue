@@ -16,7 +16,7 @@ public class AopTest {
 	@Pointcut("execution(* com.lyae.controller.ImageBoardController.*(..))")
 	public void imageBoard(){System.out.println("imageBoard() called");}
 
-	//@AfterReturning(pointcut = "imageBoard()")
+	@AfterReturning(pointcut = "imageBoard()")
 	public void test() {
 		System.out.println("aop 테스트");
 	}

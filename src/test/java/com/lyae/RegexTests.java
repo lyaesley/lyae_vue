@@ -35,6 +35,11 @@ public class RegexTests {
 		
 		System.out.println(result);
 		
+		System.out.println("-------------------------------------------------");
+		
+		System.out.println("안녕 난 [이름] 이야".replaceAll("\\[이름\\]", "이준영"));
+		
+		
 	}
  
 }

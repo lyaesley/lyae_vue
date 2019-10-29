@@ -7,7 +7,7 @@ public class AmhoTest {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		String base = "S~`!@#$%^*()_-+=9";
+		String base = "skmns@1566";
 		
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 //		byte[] hash = digest.digest(base.getBytes("UTF-8"));
