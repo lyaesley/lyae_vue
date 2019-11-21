@@ -76,6 +76,8 @@ public class VoTest {
 		//테스트 //마스터 커밋
 
 
+		//테스트
+		//text1 브랜치 커밋
 	}
 
 }
