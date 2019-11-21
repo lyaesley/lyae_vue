@@ -73,7 +73,7 @@ public class VoTest {
 			System.out.println("vo2 : " + node);
 		}
 		
-		
+		//테스트
 	}
 
 }
