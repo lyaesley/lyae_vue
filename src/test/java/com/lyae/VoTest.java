@@ -74,6 +74,7 @@ public class VoTest {
 		}
 		
 		//테스트
+		//text1 브랜치 커밋
 	}
 
 }
