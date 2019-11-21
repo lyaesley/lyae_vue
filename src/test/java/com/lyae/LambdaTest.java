@@ -36,7 +36,7 @@ public class LambdaTest {
 			});
 		
 		calc( 6, 8, (a, b) -> {
-			int result  = a+b;
+			int result  = a-b;
 			System.out.println(result);
 			return result;
 		});

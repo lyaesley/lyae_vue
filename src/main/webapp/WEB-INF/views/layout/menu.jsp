@@ -43,7 +43,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
          <!-- @메뉴 작업시작-->
-        <c:forEach var="node"  items="${_menu}" varStatus="loop">
+        <c:forEach var="node"  items="${_menu2}" varStatus="loop">
         	<c:choose>
         		<c:when test="${not empty node.item }">
         			<li class="treeview">

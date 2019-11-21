@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,18 +62,18 @@ public class MenuUtil {
 							if (reqMap != null) {
 								String[] urls = reqMap.value();
 								if (urls != null && urls.length > 0 && urls[0] != null && !"".equals(urls[0].trim())) {
-									Menuu menuu = new Menuu();
-									menuu.setName(name.trim());
-									menuu.setDesc(desc.trim());
-									menuu.setUrl(reqParentMap.value()[0].trim()+urls[0].trim());
-									menuu.setFaicon("fa " + faicon.trim());
-									menuu.setOrder(order);
+									Menuu subMenu = new Menuu();
+									subMenu.setName(name.trim());
+									subMenu.setDesc(desc.trim());
+									subMenu.setUrl(reqParentMap.value()[0].trim()+urls[0].trim());
+									subMenu.setFaicon("fa " + faicon.trim());
+									subMenu.setOrder(order);
 									if (order > 0) {
-										listZo.add(menuu);
+										listZo.add(subMenu);
 									} else if (order < 0) {
-										listZu.add(menuu);
+										listZu.add(subMenu);
 									} else {
-										list.add(menuu);
+										list.add(subMenu);
 									}
 								}
 							}
@@ -178,6 +179,7 @@ public class MenuUtil {
 	
 	public void test(){
 //		Reflections reflections = new Reflections("com.lyae.controller");
+		System.out.println("222");
 		 Reflections reflections = new Reflections(new ConfigurationBuilder()
 		            .setUrls(ClasspathHelper.forPackage("com.lyae.controller"))
 		            .setScanners(new MethodAnnotationsScanner()));
@@ -185,4 +187,15 @@ public class MenuUtil {
 
         System.out.println(methods.size());
 	}
+
+	public void typeAnnoTest(){
+//		Reflections reflections = new Reflections("com.lyae.controller");
+		 Reflections reflections = new Reflections(new ConfigurationBuilder()
+		            .setUrls(ClasspathHelper.forPackage("com.lyae.controller"))
+		            .setScanners(new TypeAnnotationsScanner()));
+        Set<Method> methods = reflections.getMethodsAnnotatedWith(Menu.class);
+
+        System.out.println(methods.size());
+	}
+
 }

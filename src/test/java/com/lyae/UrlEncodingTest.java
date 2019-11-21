@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.web.util.HtmlUtils;
 
 public class UrlEncodingTest {

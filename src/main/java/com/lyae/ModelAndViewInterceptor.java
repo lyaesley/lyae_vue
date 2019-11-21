@@ -3,6 +3,7 @@ package com.lyae;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lyae.menu.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 
 	@Autowired  MenuService menuService;
-	
+	@Autowired	MenuUtil menuUtil;
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		/* false 를 return 할 경우 다음 내용은 실행하지 않는다.*/
@@ -60,6 +62,7 @@ public class ModelAndViewInterceptor extends HandlerInterceptorAdapter{
 	
 	void Vars(ModelAndView mav, String path){
 		mav.addObject("_menu", menuService.getMenuGroups());
+		mav.addObject("_menu2", menuUtil.getMenuList());
 		mav.addObject("__menu", ConvUtil.toJsonObjectByClass(menuService.getMenuGroups()));
 //		mav.addObject("_title", menuService.getMenuTitle(path));
 		mav.addObject("_path", path);
