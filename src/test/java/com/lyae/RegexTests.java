@@ -24,7 +24,7 @@ public class RegexTests {
 		
 		System.out.println( "<javascript>".replaceAll("(?i)javascript", "1"));
 		
-		System.out.println("asdfasdfsadf ".replaceAll("[a-z]", "1"));
+		System.out.println("[화끈딜]동해물과 ".replaceAll("[화끈딜]", "특가몰"));
 		
 		System.out.println("-------------------------------------------------");
 		

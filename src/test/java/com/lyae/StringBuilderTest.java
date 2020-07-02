@@ -35,6 +35,9 @@ public class StringBuilderTest {
 		}
 		System.out.println("----");
 		System.out.println("안녕하세요a".getBytes("euc-kr").length);
+
+		String aaa = "'I'P`A'R'K'";
+		System.out.println( aaa.replaceAll("'", "`"));
 		
 	}
 }

@@ -7,7 +7,7 @@ import com.lyae.menu.Menu;
 
 public class AopTestController {
 
-	@Menu(name = "aop", desc = "aop", order = 1)
+	//@Menu(name = "aop", desc = "aop", order = 1)
 	@RequestMapping("/aop")
 	public String aopTest() {
 		

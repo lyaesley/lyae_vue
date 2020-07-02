@@ -1,6 +1,7 @@
 package com.lyae;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import lombok.Data;
 
@@ -78,6 +79,9 @@ public class VoTest {
 
 		//테스트
 		//text1 브랜치 커밋
+
+
+		System.out.println(new Random().nextInt(2));
 	}
 
 }
